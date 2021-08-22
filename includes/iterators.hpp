@@ -6,12 +6,14 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:11 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/22 17:43:17 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/22 18:58:11 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ITERATORS_HPP
 # define ITERATORS_HPP
+
+# include <cstddef>
 
 /*
 ** iterator_traits are helpers that declare definitions for different types of
@@ -60,6 +62,17 @@ namespace ft
 		typedef const T*								pointer;
 		typedef const T&								reference;
 		typedef typename ft::random_access_iterator_tag	iterator_category;
+	};
+
+	template<typename Category, typename T, typename Distance = std::ptrdiff_t,
+		typename Pointer = T*, typename Reference = T&>
+	struct iterator
+	{
+		typedef Category	iterator_category;
+		typedef T			value_type;
+		typedef Distance	difference_type;
+		typedef Pointer		pointer;
+		typedef Reference	reference;
 	};
 }
 
