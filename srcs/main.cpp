@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/22 17:41:52 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/23 14:50:14 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <vector>
 #include <list>
 #include "iterators.hpp"
+#include "input_iterator.hpp"
+#include <typeinfo>  //for 'typeid' to work  
 
 template<class Iterator>
 void iterate(Iterator first, Iterator last)
@@ -42,5 +44,11 @@ int main()
     iterate(a, a + 5);
     std::cout << '\n';
     iterate(b, b + 5);
-    std::cout << '\n'; 
+    std::cout << '\n';
+	
+	ft::RandomAccessIterator<int> i;
+	ft::RandomAccessIterator<int> i2;
+	i = i2;
+	i2 = i;
+	//std::cout << i.it << std::endl;
 }
