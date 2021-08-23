@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:52:15 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/23 17:46:37 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/23 17:52:20 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 namespace ft
 {
-	template <typename T, typename Category = forward_iterator_tag, typename Distance = std::ptrdiff_t, typename Pointer = T*, typename Reference = T&>
+	template <typename T, typename Category = forward_iterator_tag,
+		typename Distance = std::ptrdiff_t, typename Pointer = T*, typename Reference = T&>
 	class BidirectionalIterator
 	{
 		public:
@@ -75,8 +76,10 @@ namespace ft
 			pointer	_p;
 	};
 
-	template <typename T, typename Category = random_access_iterator_tag, typename Distance = std::ptrdiff_t, typename Pointer = T*, typename Reference = T&>
-	class RandomAccessIterator : public ft::BidirectionalIterator<T, Category, Distance, Pointer, Reference>
+	template <typename T, typename Category = random_access_iterator_tag,
+		typename Distance = std::ptrdiff_t, typename Pointer = T*, typename Reference = T&>
+	class RandomAccessIterator :
+		public ft::BidirectionalIterator<T, Category, Distance, Pointer, Reference>
 	{
 		public:
 			typedef Category											iterator_category;

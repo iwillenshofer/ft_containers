@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/23 17:29:00 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/23 18:07:45 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,13 @@ int main()
 	i--;
 	++i;
 	--i;
+	std::vector<int> v1 = {10, 20, 30, 40, 50};
+	ft::RandomAccessIterator<int> it;
+	for (it=v1.begin(); it!=v1.end();++it)
+	{
+		
+	}
+
+
 	//std::cout << i.it << std::endl;
 }
