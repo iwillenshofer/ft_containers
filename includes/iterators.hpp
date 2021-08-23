@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:11 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/23 13:24:43 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/23 16:16:19 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,6 @@ namespace ft
 {
 
 	/*
-	** iterator_traits are helpers that declare definitions for different types
-	** of iterators, making unecessary to rewrite code for each different type.
-	** References:
-	** https://accu.org/journals/overload/9/43/frogley_442/
-	** https://en.cppreference.com/w/cpp/iterator/iterator_traits
-	** Partial specialization for pointer types (and const pointer) were added,
-	** as they also exist in STL. It allows for iteration over raw pointers,
-	** like an array of ints.
-	*/
-
-	/*
 	** simple tags to identify iterators.
 	*/
 
@@ -39,6 +28,16 @@ namespace ft
 	struct bidirectional_iterator_tag : public forward_iterator_tag { };
 	struct random_access_iterator_tag : public bidirectional_iterator_tag { };
 
+	/*
+	** iterator_traits are helpers that declare definitions for different types
+	** of iterators, making unecessary to rewrite code for each different type.
+	** References:
+	** https://accu.org/journals/overload/9/43/frogley_442/
+	** https://en.cppreference.com/w/cpp/iterator/iterator_traits
+	** Partial specialization for pointer types (and const pointer) were added,
+	** as they also exist in STL. It allows for iteration over raw pointers,
+	** like an array of ints.
+	*/
 
 	template<typename Iterator>
 	struct iterator_traits

@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/23 14:50:14 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/23 17:29:00 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,9 @@ int main()
 	ft::RandomAccessIterator<int> i2;
 	i = i2;
 	i2 = i;
+	i++;
+	i--;
+	++i;
+	--i;
 	//std::cout << i.it << std::endl;
 }
