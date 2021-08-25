@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/24 17:58:12 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/25 17:16:14 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,88 @@ namespace ft
 			typedef size_t													size_type;
 
 		private:
-				pointer 		_start;
-				pointer 		_finish;
-				pointer 		_end_of_storage;
-				allocator_type	_data;
-			
-		public:	
-			allocator_type	get_allocator() const { return allocator_type(this->_p); };
+			allocator_type		_allocator;
+			pointer 			_data;
+			size_type	 		_size;
+			size_type	 		_capacity;
+			pointer	_create(pointer &p, size_type n)
+			{
+				p = this->_allocator.allocate(n);
+				for (size_type i = 0; i < n; i++)
+					this->_allocator.construct(&(p[i]), value_type());
+				return(p);
+			};
+			pointer _clear(pointer &p, size_type n)
+			{
+				for (size_type i = 0; i < n; i++)
+					this->_allocator.destroy(&(p[i]));
+				this->_allocator.deallocate(p, n);
+				return(p);
+			}
 
+		public:	
+			vector(const allocator_type& alloc = allocator_type()):
+			_allocator(alloc), _size(0), _capacity(0)
+			{
+				this->_create(this->_data, 0);
+			};
+			vector(size_type n, const value_type &val = value_type(), const allocator_type& alloc = allocator_type()):
+			_allocator(alloc), _size(n), _capacity(n)
+			{
+				this->_create(this->_data, 0);
+				for (size_type i = 0; i < n; i++)
+					this->_start[i] = val;
+			};
+			template <typename InputIterator> vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()):
+			_allocator(alloc), _size(last - first), _capacity(last - first)
+			{
+				this->_create(this->_data, this->_size);
+				for (size_type i = 0; i < this->_size; i++)
+				{
+					this->_start[i] = *first;
+					first++;
+				}
+			};
+			virtual ~vector() { this->_clear(this->_data, this->_size); };
+			void			resize(size_type n, value_type val = value_type())
+			{
+				pointer tmp;
+				bool	destroy_elem = false;
+				size_type orig_size = this->_size;
+
+				if (n == this->_size)
+					return ;
+				if (n < this->_size)
+				{
+					destroy_elem = true;
+					tmp = this->_data;
+					this->_create(this->_data, n);
+					for (size_type i = 0; i < n; i++)
+						this->_data[i] = tmp[i];
+					this->_capacity = n;
+				}
+				if (n > this->_size)
+				{
+					tmp = this->_data;
+					if (n > this->_capacity)
+					{
+						this->_create(this->_data, n);
+						this->_capacity = n;
+						destroy_elem = true;
+					}
+					for (size_type i = 0; i < this->_size; i++)
+						this->_data[i] = tmp[i];
+					for (size_type i = this->_size; i < n; i++)
+						this->_data[i] = val;
+				}
+				this->_size = n;
+				if (destroy_elem)
+					this->_clear(tmp, orig_size);
+			}
+			allocator_type	get_allocator() const { return allocator_type(this->_p); };
+			iterator		begin() const { return iterator(this->_data); }
+			iterator		end() const { return iterator(&(this->_data[this->_size])); }
+			void			push_back(const value_type & val) {	this->resize(this->_size + 1, val);	}
 	};
 
 }

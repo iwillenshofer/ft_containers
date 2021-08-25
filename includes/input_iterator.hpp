@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:52:15 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/23 17:52:20 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/25 16:59:36 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ namespace ft
 			typedef ft::BidirectionalIterator
 				<T, Category, Distance, const Pointer, const Reference>	const_iterator;
 
-			BidirectionalIterator(): _p(0x0) {};
+			BidirectionalIterator(): _p(0x0) { };
+			BidirectionalIterator(pointer p): _p(p) { };
 			BidirectionalIterator(const BidirectionalIterator &b) { *this = b; };
-			virtual ~BidirectionalIterator() {}
+			virtual ~BidirectionalIterator() { }
 			BidirectionalIterator &operator=(BidirectionalIterator const &b)
 			{
 				this->_p = b._p;
@@ -42,7 +43,7 @@ namespace ft
 			}
 			bool operator==(BidirectionalIterator const &b) { return (this->_p == b._p); }
 			bool operator!=(BidirectionalIterator const &b) { return (this->_p != b._p); }
-			reference operator*() { return (this->_p); }
+			reference operator*() { return *(this->_p); }
 			pointer operator->() { return (&(this->_p)); }
 			iterator &operator++()
 			{ 
@@ -95,6 +96,7 @@ namespace ft
 				<T, Category, Distance, const Pointer, const Reference>	const_iterator;
 
 			RandomAccessIterator(): base_class() {};
+			RandomAccessIterator(pointer p): base_class(p) { };
 			RandomAccessIterator(const RandomAccessIterator &b): base_class(b) {};
 			virtual ~RandomAccessIterator() {}
 			RandomAccessIterator &operator=(RandomAccessIterator const &b)

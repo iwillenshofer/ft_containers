@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/23 18:07:45 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/25 17:16:32 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void iterate(Iterator first, Iterator last)
 int main()
 {
     ft::vector<int> v;
-    int a[] = {1, 2, 3, 4, 5};
-    const int b[] = {1, 2, 3, 4, 5};
+    //int a[] = {1, 2, 3, 4, 5};
+    //const int b[] = {1, 2, 3, 4, 5};
 //	v.push_back(1);
 //	v.push_back(2);
 //	v.push_back(3);
@@ -55,11 +55,15 @@ int main()
 	i--;
 	++i;
 	--i;
-	ft::vector<int> v1 = {10, 20, 30, 40, 50};
+	ft::vector<int> v1;// = {10, 20, 30, 40, 50};
+	v1.push_back(30);
+	v1.push_back(10);
+	v1.push_back(15);
+
 	ft::vector<int>::iterator it;
 	for (it=v1.begin(); it!=v1.end();++it)
 	{
-		
+		std::cout << *it << std::endl;
 	}
 	ft::vector<int> v2;
 	(void)v2;

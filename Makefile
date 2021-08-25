@@ -6,7 +6,7 @@
 #    By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/22 16:14:59 by iwillens          #+#    #+#              #
-#    Updated: 2021/08/23 11:59:38 by iwillens         ###   ########.fr        #
+#    Updated: 2021/08/25 17:06:22 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ NAME = ft_containers
 ORIGINAL = orig_containers
 
 CC = clang++
-CCFLAGS = -Wall -Werror -Wextra 
+CCFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 
 SRC_DIR = ./srcs
 OBJ_DIR = ./build
