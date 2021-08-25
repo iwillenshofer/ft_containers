@@ -6,13 +6,13 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/25 17:16:32 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/25 18:23:19 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <iterator>
-//#include <vector>
+#include <vector>
 #include <list>
 #include "iterators.hpp"
 #include "input_iterator.hpp"
@@ -59,6 +59,15 @@ int main()
 	v1.push_back(30);
 	v1.push_back(10);
 	v1.push_back(15);
+	v1.pop_back();
+	v1.push_back(15);
+	v1.pop_back();
+	v1.pop_back();
+	v1.pop_back();
+
+	std::cout << "Size: " << v1.size() << std::endl;
+	std::cout << "Size: " << v1.max_size() << std::endl;
+	std::cout << "Capacity: " << v1.capacity() << std::endl;
 
 	ft::vector<int>::iterator it;
 	for (it=v1.begin(); it!=v1.end();++it)
@@ -67,6 +76,8 @@ int main()
 	}
 	ft::vector<int> v2;
 	(void)v2;
+	v1.reserve(38);
+	std::cout << "Capacity: " << v1.capacity() << std::endl;
 
 	//std::cout << i.it << std::endl;
 }

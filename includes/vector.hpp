@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/25 17:16:14 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/25 18:30:22 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <memory>
 # include "input_iterator.hpp"
+# include <exception>
 
 namespace ft
 {
@@ -124,8 +125,28 @@ namespace ft
 			iterator		begin() const { return iterator(this->_data); }
 			iterator		end() const { return iterator(&(this->_data[this->_size])); }
 			void			push_back(const value_type & val) {	this->resize(this->_size + 1, val);	}
-	};
+			void			pop_back() { this->_size--; }
+			size_type		size() const { return (this->_size); }
+			size_type		max_size() const { return (this->_allocator.max_size()); }
+			size_type		capacity() const { return (this->_capacity); }
+			void			reserve(size_type n)
+			{
+				pointer tmp;
 
+				if (n > this->max_size())
+					throw std::length_error("Cannot reserve larger than max_size.");
+				if (n > this->_capacity)
+				{
+					tmp = this->_data;
+					this->_create(this->_data, n);
+					for (size_type i = 0; i < this->_size; i++)
+						this->_data[i] = tmp[i];
+					this->_capacity = n;
+				}
+				this->_clear(tmp, this->_size);
+			}
+			
+	};
 }
 
 #endif
