@@ -12,11 +12,12 @@
 
 #include <iostream>
 #include <iterator>
-#include <vector>
+//#include <vector>
 #include <list>
 #include "iterators.hpp"
 #include "input_iterator.hpp"
 #include <typeinfo>  //for 'typeid' to work  
+#include "vector.hpp"
 
 template<class Iterator>
 void iterate(Iterator first, Iterator last)
@@ -31,20 +32,20 @@ void iterate(Iterator first, Iterator last)
  
 int main()
 {
-    std::vector<int> v;
+    ft::vector<int> v;
     int a[] = {1, 2, 3, 4, 5};
     const int b[] = {1, 2, 3, 4, 5};
-	v.push_back(1);
-	v.push_back(2);
-	v.push_back(3);
-	v.push_back(4);
-	v.push_back(5);
-    iterate(v.begin(), v.end());
-    std::cout << '\n';
-    iterate(a, a + 5);
-    std::cout << '\n';
-    iterate(b, b + 5);
-    std::cout << '\n';
+//	v.push_back(1);
+//	v.push_back(2);
+//	v.push_back(3);
+//	v.push_back(4);
+//	v.push_back(5);
+//    iterate(v.begin(), v.end());
+//    std::cout << '\n';
+//    iterate(a, a + 5);
+//    std::cout << '\n';
+//    iterate(b, b + 5);
+//    std::cout << '\n';
 	
 	ft::RandomAccessIterator<int> i;
 	ft::RandomAccessIterator<int> i2;
@@ -54,13 +55,14 @@ int main()
 	i--;
 	++i;
 	--i;
-	std::vector<int> v1 = {10, 20, 30, 40, 50};
-	ft::RandomAccessIterator<int> it;
+	ft::vector<int> v1 = {10, 20, 30, 40, 50};
+	ft::vector<int>::iterator it;
 	for (it=v1.begin(); it!=v1.end();++it)
 	{
 		
 	}
-
+	ft::vector<int> v2;
+	(void)v2;
 
 	//std::cout << i.it << std::endl;
 }
