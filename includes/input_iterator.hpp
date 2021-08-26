@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_iterator.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:52:15 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/26 13:28:00 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/26 20:15:52 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ namespace ft
 			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type	difference_type;
 			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::pointer			pointer;
 			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::reference			reference;
-
+			typedef typename ft::BidirectionalIterator<const value_type>						const_self;
+	
 			BidirectionalIterator(): _p(0x0) { };
 			BidirectionalIterator(pointer p): _p(p) { };
 			BidirectionalIterator(const BidirectionalIterator &b) { *this = b; };
 			virtual ~BidirectionalIterator() { }
+			operator const_self() const { return const_self(this->_p); }
 			BidirectionalIterator &operator=(BidirectionalIterator const &b)
 			{
 				this->_p = b._p;
@@ -88,17 +90,20 @@ namespace ft
 	class RandomAccessIterator : public ft::BidirectionalIterator<T>
 	{
 		public:
-			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category	iterator_category;
-			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type		value_type;
-			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type	difference_type;
-			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::pointer			pointer;
-			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::reference			reference;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category	iterator_category;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::value_type		value_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type	difference_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::pointer			pointer;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::reference			reference;
 			typedef typename ft::BidirectionalIterator<T>										base_class;
-
-			RandomAccessIterator(): base_class() {};
+			typedef typename ft::RandomAccessIterator<const value_type>							const_self;
+			
+			RandomAccessIterator(): base_class() { };
 			RandomAccessIterator(pointer p): base_class(p) { };
-			RandomAccessIterator(RandomAccessIterator const &b): base_class(b) {};
+			RandomAccessIterator(RandomAccessIterator const &b): base_class(b) { };
 			virtual ~RandomAccessIterator() {}
+			operator const_self() const { return const_self(this->_p); }
+
 			RandomAccessIterator &operator=(RandomAccessIterator const &b)
 			{
 				this->base_class::operator=(b);

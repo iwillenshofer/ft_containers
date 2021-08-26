@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/26 18:01:41 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/26 19:47:14 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void iterate(Iterator first, Iterator last)
  
 int main()
 {
-    ft::vector<int> v;
+ //   ft::vector<int> v;
     //int a[] = {1, 2, 3, 4, 5};
     //const int b[] = {1, 2, 3, 4, 5};
 //	v.push_back(1);
@@ -47,46 +47,47 @@ int main()
 //    iterate(b, b + 5);
 //    std::cout << '\n';
 	
-	ft::RandomAccessIterator<int> i;
-	ft::RandomAccessIterator<int> i2;
-	i = i2;
-	i2 = i;
-	i++;
-	i--;
-	++i;
-	--i;
-	ft::vector<int> v1;// = {10, 20, 30, 40, 50};
-	v1.push_back(30);
-	v1.push_back(10);
-	v1.push_back(15);
-	v1.pop_back();
-	v1.push_back(15);
-	v1.pop_back();
-	v1.pop_back();
-	v1.pop_back();
-
-	std::cout << "Size: " << v1.size() << std::endl;
-	std::cout << "Size: " << v1.max_size() << std::endl;
-	std::cout << "Capacity: " << v1.capacity() << std::endl;
-
-	ft::vector<int>::iterator it;
-	for (it=v1.begin(); it!=v1.end();++it)
-	{
-		std::cout << *it << std::endl;
-	}
-	ft::vector<int> v2;
-	(void)v2;
-	v1.reserve(38);
-	std::cout << "Capacity: " << v1.capacity() << std::endl;
-
-
-	std::vector<int>::iterator			orig_iterator;
-	std::vector<int>::const_iterator	orig_const_iterator;
-	orig_const_iterator = orig_iterator;
+//	ft::RandomAccessIterator<int> i;
+//	ft::RandomAccessIterator<int> i2;
+//	i = i2;
+//	i2 = i;
+//	i++;
+//	i--;
+//	++i;
+//	--i;
+//	ft::vector<int> v1;// = {10, 20, 30, 40, 50};
+//	v1.push_back(30);
+//	v1.push_back(10);
+//	v1.push_back(15);
+//	v1.pop_back();
+//	v1.push_back(15);
+//	v1.pop_back();
+//	v1.pop_back();
+//	v1.pop_back();
+//
+//	std::cout << "Size: " << v1.size() << std::endl;
+//	std::cout << "Size: " << v1.max_size() << std::endl;
+//	std::cout << "Capacity: " << v1.capacity() << std::endl;
+//
+//	ft::vector<int>::iterator it;
+//	for (it=v1.begin(); it!=v1.end();++it)
+//	{
+//		std::cout << *it << std::endl;
+//	}
+//	ft::vector<int> v2;
+//	(void)v2;
+//	v1.reserve(38);
+//	std::cout << "Capacity: " << v1.capacity() << std::endl;
+//
+//
+//	std::vector<int>::iterator			orig_iterator;
+//	std::vector<int>::const_iterator	orig_const_iterator;
+//	orig_const_iterator = orig_iterator;
 
 	ft::vector<int>::iterator iterator;
 	ft::vector<int>::const_iterator const_iterator;
 	const_iterator = iterator;
-
+	(void)const_iterator;
+	(void)iterator;
 	//std::cout << i.it << std::endl;
 }
