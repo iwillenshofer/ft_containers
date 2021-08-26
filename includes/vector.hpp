@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/25 18:30:22 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/25 19:54:07 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ namespace ft
 			typedef typename allocator_type::const_reference				const_reference;
 			typedef typename allocator_type::pointer						pointer;
 			typedef typename allocator_type::const_pointer					const_pointer;
-			typedef ft::RandomAccessIterator<T, T&, T*>						iterator;
-			typedef ft::RandomAccessIterator
-						<const T, const T&, const T*>						const_iterator;
+			typedef ft::RandomAccessIterator<T>								iterator;
+			typedef ft::RandomAccessIterator<const T>						const_iterator;
 		//	typedef ft::reverse_iterator<iterator>					reverse_iterator;
 		//	typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 			typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;

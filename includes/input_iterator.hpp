@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_iterator.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:52:15 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/25 16:59:36 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/25 20:12:12 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,28 @@
 
 namespace ft
 {
-	template <typename T, typename Category = forward_iterator_tag,
-		typename Distance = std::ptrdiff_t, typename Pointer = T*, typename Reference = T&>
-	class BidirectionalIterator
+
+
+	template <typename Category, typename T, typename Distance = ptrdiff_t,
+		typename Pointer = T*, typename Reference = T&>
+	class iterator {
+		public:
+			typedef T         value_type;
+			typedef Distance  difference_type;
+			typedef Pointer   pointer;
+			typedef Reference reference;
+			typedef Category  iterator_category;
+	};
+
+	template <typename T>
+	class BidirectionalIterator : public iterator<ft::bidirectional_iterator_tag, T>
 	{
 		public:
-			typedef Category											iterator_category;
-			typedef T													value_type;
-			typedef Distance											difference_type;
-			typedef Pointer												pointer;
-			typedef Reference											reference;
-			typedef ft::BidirectionalIterator
-				<T, Category, Distance, Pointer, Reference>				iterator;
-			typedef ft::BidirectionalIterator
-				<T, Category, Distance, const Pointer, const Reference>	const_iterator;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category	iterator_category;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type		value_type;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type	difference_type;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::pointer			pointer;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::reference			reference;
 
 			BidirectionalIterator(): _p(0x0) { };
 			BidirectionalIterator(pointer p): _p(p) { };
@@ -42,32 +50,32 @@ namespace ft
 				return (*this);
 			}
 			bool operator==(BidirectionalIterator const &b) { return (this->_p == b._p); }
-			bool operator!=(BidirectionalIterator const &b) { return (this->_p != b._p); }
+			bool operator!=(const BidirectionalIterator const &b) { return (this->_p != b._p); }
 			reference operator*() { return *(this->_p); }
 			pointer operator->() { return (&(this->_p)); }
-			iterator &operator++()
+			BidirectionalIterator &operator++()
 			{ 
 				this->_p++;
 				return (*this); 
 			}
 			
-			iterator &operator--()
+			BidirectionalIterator &operator--()
 			{ 
 				this->_p--;
 				return (*this); 
 			}
 
-			iterator operator++(int)
+			BidirectionalIterator operator++(int)
 			{
-				iterator tmp(*this);
+				BidirectionalIterator tmp(*this);
 
 				this->_p++;
 				return (tmp); 
 			}
 
-			iterator operator--(int)
+			BidirectionalIterator operator--(int)
 			{
-				iterator tmp(*this);
+				BidirectionalIterator tmp(*this);
 
 				this->_p--;
 				return (tmp); 
@@ -77,23 +85,16 @@ namespace ft
 			pointer	_p;
 	};
 
-	template <typename T, typename Category = random_access_iterator_tag,
-		typename Distance = std::ptrdiff_t, typename Pointer = T*, typename Reference = T&>
-	class RandomAccessIterator :
-		public ft::BidirectionalIterator<T, Category, Distance, Pointer, Reference>
+	template <typename T>
+	class RandomAccessIterator : public ft::BidirectionalIterator<T>
 	{
 		public:
-			typedef Category											iterator_category;
-			typedef T													value_type;
-			typedef Distance											difference_type;
-			typedef Pointer												pointer;
-			typedef Reference											reference;
-			typedef BidirectionalIterator
-				<T, Category, Distance, Pointer, Reference>				base_class;
-			typedef RandomAccessIterator
-				<T, Category, Distance, Pointer, Reference>				iterator;
-			typedef RandomAccessIterator
-				<T, Category, Distance, const Pointer, const Reference>	const_iterator;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category	iterator_category;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type		value_type;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type	difference_type;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::pointer			pointer;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::reference			reference;
+			typedef typename ft::BidirectionalIterator<T>										base_class;
 
 			RandomAccessIterator(): base_class() {};
 			RandomAccessIterator(pointer p): base_class(p) { };
@@ -104,33 +105,33 @@ namespace ft
 				this->base_class::operator=(b);
 				return (*this);
 			}
-			iterator	operator+(difference_type const &n) const
+			RandomAccessIterator	operator+(difference_type const &n) const
 			{
-				iterator	tmp(*this);
+				RandomAccessIterator	tmp(*this);
 
 				tmp._p += n;
 				return (tmp);
 			}
-			iterator	operator-(difference_type const &n) const
+			RandomAccessIterator	operator-(difference_type const &n) const
 			{
-				iterator	tmp(*this);
+				RandomAccessIterator	tmp(*this);
 
 				tmp._p -= n;
 				return (tmp);
 			}
-			difference_type	operator+(iterator const &b) const { return (this->_p + b._p);	}
-			difference_type	operator-(iterator const &b) const { return (this->_p - b._p);	}
-			bool	operator>(iterator const &b) const	{ return (this->_p > b._p); };
-			bool	operator<(iterator const &b) const	{ return (this->_p < b._p); };
-			bool	operator>=(iterator const &b) const	{ return (this->_p >= b._p); };
-			bool	operator<=(iterator const &b) const	{ return (this->_p <= b._p); };
+			difference_type	operator+(RandomAccessIterator const &b) const { return (this->_p + b._p);	}
+			difference_type	operator-(RandomAccessIterator const &b) const { return (this->_p - b._p);	}
+			bool	operator>(RandomAccessIterator const &b) const	{ return (this->_p > b._p); };
+			bool	operator<(RandomAccessIterator const &b) const	{ return (this->_p < b._p); };
+			bool	operator>=(RandomAccessIterator const &b) const	{ return (this->_p >= b._p); };
+			bool	operator<=(RandomAccessIterator const &b) const	{ return (this->_p <= b._p); };
 			reference	operator[](difference_type const &n) const	{ return (&(this->_p) + n); };
-			iterator	operator+=(iterator const &n) const
+			RandomAccessIterator	operator+=(RandomAccessIterator const &n) const
 			{
 				this->_p += n;
 				return (this);
 			}
-			iterator	operator-=(iterator const &n) const
+			RandomAccessIterator	operator-=(RandomAccessIterator const &n) const
 			{
 				this->_p -= n;
 				return (this);
