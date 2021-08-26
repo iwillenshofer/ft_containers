@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_iterator.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:52:15 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/25 20:12:12 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/26 13:28:00 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 namespace ft
 {
-
 
 	template <typename Category, typename T, typename Distance = ptrdiff_t,
 		typename Pointer = T*, typename Reference = T&>
@@ -50,7 +49,7 @@ namespace ft
 				return (*this);
 			}
 			bool operator==(BidirectionalIterator const &b) { return (this->_p == b._p); }
-			bool operator!=(const BidirectionalIterator const &b) { return (this->_p != b._p); }
+			bool operator!=(BidirectionalIterator const &b) { return (this->_p != b._p); }
 			reference operator*() { return *(this->_p); }
 			pointer operator->() { return (&(this->_p)); }
 			BidirectionalIterator &operator++()
@@ -81,7 +80,7 @@ namespace ft
 				return (tmp); 
 			}
 			
-		private:
+		protected:
 			pointer	_p;
 	};
 
@@ -98,7 +97,7 @@ namespace ft
 
 			RandomAccessIterator(): base_class() {};
 			RandomAccessIterator(pointer p): base_class(p) { };
-			RandomAccessIterator(const RandomAccessIterator &b): base_class(b) {};
+			RandomAccessIterator(RandomAccessIterator const &b): base_class(b) {};
 			virtual ~RandomAccessIterator() {}
 			RandomAccessIterator &operator=(RandomAccessIterator const &b)
 			{
@@ -136,6 +135,10 @@ namespace ft
 				this->_p -= n;
 				return (this);
 			}
+
+			/* non member to allow const */
+				// n + a
+	
 	};
 }
 

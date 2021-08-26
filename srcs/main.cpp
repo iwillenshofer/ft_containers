@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/25 18:23:19 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/26 18:01:41 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,15 @@ int main()
 	(void)v2;
 	v1.reserve(38);
 	std::cout << "Capacity: " << v1.capacity() << std::endl;
+
+
+	std::vector<int>::iterator			orig_iterator;
+	std::vector<int>::const_iterator	orig_const_iterator;
+	orig_const_iterator = orig_iterator;
+
+	ft::vector<int>::iterator iterator;
+	ft::vector<int>::const_iterator const_iterator;
+	const_iterator = iterator;
 
 	//std::cout << i.it << std::endl;
 }

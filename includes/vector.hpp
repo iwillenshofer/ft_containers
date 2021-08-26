@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/25 19:54:07 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/26 12:58:38 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <memory>
 # include "input_iterator.hpp"
+# include "utils.hpp"
 # include <exception>
 
 namespace ft
@@ -62,25 +63,26 @@ namespace ft
 			}
 
 		public:	
-			vector(const allocator_type& alloc = allocator_type()):
+			explicit vector(const allocator_type& alloc = allocator_type()):
 			_allocator(alloc), _size(0), _capacity(0)
 			{
 				this->_create(this->_data, 0);
 			};
-			vector(size_type n, const value_type &val = value_type(), const allocator_type& alloc = allocator_type()):
+			explicit vector(size_type n, const value_type &val = value_type(), const allocator_type& alloc = allocator_type()):
 			_allocator(alloc), _size(n), _capacity(n)
 			{
 				this->_create(this->_data, 0);
 				for (size_type i = 0; i < n; i++)
-					this->_start[i] = val;
+					this->_data[i] = val;
 			};
-			template <typename InputIterator> vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()):
+			template <typename InputIterator>
+			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if< !ft::is_integral<InputIterator>::value, InputIterator >::type = 0):
 			_allocator(alloc), _size(last - first), _capacity(last - first)
 			{
 				this->_create(this->_data, this->_size);
 				for (size_type i = 0; i < this->_size; i++)
 				{
-					this->_start[i] = *first;
+					this->_data[i] = *(first);
 					first++;
 				}
 			};
@@ -121,8 +123,12 @@ namespace ft
 					this->_clear(tmp, orig_size);
 			}
 			allocator_type	get_allocator() const { return allocator_type(this->_p); };
-			iterator		begin() const { return iterator(this->_data); }
-			iterator		end() const { return iterator(&(this->_data[this->_size])); }
+
+			iterator		begin() { return iterator(this->_data); }
+			iterator		end() { return iterator(&(this->_data[this->_size])); }
+			const_iterator		begin() const { return const_iterator(this->_data); }
+			const_iterator		end() const { return const_iterator(&(this->_data[this->_size])); }
+
 			void			push_back(const value_type & val) {	this->resize(this->_size + 1, val);	}
 			void			pop_back() { this->_size--; }
 			size_type		size() const { return (this->_size); }
