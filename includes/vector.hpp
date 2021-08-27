@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/26 12:58:38 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/27 13:12:54 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ namespace ft
 			}
 
 		public:	
+			/*
+			** Constructors, destructor and Assign operator.
+			*/
 			explicit vector(const allocator_type& alloc = allocator_type()):
 			_allocator(alloc), _size(0), _capacity(0)
 			{
@@ -86,7 +89,27 @@ namespace ft
 					first++;
 				}
 			};
+			vector(const vector &x):
+			_allocator(x._allocator), _size(x._size), _capacity(x._capacity)
+			{
+				this->_create(this->_data, this->_size);
+				for (size_type i = 0; i < this->_size; i++)
+					this->_data[i] = x._data[i];
+			}
+			vector& operator=(const vector& x)
+			{
+				if (this->_data)
+					this->_clear(this->_data, this->_size);
+				this->_size = x._size;
+				this->_capacity = x._capacity;
+				this->_create(this->_data, this->_size);
+				for (size_type i = 0; i < this->_size; i++)
+					this->_data[i] = x._data[i];
+				return (*this);
+			}
 			virtual ~vector() { this->_clear(this->_data, this->_size); };
+			
+						
 			void			resize(size_type n, value_type val = value_type())
 			{
 				pointer tmp;
@@ -122,16 +145,27 @@ namespace ft
 				if (destroy_elem)
 					this->_clear(tmp, orig_size);
 			}
+
+			/*
+			** 
+			*/
 			allocator_type	get_allocator() const { return allocator_type(this->_p); };
 
 			iterator		begin() { return iterator(this->_data); }
 			iterator		end() { return iterator(&(this->_data[this->_size])); }
-			const_iterator		begin() const { return const_iterator(this->_data); }
-			const_iterator		end() const { return const_iterator(&(this->_data[this->_size])); }
+			const_iterator	begin() const { return const_iterator(this->_data); }
+			const_iterator	end() const { return const_iterator(&(this->_data[this->_size])); }
 
 			void			push_back(const value_type & val) {	this->resize(this->_size + 1, val);	}
 			void			pop_back() { this->_size--; }
 			size_type		size() const { return (this->_size); }
+			bool			empty() const
+			{
+				if (this->_size > 0)
+					return (false);
+				return (true);
+			}
+
 			size_type		max_size() const { return (this->_allocator.max_size()); }
 			size_type		capacity() const { return (this->_capacity); }
 			void			reserve(size_type n)
@@ -150,7 +184,28 @@ namespace ft
 				}
 				this->_clear(tmp, this->_size);
 			}
-			
+		/*
+		** Element Access:
+		*/
+		reference operator[] (size_type n) { return (this->_data[n]); };
+		const_reference operator[] (size_type n) const{ return (this->_data[n]); };
+		reference at (size_type n)
+		{
+			if (n >= this->_size)
+				throw std::out_of_range("Element out of Range");
+			return (this->_data[n]);
+		};
+		const_reference at (size_type n) const
+		{
+			if (n >= this->_size)
+				throw std::out_of_range("Element out of Range");
+			return (this->_data[n]);			
+		}
+		reference front() { return (this->_data[0]); }
+		const_reference front() const { return (this->_data[0]); }
+		reference back() { return (this->_data[this->_size - 1]); }
+		const_reference back() const { return (this->_data[this->_size - 1]); }
+
 	};
 }
 

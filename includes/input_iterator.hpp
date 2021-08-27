@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_iterator.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:52:15 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/26 20:15:52 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/27 13:21:54 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ namespace ft
 				this->_p--;
 				return (tmp); 
 			}
-			
+
 		protected:
 			pointer	_p;
 	};
@@ -129,18 +129,17 @@ namespace ft
 			bool	operator<(RandomAccessIterator const &b) const	{ return (this->_p < b._p); };
 			bool	operator>=(RandomAccessIterator const &b) const	{ return (this->_p >= b._p); };
 			bool	operator<=(RandomAccessIterator const &b) const	{ return (this->_p <= b._p); };
-			reference	operator[](difference_type const &n) const	{ return (&(this->_p) + n); };
-			RandomAccessIterator	operator+=(RandomAccessIterator const &n) const
+			reference	operator[](difference_type const &n) const	{ return (this->_p[n]); };
+			RandomAccessIterator operator+=(difference_type n)
 			{
 				this->_p += n;
-				return (this);
+				return (*this); 
 			}
-			RandomAccessIterator	operator-=(RandomAccessIterator const &n) const
+			RandomAccessIterator operator-=(difference_type n)
 			{
 				this->_p -= n;
-				return (this);
+				return (*this); 
 			}
-
 			/* non member to allow const */
 				// n + a
 	
