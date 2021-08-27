@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iterators.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:11 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/23 16:16:19 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/27 19:10:11 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,20 @@ namespace ft
 	struct forward_iterator_tag : public input_iterator_tag { };
 	struct bidirectional_iterator_tag : public forward_iterator_tag { };
 	struct random_access_iterator_tag : public bidirectional_iterator_tag { };
+
+	/*
+	** Base structure for iterators.
+	*/
+	template <typename Category, typename T, typename Distance = ptrdiff_t,
+		typename Pointer = T*, typename Reference = T&>
+	class iterator {
+		public:
+			typedef T         value_type;
+			typedef Distance  difference_type;
+			typedef Pointer   pointer;
+			typedef Reference reference;
+			typedef Category  iterator_category;
+	};
 
 	/*
 	** iterator_traits are helpers that declare definitions for different types

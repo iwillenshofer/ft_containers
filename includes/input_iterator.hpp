@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_iterator.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:52:15 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/27 13:21:54 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/27 19:09:55 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,6 @@
 
 namespace ft
 {
-
-	template <typename Category, typename T, typename Distance = ptrdiff_t,
-		typename Pointer = T*, typename Reference = T&>
-	class iterator {
-		public:
-			typedef T         value_type;
-			typedef Distance  difference_type;
-			typedef Pointer   pointer;
-			typedef Reference reference;
-			typedef Category  iterator_category;
-	};
-
 	template <typename T>
 	class BidirectionalIterator : public iterator<ft::bidirectional_iterator_tag, T>
 	{
