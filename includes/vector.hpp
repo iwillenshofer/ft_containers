@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/27 19:50:19 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/28 12:34:29 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,25 @@ namespace ft
 			virtual ~vector() { this->_clear(this->_data, this->_size); };
 			
 						
+
+			/*
+			** Iterators
+			*/
+			iterator		begin() { return (iterator(this->_data)); }
+			iterator		end() { return (iterator(&(this->_data[this->_size]))); }
+			const_iterator	begin() const { return (const_iterator(this->_data)); }
+			const_iterator	end() const { return const_iterator(&(this->_data[this->_size])); }
+			reverse_iterator rbegin() { return (reverse_iterator(end())); }
+			const_reverse_iterator rbegin() const { return (const_reverse_iterator(end())); }
+			reverse_iterator rend() { return (reverse_iterator(begin())); }
+			const_reverse_iterator rend() const { return (const_reverse_iterator(begin())); }
+
+
+			/*
+			** Capacity
+			*/
+			size_type		size() const { return (this->_size); }
+			size_type		max_size() const { return (this->_allocator.max_size()); }
 			void			resize(size_type n, value_type val = value_type())
 			{
 				pointer tmp;
@@ -147,31 +166,13 @@ namespace ft
 				if (destroy_elem)
 					this->_clear(tmp, orig_size);
 			}
-
-			/*
-			** 
-			*/
-			allocator_type	get_allocator() const { return (allocator_type(this->_p)); };
-			iterator		begin() { return (iterator(this->_data)); }
-			iterator		end() { return (iterator(&(this->_data[this->_size]))); }
-			const_iterator	begin() const { return (const_iterator(this->_data)); }
-			const_iterator	end() const { return const_iterator(&(this->_data[this->_size])); }
-			reverse_iterator rbegin() { return (reverse_iterator(end())); }
-			const_reverse_iterator rbegin() const { return (const_reverse_iterator(end())); }
-			reverse_iterator rend() { return (reverse_iterator(begin())); }
-			const_reverse_iterator rend() const { return (const_reverse_iterator(begin())); }
-			void			push_back(const value_type & val) {	this->resize(this->_size + 1, val);	}
-			void			pop_back() { this->_size--; }
-			size_type		size() const { return (this->_size); }
+			size_type		capacity() const { return (this->_capacity); }
 			bool			empty() const
 			{
 				if (this->_size > 0)
 					return (false);
 				return (true);
 			}
-
-			size_type		max_size() const { return (this->_allocator.max_size()); }
-			size_type		capacity() const { return (this->_capacity); }
 			void			reserve(size_type n)
 			{
 				pointer tmp;
@@ -188,6 +189,7 @@ namespace ft
 				}
 				this->_clear(tmp, this->_size);
 			}
+		
 		/*
 		** Element Access:
 		*/
@@ -209,6 +211,26 @@ namespace ft
 		const_reference front() const { return (this->_data[0]); }
 		reference back() { return (this->_data[this->_size - 1]); }
 		const_reference back() const { return (this->_data[this->_size - 1]); }
+
+		/*
+		** Modifiers
+		*/
+			template <class InputIterator>
+			void assign (InputIterator first, InputIterator last);
+			void assign (size_type n, const value_type& val);
+			void			push_back(const value_type & val) {	this->resize(this->_size + 1, val);	}
+			void			pop_back() { this->_size--; }
+		
+			iterator insert (iterator position, const value_type& val);
+			void insert (iterator position, size_type n, const value_type& val);
+			template <class InputIterator>
+			void insert (iterator position, InputIterator first, InputIterator last);
+			iterator erase (iterator position);
+			iterator erase (iterator first, iterator last);
+			void swap (vector& x);
+			void clear();
+			allocator_type	get_allocator() const { return (allocator_type(this->_p)); };
+
 
 	};
 }
