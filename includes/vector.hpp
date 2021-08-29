@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/29 18:02:36 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/29 20:39:57 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,21 +280,44 @@ namespace ft
 
 		iterator		erase (iterator first, iterator last)
 		{
-			size_type	pos = first - this->begin();
-			size_type	size = last - first;
+			pointer p = &(*first);
+			difference_type size = this->end() - &(*last);
 
-			for (size_type i = 0; i < size; i++)
-				this->_allocator.destroy(&this->_data[pos + i]);
-			for (size_type i = 0; i < this->_size - size; i++)
+			if (first == end() || first == last)
+				return(first);
+			while (first != last)
 			{
-				if (this->begin() + pos + i < this->end())
-				{
-					this->_allocator.construct(&this->_data[pos + i], this->_data[pos + i + size]);
-					this->_allocator.destroy(&this->_data[pos + i + size]);
-				}
+				this->_allocator.destroy(&(*first));
+				this->_size--;
+				first++;
 			}
-			this->_size -= size;
-			return(first);
+			for (difference_type i = 0; i < size; i++)
+			{
+				this->_allocator.construct(p + i, *(&last[i]));
+				this->_allocator.destroy(&last[i]);				
+			}
+			return(iterator(p));
+
+//
+//
+//			size_type	pos = first - this->begin();
+//			size_type	size = (last - first) + 1;
+//
+//			for (size_type i = 0; i < size; i++)
+//			{
+//				std::cout << size <<std::endl;
+//				this->_allocator.destroy(&this->_data[pos + i]);
+//			}
+//			for (size_type i = 0; i < this->_size - size; i++)
+//			{
+//				if (this->begin() + pos + i + size < this->end())
+//				{
+//					this->_allocator.construct(&this->_data[pos + i], this->_data[pos + i + size]);
+//					this->_allocator.destroy(&this->_data[pos + i + size]);
+//				}
+//			}
+//			this->_size -= size;
+			return(this->begin());
 		}	
 
 		void			swap (vector& x)
