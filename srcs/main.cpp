@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/27 17:30:16 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/28 23:10:14 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,54 @@ void iterate(Iterator first, Iterator last)
 		first++;
     }
 }
- 
 int main()
 {
-	int i[5] = {1, 2, 3, 4, 5};
-	std::vector<int> v = {1, 2, 3, 4, 5};
+	ft::vector<int> v;
+	v.push_back(3);
+	v.push_back(3);
+	v.push_back(5);
+	v.push_back(5);
+	v.push_back(5);
+	v.push_back(5);
+	ft::vector<int> b(v);
+	b.push_back(10);
+	v = b;
+//	v.insert(v.begin(), 1, 1);
+//	v.insert(v.begin(), 1, 1);
 
-	iterate(&i[0], &i[5]);
-	iterate(v.begin(), v.end());
 	
+
+	for (ft::vector<int>::iterator it = v.begin(); it != v.end(); ++it)
+		std::cout << *it << std::endl;
+	std::cout << "INSERT:" << std::endl;
+	v.insert(v.begin() + 1 , 3, 9996);
+
+//	ft::vector<int>::reverse_iterator it2;
+//	(void)it2;
+
+    int a[] = {1, 2, 3, 4, 5};
+	v.insert(v.end(), &a[0], &a[5]);
+	for (ft::vector<int>::reverse_iterator it = v.rbegin(); it != v.rend(); ++it)
+		std::cout << *it << std::endl;
+
+	std::cout << "SINGLE INSERT:" << std::endl;
+
+	ft::vector<int>::iterator itnew = v.insert(v.begin() , 69);
+	std::cout << *itnew << std::endl;
+
+
+	for (ft::vector<int>::iterator it = itnew; it != v.end(); ++it)
+		std::cout << *it << std::endl;
+
+
+
+
 }
  //   ft::vector<int> v;
-    //int a[] = {1, 2, 3, 4, 5};
+
+
+
+
     //const int b[] = {1, 2, 3, 4, 5};
 //	v.push_back(1);
 //	v.push_back(2);
