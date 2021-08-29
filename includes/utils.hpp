@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:14:55 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/26 12:38:42 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/29 14:43:02 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,39 @@ namespace ft
 
 	template <typename T>
 	struct is_integral : public ft::is_integral_helper<typename ft::remove_cv<T>::type>::type {};
+
+	/*
+	** true if the first range is lexicographically less than the second.
+	*/
+	template< class InputIt1, class InputIt2 >
+	bool lexicographical_compare( InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2 )
+	{
+		while ((first1 != last1) && (first2 != last2))
+		{
+			if (*first1 < *first2)
+				return (true);
+			else if (*first1 > *first2)
+				return(false);
+			first1++;
+			first2++;
+		}
+		return ((first1 == last1) && (first2 != last2));
+	}
+	
+	template< class InputIt1, class InputIt2 >
+	bool equal(InputIt1 first1, InputIt1 last1, InputIt2 first2)
+	{
+		while (first1 != last1)
+		{
+			std::cout << "Equal" << std::endl;
+			std::cout << *first1 << std::endl;
+			if (!(*first1 == *first2))
+				return (false);
+			first1++;
+			first2++;
+		}
+		return (true);
+	}
 }
 
 #endif

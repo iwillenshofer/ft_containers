@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/29 12:24:54 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/29 13:09:43 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int main()
 	std::cout << "Erased: " << std::endl;
 	for (ft::vector<int>::iterator it = itnew; it != v.end(); ++it)
 		std::cout << *it << std::endl;
-
+	ft::swap(v, b);
 	
 }
  //   ft::vector<int> v;

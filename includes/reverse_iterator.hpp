@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 13:34:42 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/28 20:14:40 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/29 13:04:00 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,7 @@ namespace ft
 			reverse_iterator(): _current_iterator(iterator_type() - 1) { }
 			explicit reverse_iterator (iterator_type it): _current_iterator(it - 1) { }
 			template <class Iter>
-			reverse_iterator (const reverse_iterator<Iter> &rev_it)
-			{
-				this->_current_iterator = rev_it._current_iterator;
-				return (*(this)); 
-			}
+			reverse_iterator (const reverse_iterator<Iter> &rev_it)	{ this->_current_iterator = rev_it.base(); }
 			iterator_type base() const { return (this->_current_iterator); }
 
 			reference operator*() const

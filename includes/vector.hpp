@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/29 12:33:44 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/29 14:33:12 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ namespace ft
 			explicit vector(size_type n, const value_type &val = value_type(), const allocator_type& alloc = allocator_type()):
 			_allocator(alloc), _size(n), _capacity(n)
 			{
-				this->_data = this->allocator.allocate(n);
+				this->_data = this->_allocator.allocate(n);
 				for (size_type i = 0; i < n; i++)
 					this->_allocator.construct(&(this->_data[i]), val);
 			};
@@ -74,7 +74,7 @@ namespace ft
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if< !ft::is_integral<InputIterator>::value, InputIterator >::type = 0):
 			_allocator(alloc), _size(last - first), _capacity(last - first)
 			{
-				this->_data = this->allocator.allocate(this->_size);
+				this->_data = this->_allocator.allocate(this->_size);
 				for (size_type i = 0; i < this->_size; i++)
 				{
 					this->_allocator.construct(&(this->_data[i]), *first);
@@ -103,7 +103,7 @@ namespace ft
 			virtual ~vector()
 			{
 				this->clear();
-				this->_allocator.deallocate(&(*this->_data), this->_capacity);
+				this->_allocator.deallocate(this->_data, this->_capacity);
 			};
 
 			/*
@@ -302,9 +302,9 @@ namespace ft
 			size_type	 		tmp_capacity = this->_capacity;
 	
 			this->_allocator = x._allocator;
-			this->_data = x._allocator;
-			this->_size = x._allocator;
-			this->_capacity = x._allocator;
+			this->_data = x._data;
+			this->_size = x._size;
+			this->_capacity = x._capacity;
 			x._allocator = tmp_allocator;
 			x._data = tmp_data;
 			x._size = tmp_size;
@@ -319,7 +319,45 @@ namespace ft
 
 		allocator_type	get_allocator() const { return (allocator_type(this->_p)); };
 
+		template <typename _T, typename _Alloc>
+		friend void swap (vector<_T, _Alloc>& x, vector<_T, _Alloc>& y);
 	};
+
+	template <typename T, typename Alloc>
+  	void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
+	{
+		typename vector<T, Alloc>::allocator_type		tmp_allocator = x._allocator;
+		typename vector<T, Alloc>::pointer 				tmp_data = x._data;
+		typename vector<T, Alloc>::size_type	 		tmp_size = x._size;
+		typename vector<T, Alloc>::size_type	 		tmp_capacity = x._capacity;
+
+		x._allocator = y._allocator;
+		x._data = y._data;
+		x._size = y._size;
+		x._capacity = y._capacity;
+		y._allocator = tmp_allocator;
+		y._data = tmp_data;
+		y._size = tmp_size;
+		y._capacity = tmp_capacity;
+	}
+
+	template <class T, class Alloc>
+	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (ft::equal(lhs.begin(), lhs.end(), rhs.begin())); }
+
+	template <class T, class Alloc>
+	bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (!(lhs == rhs)); }
+
+	template <class T, class Alloc>
+	bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end())); }
+
+	template <class T, class Alloc>
+	bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (!(lhs > rhs)); }
+
+	template <class T, class Alloc>
+	bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){ return (!(lhs == rhs) && !(ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()))); }
+
+	template <class T, class Alloc>
+	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (!(lhs < rhs)); }
 }
 
 #endif
