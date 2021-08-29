@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/29 13:09:43 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/29 16:55:42 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,26 @@ int main()
 		std::cout << *it << std::endl;
 	ft::swap(v, b);
 	
+ //   for (ft::vector<int>::const_iterator it = v.end() - 1; it != v.begin() - 1; it -= 1)
+ //       std::cout << *it << " | ";
+ 
+//	std::cout << "Size : " << v.size() << std::endl;
+	v.erase(v.begin(),v.end());
+	v.push_back(3);
+	v.push_back(4);
+	v.push_back(5);
+	v.push_back(6);
+
+//	for (ft::vector<int>::const_iterator it = v.begin(); it != v.end() - 1; it += 1)
+//		std::cout << *it << " | ";
+//	std::cout << std::endl;
+    for (ft::vector<int>::const_reverse_iterator it = v.rbegin(); it != v.rend(); ++it)
+    {   
+		std::cout << *it << " | ";
+		//it++;
+	}
+	ft::vector<int>::const_reverse_iterator it = v.rbegin();
+	std::cout << std::endl  << it[0] << std::endl;
 }
  //   ft::vector<int> v;
 

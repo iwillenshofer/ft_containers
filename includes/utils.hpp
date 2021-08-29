@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:14:55 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/29 14:43:02 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/29 15:01:03 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,10 @@ namespace ft
 	{
 		while (first1 != last1)
 		{
-			std::cout << "Equal" << std::endl;
-			std::cout << *first1 << std::endl;
-			if (!(*first1 == *first2))
-				return (false);
+//			std::cout << "Equal" << std::endl;
+//			std::cout << *first1 << std::endl;
+//			if (!(*first1 == *first2))
+//				return (false);
 			first1++;
 			first2++;
 		}

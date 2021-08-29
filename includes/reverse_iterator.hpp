@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 13:34:42 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/29 13:04:00 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/29 16:55:11 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,21 @@ namespace ft
 			typedef typename ft::iterator_traits<Iterator>::pointer				pointer;
 			typedef typename ft::iterator_traits<Iterator>::reference			reference;
 			
-			reverse_iterator(): _current_iterator(iterator_type() - 1) { }
-			explicit reverse_iterator (iterator_type it): _current_iterator(it - 1) { }
+			reverse_iterator(): _current_iterator(iterator_type()) { }
+			explicit reverse_iterator (iterator_type it): _current_iterator(it) { }
 			template <class Iter>
-			reverse_iterator (const reverse_iterator<Iter> &rev_it)	{ this->_current_iterator = rev_it.base(); }
+			reverse_iterator (const reverse_iterator<Iter> &rev_it): _current_iterator(rev_it.base())	{ }
 			iterator_type base() const { return (this->_current_iterator); }
+			virtual ~reverse_iterator () {};			
+			
+			reverse_iterator<iterator_type> &operator=(const reverse_iterator<iterator_type> &c)
+			{
+				this->_current_iterator = c.base();
+				return *this;
+			}
 
-			reference operator*() const
-			{
-				iterator_type tmp = this->_current_iterator;
-				return (*(tmp));
-			}
-			pointer operator->() const
-			{
-				iterator_type tmp = this->_current_iterator;
-				return (&(*(tmp--))); 
-			}
+			reference operator*() const	{ return (*(this->_current_iterator - 1)); }
+			pointer operator->() const	{ return (&(*(this->_current_iterator - 1))); }
 			reverse_iterator &operator++()
 			{
 				this->_current_iterator--;
@@ -87,7 +86,7 @@ namespace ft
 				this->_current_iterator += n;
 				return (*this);
 			}
-			reference operator[](difference_type n) const { return *(*(this) + n); }
+			reference operator[](difference_type n) const { return (this->_current_iterator[-n - 1]); }
 	};
 
 	template<typename Iterator>
