@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/29 16:55:42 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/08/29 17:56:13 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,20 @@ int main()
 //	for (ft::vector<int>::const_iterator it = v.begin(); it != v.end() - 1; it += 1)
 //		std::cout << *it << " | ";
 //	std::cout << std::endl;
+
+    ft::vector<int>::iterator iter = v.erase(v.end() - 1, v.end());
+	iter = v.erase(v.end() - 1, v.end());
+	iter = v.erase(v.end() - 1, v.end());
+	iter = v.erase(v.end() - 1, v.end());
     for (ft::vector<int>::const_reverse_iterator it = v.rbegin(); it != v.rend(); ++it)
     {   
 		std::cout << *it << " | ";
 		//it++;
 	}
-	ft::vector<int>::const_reverse_iterator it = v.rbegin();
-	std::cout << std::endl  << it[0] << std::endl;
+//	ft::vector<int>::const_reverse_iterator it = v.rbegin();
+//	std::cout << std::endl  << it[0] << std::endl;
+
+
 }
  //   ft::vector<int> v;
 
