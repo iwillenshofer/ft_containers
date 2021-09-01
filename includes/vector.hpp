@@ -252,24 +252,65 @@ namespace ft
 		}
 
 		template <typename InputIterator>
-		void			insert (iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
+		void			insert (iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0x0)
 		{
-			size_type pos = (position - this->_data);
-			size_type n = last - first;
+			size_type pos =  ft::distance(this->begin(), position);
+			size_type size = ft::distance(first, last);
+		//	size_type move = this->_size - pos;
+			this->reserve(this->_size + size);
 
-			this->reserve(this->_size + n);
-			this->_size += n;
-			for (size_type i = 0; i < this->_size - pos; i++)
+			if (pos != this->_size)
 			{
-				if ((i >= this->_size - pos - n) || i >= n)
-					this->_allocator.destroy(&this->_data[this->_size - (i + 1)]);
-				if (i >= this->_size - pos - n)
+				for (size_type i = this->_size + size - 1; i > pos; i--)
 				{
-					this->_allocator.construct(&this->_data[this->_size - (i + 1)], typename ft::iterator_traits<InputIterator>::value_type(*(--last)));
+					this->_allocator.construct(&(this->_data[i]), (this->_data[i - size]));
+					this->_allocator.destroy(&(this->_data[i - (size)]));
 				}
-				else
-					this->_allocator.construct(&this->_data[this->_size - (i + 1)], this->_data[this->_size - (i + 1 + n)]);
-			}
+            }
+			for (size_type i = 0; i < size; ++i)
+				this->_allocator.construct(&(this->_data[pos + i]), typename ft::iterator_traits<InputIterator>::value_type(*(first + i)));
+
+
+			this->_size += size;
+			
+
+//			std::cerr << "pos: " << pos << ". size: " << size << ". move: " << move << ". contsize: " << this->_size << std::endl;
+//			this->reserve(this->_size + size);
+//
+//			size_type i = this->_size + size - 1;
+//			std::cerr << "IFROM:" << i << ". ITO: " << (this->_size + size - 1) - move << std::endl;
+//			while ((move) && (i > (this->_size + size - 1) - move))
+//			{
+//				std::cerr << "i: " << i << ". i - size: " << i - size << std::endl;
+//			//	std::cerr << "addr: " << (this->_data[i]) << std::endl;
+//				std::cerr << "addr: " << &(this->_data[0]) << std::endl;
+//				this->_data[i] = this->_data[0];//this->_data[i - size];
+//			//	this->_allocator.destroy(&(this->_data[i]));
+//				//this->_allocator.construct(&(this->_data[i]), this->_data[i - size]);
+//				
+//				i--;
+//			}
+//			for (i = 0; i < size; i++)
+//			{
+//				this->_allocator.construct(&(this->_data[pos + i]), typename ft::iterator_traits<InputIterator>::value_type(*(first)));
+//				first++;
+//			}
+//			this->_size += size;
+//
+
+
+//			this->_size += n;
+//			for (size_type i = 0; i < this->_size - pos; i++)
+//			{
+//				if ((i >= this->_size - pos - n) || i >= n)
+//					this->_allocator.destroy(&this->_data[this->_size - (i + 1)]);
+//				if (i >= this->_size - pos - n)
+//				{
+//					this->_allocator.construct(&this->_data[this->_size - (i + 1)], typename ft::iterator_traits<InputIterator>::value_type(*(--last)));
+//				}
+//				else
+//					this->_allocator.construct(&this->_data[this->_size - (i + 1)], this->_data[this->_size - (i + 1 + n)]);
+//			}
 		}
 		
 		iterator		erase (iterator position)

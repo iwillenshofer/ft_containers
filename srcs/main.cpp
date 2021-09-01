@@ -88,18 +88,20 @@ int main()
 	v.push_back(5);
 	v.push_back(6);
 
-//	for (ft::vector<int>::const_iterator it = v.begin(); it != v.end() - 1; it += 1)
-//		std::cout << *it << " | ";
-//	std::cout << std::endl;
 
-    ft::vector<int>::iterator iter;// = v.erase(v.end() - 1, v.end());
-	iter = v.erase(v.begin(), v.begin() + 1);
-
-    for (ft::vector<int>::const_reverse_iterator it = v.rbegin(); it != v.rend(); ++it)
-    {   
+	v.insert(v.begin(), 5, 1);
+	for (ft::vector<int>::const_iterator it = v.begin(); it != v.end(); it += 1)
 		std::cout << *it << " | ";
-		//it++;
-	}
+	std::cout << std::endl;
+
+//    ft::vector<int>::iterator iter;// = v.erase(v.end() - 1, v.end());
+//	iter = v.erase(v.begin(), v.begin() + 1);
+
+//    for (ft::vector<int>::const_reverse_iterator it = v.rbegin(); it != v.rend(); ++it)
+//    {   
+//		std::cout << *it << " | ";
+//		//it++;
+//	}
 
 //	ft::vector<int>::const_reverse_iterator it = v.rbegin();
 //	std::cout << std::endl  << it[0] << std::endl;
