@@ -31,7 +31,7 @@ void iterate(Iterator first, Iterator last)
 }
 int main()
 {
-	ft::vector<int> v;
+	std::vector<int> v;
 /*	v.push_back(3);
 	v.push_back(3);
 	v.push_back(5);
@@ -83,14 +83,14 @@ int main()
  
 //	std::cout << "Size : " << v.size() << std::endl;
 //	v.erase(v.begin(),v.end());
-	v.push_back(3);
-	v.push_back(4);
-	v.push_back(5);
-	v.push_back(6);
-
+//	v.push_back(0);
+//	v.push_back(1);
+//	v.push_back(2);
+//	v.push_back(3);
+//
 
 	v.insert(v.begin(), 5, 1);
-	for (ft::vector<int>::const_iterator it = v.begin(); it != v.end(); it += 1)
+	for (std::vector<int>::const_iterator it = v.begin(); it != v.end(); it += 1)
 		std::cout << *it << " | ";
 	std::cout << std::endl;
 

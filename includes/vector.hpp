@@ -160,7 +160,10 @@ namespace ft
 				{
 					tmp = this->_allocator.allocate(n);
 					for (size_type i = 0; i < old_size; i++)
-						this->_allocator.construct(&(tmp[i]), this->_data[i]);
+					{
+						this->_allocator.construct(&(tmp[i]), value_type(this->_data[i]));
+						this->_allocator.destroy(&(this->_data[i]));
+					}
 					this->clear();
 					this->_allocator.deallocate(&(*(this->_data)), this->_capacity);
 					this->_capacity = n;
@@ -254,20 +257,19 @@ namespace ft
 		template <typename InputIterator>
 		void			insert (iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0x0)
 		{
-			size_type pos =  ft::distance(this->begin(), position);
-			size_type size = ft::distance(first, last);
-		//	size_type move = this->_size - pos;
+			difference_type pos =  position - this->begin();
+			difference_type size = ft::distance(first, last);
+			difference_type move = this->_size - pos;
+			
 			this->reserve(this->_size + size);
-
-			if (pos != this->_size)
+			difference_type i = this->_size + size - 1;
+			while ((pos != static_cast<difference_type>(this->_size)) && (move) && (i > pos + move))
 			{
-				for (size_type i = this->_size + size - 1; i > pos; i--)
-				{
-					this->_allocator.construct(&(this->_data[i]), (this->_data[i - size]));
-					this->_allocator.destroy(&(this->_data[i - (size)]));
-				}
+				this->_allocator.construct(&(this->_data[i]), value_type(this->_data[i - move - 1]));
+				this->_allocator.destroy(&(this->_data[i - move - 1]));
+				i--;
             }
-			for (size_type i = 0; i < size; ++i)
+			for (difference_type i = 0; i < size; ++i)
 				this->_allocator.construct(&(this->_data[pos + i]), typename ft::iterator_traits<InputIterator>::value_type(*(first + i)));
 
 
