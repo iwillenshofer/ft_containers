@@ -136,17 +136,32 @@ namespace ft
 		return true;
 	}
 	
-	template<class InputIterator>
-	typename ft::iterator_traits<InputIterator>::difference_type	distance(InputIterator first, InputIterator last)
-	{
-		typename ft::iterator_traits<InputIterator>::difference_type i = 0;
-		while (first != last)
-		{
-			first++;
-			i++;
-		}
-		return (i);
-	}
+// implementation via tag dispatch, available in C++98 with constexpr removed
+ 
+template<class Iterator>
+typename ft::iterator_traits<Iterator>::difference_type do_distance(Iterator first, Iterator last, ft::input_iterator_tag)
+{
+    typename std::iterator_traits<Iterator>::difference_type result = 0;
+    while (first != last) {
+        ++first;
+        ++result;
+    }
+    return result;
+}
+ 
+template<class Iterator>
+typename ft::iterator_traits<Iterator>::difference_type do_distance(Iterator first, Iterator last, ft::random_access_iterator_tag)
+{
+    return last - first;
+}
+ 
+
+template<class Iterator>
+typename ft::iterator_traits<Iterator>::difference_type  distance(Iterator first, Iterator last)
+{
+    return ft::do_distance(first, last,
+                               typename ft::iterator_traits<Iterator>::iterator_category());
+}
 
 }
 
