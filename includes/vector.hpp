@@ -77,7 +77,7 @@ namespace ft
 				this->_data = this->_allocator.allocate(this->_size);
 				for (size_type i = 0; i < this->_size; i++)
 				{
-					this->_allocator.construct(&(this->_data[i]), *first);
+					this->_allocator.construct(&(this->_data[i]), value_type(*first));
 					first++;
 				}
 			};
@@ -96,7 +96,7 @@ namespace ft
 				this->_capacity = x._capacity;
 				this->_data = this->_allocator.allocate(this->_size);
 				for (size_type i = 0; i < this->_size; i++)
-					this->_allocator.construct(&(this->_data[i]), x._data[i]);
+					this->_allocator.construct(&(this->_data[i]), value_type(x._data[i]));
 				return (*this);
 			}
 
@@ -162,7 +162,7 @@ namespace ft
 					for (size_type i = 0; i < old_size; i++)
 					{
 						this->_allocator.construct(&(tmp[i]), value_type(this->_data[i]));
-						this->_allocator.destroy(&(this->_data[i]));
+//						this->_allocator.destroy(&(this->_data[i]));
 					}
 					this->clear();
 					this->_allocator.deallocate(&(*(this->_data)), this->_capacity);
@@ -251,7 +251,7 @@ namespace ft
 			
 			for (size_type i = 0; i < n; i++)
 				values[i] = val;
-			insert(position, &values[0], &values[n]);
+			insert(position, values, values + n);
 		}
 
 		template <typename InputIterator>
@@ -260,13 +260,15 @@ namespace ft
 			difference_type pos =  position - this->begin();
 			difference_type size = ft::distance(first, last);
 			difference_type move = this->_size - pos;
-			
+//			std::cout << "pos: "<< pos << ". size: " << size << ". move: "<< move << std::endl;
+
 			this->reserve(this->_size + size);
 			difference_type i = this->_size + size - 1;
-			while ((pos != static_cast<difference_type>(this->_size)) && (move) && (i > pos + move))
+			while ((pos != static_cast<difference_type>(this->_size)) && (move) && (i >= pos + move))
 			{
-				this->_allocator.construct(&(this->_data[i]), value_type(this->_data[i - move - 1]));
-				this->_allocator.destroy(&(this->_data[i - move - 1]));
+//				std::cout << "Copying data from position " << (i - move) << "to" <<  i << std::endl;
+				this->_allocator.construct(&(this->_data[i]), value_type(this->_data[i - move]));
+				this->_allocator.destroy(&(this->_data[i - move]));
 				i--;
             }
 			for (difference_type i = 0; i < size; ++i)

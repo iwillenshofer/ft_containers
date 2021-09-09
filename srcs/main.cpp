@@ -31,7 +31,7 @@ void iterate(Iterator first, Iterator last)
 }
 int main()
 {
-	ft::vector<int> v;
+	ft::vector<std::string> cont;
 /*	v.push_back(3);
 	v.push_back(3);
 	v.push_back(5);
@@ -89,13 +89,13 @@ int main()
 //	v.push_back(3);
 //
 
-	v.insert(v.begin() - 1, 5, 1);
-	for (ft::vector<int>::const_iterator it = v.begin(); it != v.end(); it += 1)
-		std::cout << *it << " | ";
-	std::cout << std::endl;
+//	v.insert(v.begin() - 1, 5, 1);
+//	for (ft::vector<int>::const_iterator it = v.begin(); it != v.end(); it += 1)
+//		std::cout << *it << " | ";
+//	std::cout << std::endl;
 
 
-	std::cout << ft::distance(v.end() - 1, v.end()) << std::endl;
+//	std::cout << ft::distance(v.end() - 1, v.end()) << std::endl;
 //    ft::vector<int>::iterator iter;// = v.erase(v.end() - 1, v.end());
 //	iter = v.erase(v.begin(), v.begin() + 1);
 
@@ -109,12 +109,32 @@ int main()
 //	std::cout << std::endl  << it[0] << std::endl;
 
 
-}
+
  //   ft::vector<int> v;
 
 
+	cont.push_back(std::string("String"));
+	ft::vector<std::string> tmp = cont;
 
+	std::cout << "size of tmp = " << tmp.size() << std::endl;
 
+//	tmp.reserve(tmp.size() + 1);
+	//std::cerr << "BEGIN:" << tmp.begin() << std::endl;
+    tmp.insert(tmp.begin(), cont.begin(), cont.end());
+    if (!tmp.size())
+    {
+         ft::vector<std::string>::iterator it = tmp.begin();
+        ++it;
+        tmp.insert(it, cont.begin(), cont.end());
+    }
+    tmp.insert(tmp.end(), cont.begin(), cont.end());
+    tmp.insert(tmp.end(), cont.begin(), cont.begin());//	v.insert(v.begin() - 1, 5, 1);
+    tmp.insert(tmp.begin(), cont.begin(), cont.end());
+
+	for (ft::vector<std::string>::const_iterator it = tmp.begin(); it != tmp.end(); it += 1)
+		std::cout << *it << " | ";
+	std::cout << std::endl;
+}
     //const int b[] = {1, 2, 3, 4, 5};
 //	v.push_back(1);
 //	v.push_back(2);
