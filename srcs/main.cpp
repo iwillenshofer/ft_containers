@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/10 14:34:53 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/10 18:19:12 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void iterate(Iterator first, Iterator last)
 }
 int main()
 {
-	ft::vector<std::string> cont;
+//	ft::vector<std::string> cont;
 	
 /*	v.push_back(3);
 	v.push_back(3);
@@ -137,9 +137,11 @@ int main()
 	///std::cout << std::endl;
 //	std::cout <<ft::equal(tmp.begin(), tmp.end(), cont.begin());
 
+	ft::vector<int> bool3;
+
 	ft::vector<bool> bool2;
 	ft::vector<bool> booleano;
-	booleano.bool_function();
+	//booleano.bool_function();
 	booleano.push_back(true);
 	booleano.push_back(false);
 	booleano.push_back(true);
@@ -153,6 +155,11 @@ int main()
 	for (ft::vector<bool>::const_iterator it = bool2.begin(); it != bool2.end(); it += 1)
 		std::cout << *it << " | ";
 	std::cout << std::endl;
+	ft::vector<bool>::swap(bool2[0], bool2[2]);
+	for (ft::vector<bool>::const_iterator it = bool2.begin(); it != bool2.end(); it += 1)
+		std::cout << *it << " | ";
+	std::cout << std::endl;
+	
 
 }
     //const int b[] = {1, 2, 3, 4, 5};

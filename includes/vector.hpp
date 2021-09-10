@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   VectorBase.hpp                                         :+:      :+:    :+:   */
+/*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/10 12:57:29 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/10 18:21:44 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ namespace ft
 {
 	/*
 	** Reference for the Vector container?
-	** https://cplusplus.com/reference/VectorBase/VectorBase/
+	** https://cplusplus.com/reference/vector/vector/
 	*/
 
 	template < typename T, typename Alloc = std::allocator<T> >
-	class VectorBase
+	class vector
 	{
 		public:
 			typedef T														value_type;
@@ -55,13 +55,13 @@ namespace ft
 			** Constructors, destructor and Assign operator.
 			*/
 
-			explicit VectorBase(const allocator_type& alloc = allocator_type()):
+			explicit vector(const allocator_type& alloc = allocator_type()):
 			_allocator(alloc), _size(0), _capacity(0)
 			{
 				this->_data = this->_allocator.allocate(0);
 			};
 
-			explicit VectorBase(size_type n, const value_type &val = value_type(), const allocator_type& alloc = allocator_type()):
+			explicit vector(size_type n, const value_type &val = value_type(), const allocator_type& alloc = allocator_type()):
 			_allocator(alloc), _size(n), _capacity(n)
 			{
 				this->_data = this->_allocator.allocate(n);
@@ -70,7 +70,7 @@ namespace ft
 			};
 
 			template <typename InputIterator>
-			VectorBase(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if< !ft::is_integral<InputIterator>::value, InputIterator >::type = 0):
+			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if< !ft::is_integral<InputIterator>::value, InputIterator >::type = 0):
 			_allocator(alloc), _size(last - first), _capacity(last - first)
 			{
 				this->_data = this->_allocator.allocate(this->_size);
@@ -81,10 +81,10 @@ namespace ft
 				}
 			};
 
-			VectorBase(const VectorBase &x):
+			vector(const vector &x):
 			_allocator(x._allocator), _data(0x0), _size(x._size), _capacity(x._capacity) { *this = x; }
 
-			VectorBase& operator=(const VectorBase& x)
+			vector& operator=(const vector& x)
 			{
 				if (this->_data)
 				{
@@ -99,7 +99,7 @@ namespace ft
 				return (*this);
 			}
 
-			virtual ~VectorBase()
+			virtual ~vector()
 			{
 				this->clear();
 				this->_allocator.deallocate(this->_data, this->_capacity);
@@ -295,7 +295,7 @@ namespace ft
 			return(iterator(p));
 		}	
 
-		void			swap (VectorBase& x)
+		void			swap (vector& x)
 		{
 			allocator_type		tmp_allocator = this->_allocator;
 			pointer 			tmp_data = this->_data;
@@ -320,16 +320,34 @@ namespace ft
 
 		allocator_type	get_allocator() const { return (allocator_type(this->_p)); };
 
+	/*
+	** vector<bool> specialization
+	*/
+		template<typename _T = value_type>
+		void flip(typename ft::enable_if<ft::is_bool<_T>::value, _T >::type = 0)
+		{
+			for (iterator it = this->begin(); it != this->end(); it++)
+				*it = !(*it);
+		}
+		template<typename _T = value_type>
+		static void swap (reference ref1, reference ref2, typename ft::enable_if<ft::is_bool<_T>::value, _T >::type = 0)
+		{
+			value_type swp = ref1;
+			ref1 = ref2;
+			ref2 = swp;
+		}
+
+
 	};
 
 
 	template <typename T, typename Alloc>
-  	void swap (VectorBase<T,Alloc>& x, VectorBase<T,Alloc>& y)
+  	void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
 	{
-		typename VectorBase<T, Alloc>::allocator_type		tmp_allocator = x._allocator;
-		typename VectorBase<T, Alloc>::pointer 				tmp_data = x._data;
-		typename VectorBase<T, Alloc>::size_type	 		tmp_size = x._size;
-		typename VectorBase<T, Alloc>::size_type	 		tmp_capacity = x._capacity;
+		typename vector<T, Alloc>::allocator_type		tmp_allocator = x._allocator;
+		typename vector<T, Alloc>::pointer 				tmp_data = x._data;
+		typename vector<T, Alloc>::size_type	 		tmp_size = x._size;
+		typename vector<T, Alloc>::size_type	 		tmp_capacity = x._capacity;
 
 		x._allocator = y._allocator;
 		x._data = y._data;
@@ -349,30 +367,41 @@ namespace ft
 	*/
 
 	template <class T, class Alloc>
-	bool operator== (const VectorBase<T,Alloc>& lhs, const VectorBase<T,Alloc>& rhs) { 
+	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { 
 		if (lhs.size() == rhs.size())
 			return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
 		return (false);
 		}
 
 	template <class T, class Alloc>
-	bool operator!= (const VectorBase<T,Alloc>& lhs, const VectorBase<T,Alloc>& rhs) { return (!(lhs == rhs)); }
+	bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (!(lhs == rhs)); }
 
 	template <class T, class Alloc>
-	bool operator<  (const VectorBase<T,Alloc>& lhs, const VectorBase<T,Alloc>& rhs) { return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end())); }
+	bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end())); }
 
 	template <class T, class Alloc>
-	bool operator<= (const VectorBase<T,Alloc>& lhs, const VectorBase<T,Alloc>& rhs) { return (!(lhs > rhs)); }
+	bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (!(lhs > rhs)); }
 
 	template <class T, class Alloc>
-	bool operator>  (const VectorBase<T,Alloc>& lhs, const VectorBase<T,Alloc>& rhs){ return (!(lhs == rhs) && !(ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()))); }
+	bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){ return (!(lhs == rhs) && !(ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()))); }
 
 	template <class T, class Alloc>
-	bool operator>= (const VectorBase<T,Alloc>& lhs, const VectorBase<T,Alloc>& rhs) { return (!(lhs < rhs)); }
+	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (!(lhs < rhs)); }
 
+
+
+
+
+
+
+
+
+
+
+/*
 
 	template < class T, class Alloc = std::allocator<T> >
-	class vector : public VectorBase<T, Alloc>
+	class vector : public vector<T, Alloc>
 	{
 		public:
 			typedef T														value_type;
@@ -388,30 +417,31 @@ namespace ft
 			typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
 			typedef size_t													size_type;
 
-			explicit vector (const allocator_type &alloc = allocator_type()) : VectorBase<T, Alloc>(alloc) {};
+			explicit vector (const allocator_type &alloc = allocator_type()) : vector<T, Alloc>(alloc) {};
 			
 			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
-			: VectorBase<T, Alloc>(n, val, alloc) {};
+			: vector<T, Alloc>(n, val, alloc) {};
 			
 			template <class InputIterator>
 				vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
-			: VectorBase<T, Alloc>(first, last, alloc) {};
+			: vector<T, Alloc>(first, last, alloc) {};
 
-			vector (const vector& x): VectorBase<T, Alloc>(x) {};
+			vector (const vector& x): vector<T, Alloc>(x) {};
 			~vector() {};
 			vector& operator=(const vector& x)
 			{
-				this->VectorBase<T, Alloc>::operator=(x);
+				this->vector<T, Alloc>::operator=(x);
 				return (*this); 
 			};
 	};
-	
+	*/
+
 	/*
 	** Template specialization for vector<bool>. 
 	*/
-
+/*
 	template <class Alloc>
-	class vector<bool, Alloc> : public VectorBase<bool,Alloc>
+	class vector<bool, Alloc> : public vector<bool,Alloc>
 	{
 		public:
 			typedef bool													value_type;
@@ -427,20 +457,20 @@ namespace ft
 			typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
 			typedef size_t													size_type;
 
-			explicit vector (const allocator_type &alloc = allocator_type()) : VectorBase<bool, Alloc>(alloc) { };
+			explicit vector (const allocator_type &alloc = allocator_type()) : vector<bool, Alloc>(alloc) { };
 			
 			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
-			: VectorBase<bool, Alloc>(n, val, alloc) {};
+			: vector<bool, Alloc>(n, val, alloc) {};
 			
 			template <class InputIterator>
 				vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
-			: VectorBase<bool, Alloc>(first, last, alloc) {};
+			: vector<bool, Alloc>(first, last, alloc) {};
 
-			vector (const vector& x): VectorBase<bool, Alloc>(x) {};
+			vector (const vector& x): vector<bool, Alloc>(x) {};
 			~vector() {};
 			vector& operator=(const vector& x)
 			{
-				this->VectorBase<bool, Alloc>::operator=(x);
+				this->vector<bool, Alloc>::operator=(x);
 				return (*this); 
 			};
 			void flip()
@@ -450,6 +480,7 @@ namespace ft
 			}
 			void bool_function() { std::cout << "bool function" << std::endl; };
 	};
+	*/
 }
 
 #endif
