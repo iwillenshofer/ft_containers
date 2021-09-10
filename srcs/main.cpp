@@ -134,6 +134,7 @@ int main()
 	for (ft::vector<std::string>::const_iterator it = tmp.begin(); it != tmp.end(); it += 1)
 		std::cout << *it << " | ";
 	std::cout << std::endl;
+//	std::cout <<ft::equal(tmp.begin(), tmp.end(), cont.begin());
 }
     //const int b[] = {1, 2, 3, 4, 5};
 //	v.push_back(1);

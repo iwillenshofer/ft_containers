@@ -260,16 +260,17 @@ namespace ft
 			difference_type pos =  position - this->begin();
 			difference_type size = ft::distance(first, last);
 			difference_type move = this->_size - pos;
-//			std::cout << "pos: "<< pos << ". size: " << size << ". move: "<< move << std::endl;
+//			std::cout << "orig-size: " << this->_size << ". pos: "<< pos << ". insert-size: " << size << ". move: "<< move << std::endl;
 
 			this->reserve(this->_size + size);
-			difference_type i = this->_size + size - 1;
-			while ((pos != static_cast<difference_type>(this->_size)) && (move) && (i >= pos + move))
+			difference_type last_elem = this->_size + size - 1;
+			
+			for (difference_type j = 0; j < move; j++)
 			{
-//				std::cout << "Copying data from position " << (i - move) << "to" <<  i << std::endl;
-				this->_allocator.construct(&(this->_data[i]), value_type(this->_data[i - move]));
-				this->_allocator.destroy(&(this->_data[i - move]));
-				i--;
+//				std::cout << "Copying data from position " << (last_elem - j - size) << "to" << last_elem - j << std::endl;
+				this->_allocator.construct(&(this->_data[last_elem - j]), value_type(this->_data[last_elem - j - size]));
+				this->_allocator.destroy(&(this->_data[last_elem - j - size]));
+			//	i--;
             }
 			for (difference_type i = 0; i < size; ++i)
 				this->_allocator.construct(&(this->_data[pos + i]), typename ft::iterator_traits<InputIterator>::value_type(*(first + i)));
@@ -413,7 +414,11 @@ namespace ft
 	}
 
 	template <class T, class Alloc>
-	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (ft::equal(lhs.begin(), lhs.end(), rhs.begin())); }
+	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { 
+		if (lhs.size() == rhs.size())
+			return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+		return (false);
+		}
 
 	template <class T, class Alloc>
 	bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (!(lhs == rhs)); }
