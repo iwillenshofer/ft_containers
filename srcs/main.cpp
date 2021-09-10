@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/29 20:40:05 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/10 14:34:53 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void iterate(Iterator first, Iterator last)
 int main()
 {
 	ft::vector<std::string> cont;
+	
 /*	v.push_back(3);
 	v.push_back(3);
 	v.push_back(5);
@@ -110,31 +111,49 @@ int main()
 
 
 
- //   ft::vector<int> v;
+    ft::vector<int> v;
 
 
-	cont.push_back(std::string("String"));
-	ft::vector<std::string> tmp = cont;
+//	cont.push_back(std::string("String"));
+//	ft::vector<std::string> tmp = cont;
 
-	std::cout << "size of tmp = " << tmp.size() << std::endl;
+//	std::cout << "size of tmp = " << tmp.size() << std::endl;
 
 //	tmp.reserve(tmp.size() + 1);
 	//std::cerr << "BEGIN:" << tmp.begin() << std::endl;
-    tmp.insert(tmp.begin(), cont.begin(), cont.end());
-    if (!tmp.size())
-    {
-         ft::vector<std::string>::iterator it = tmp.begin();
-        ++it;
-        tmp.insert(it, cont.begin(), cont.end());
-    }
-    tmp.insert(tmp.end(), cont.begin(), cont.end());
-    tmp.insert(tmp.end(), cont.begin(), cont.begin());//	v.insert(v.begin() - 1, 5, 1);
-    tmp.insert(tmp.begin(), cont.begin(), cont.end());
+//    tmp.insert(tmp.begin(), cont.begin(), cont.end());
+  //  if (!tmp.size())
+    //{
+   //      ft::vector<std::string>::iterator it = tmp.begin();
+     //   ++it;
+       // tmp.insert(it, cont.begin(), cont.end());/
+//    }
+   // tmp.insert(tmp.end(), cont.begin(), cont.end());
+  //  tmp.insert(tmp.end(), cont.begin(), cont.begin());//	v.insert(v.begin() - 1, 5, 1);
+  //  tmp.insert(tmp.begin(), cont.begin(), cont.end());
 
-	for (ft::vector<std::string>::const_iterator it = tmp.begin(); it != tmp.end(); it += 1)
+///	for (ft::vector<std::string>::const_iterator it = tmp.begin(); it != tmp.end(); it += 1)
+	///	std::cout << *it << " | ";
+	///std::cout << std::endl;
+//	std::cout <<ft::equal(tmp.begin(), tmp.end(), cont.begin());
+
+	ft::vector<bool> bool2;
+	ft::vector<bool> booleano;
+	booleano.bool_function();
+	booleano.push_back(true);
+	booleano.push_back(false);
+	booleano.push_back(true);
+	booleano.push_back(false);
+	booleano.insert(booleano.begin(), true);
+	for (ft::vector<bool>::const_iterator it = booleano.begin(); it != booleano.end(); it += 1)
 		std::cout << *it << " | ";
 	std::cout << std::endl;
-//	std::cout <<ft::equal(tmp.begin(), tmp.end(), cont.begin());
+	bool2 = booleano;
+	bool2.flip();
+	for (ft::vector<bool>::const_iterator it = bool2.begin(); it != bool2.end(); it += 1)
+		std::cout << *it << " | ";
+	std::cout << std::endl;
+
 }
     //const int b[] = {1, 2, 3, 4, 5};
 //	v.push_back(1);

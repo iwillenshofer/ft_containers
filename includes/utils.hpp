@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:14:55 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/10 10:12:39 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/10 17:36:55 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,18 @@ namespace ft
 
 	template <typename T>
 	struct is_integral : public ft::is_integral_helper<typename ft::remove_cv<T>::type>::type {};
+
+	/*
+	** is_bool is not part of stl, but is implemented for vector specialization
+	*/
+	template <typename T>
+	struct is_bool_helper : public false_type {};
+
+	template <>
+	struct is_bool_helper<bool> : public true_type {};
+
+	template <typename T>
+	struct is_bool : public ft::is_bool_helper<typename ft::remove_cv<T>::type>::type {};
 
 	/*
 	** true if the first range is lexicographically less than the second.
