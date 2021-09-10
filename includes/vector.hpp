@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/29 20:39:57 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/10 12:02:41 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 # define VECTOR_HPP
 
 # include <memory>
+# include <exception>
 # include "input_iterator.hpp"
 # include "reverse_iterator.hpp"
-
 # include "utils.hpp"
-# include <exception>
 
 namespace ft
 {
@@ -160,10 +159,7 @@ namespace ft
 				{
 					tmp = this->_allocator.allocate(n);
 					for (size_type i = 0; i < old_size; i++)
-					{
 						this->_allocator.construct(&(tmp[i]), value_type(this->_data[i]));
-//						this->_allocator.destroy(&(this->_data[i]));
-					}
 					this->clear();
 					this->_allocator.deallocate(&(*(this->_data)), this->_capacity);
 					this->_capacity = n;
@@ -214,6 +210,7 @@ namespace ft
 				first++;
 			}
 		}
+
 		void			assign (size_type n, const value_type& val)
 		{
 			value_type values[n];
@@ -221,6 +218,7 @@ namespace ft
 				values[i] = val;
 			assign(&values[0], &values[n]);
 		}
+
 		void			push_back(const value_type & val)
 		{	
 			this->reserve(this->_size + 1);
@@ -242,9 +240,6 @@ namespace ft
 			return (iterator(this->begin() + pos));
 		}
 		
-		/*
-		** copy_to and copy_from will point to _data, unless reallocation needed.
-		*/
 		void			insert (iterator position, size_type n, const value_type& val)
 		{
 			value_type values[n];
@@ -260,62 +255,17 @@ namespace ft
 			difference_type pos =  position - this->begin();
 			difference_type size = ft::distance(first, last);
 			difference_type move = this->_size - pos;
-//			std::cout << "orig-size: " << this->_size << ". pos: "<< pos << ". insert-size: " << size << ". move: "<< move << std::endl;
+			difference_type last_elem = this->_size + size - 1;
 
 			this->reserve(this->_size + size);
-			difference_type last_elem = this->_size + size - 1;
-			
 			for (difference_type j = 0; j < move; j++)
 			{
-//				std::cout << "Copying data from position " << (last_elem - j - size) << "to" << last_elem - j << std::endl;
 				this->_allocator.construct(&(this->_data[last_elem - j]), value_type(this->_data[last_elem - j - size]));
 				this->_allocator.destroy(&(this->_data[last_elem - j - size]));
-			//	i--;
             }
 			for (difference_type i = 0; i < size; ++i)
 				this->_allocator.construct(&(this->_data[pos + i]), typename ft::iterator_traits<InputIterator>::value_type(*(first + i)));
-
-
 			this->_size += size;
-			
-
-//			std::cerr << "pos: " << pos << ". size: " << size << ". move: " << move << ". contsize: " << this->_size << std::endl;
-//			this->reserve(this->_size + size);
-//
-//			size_type i = this->_size + size - 1;
-//			std::cerr << "IFROM:" << i << ". ITO: " << (this->_size + size - 1) - move << std::endl;
-//			while ((move) && (i > (this->_size + size - 1) - move))
-//			{
-//				std::cerr << "i: " << i << ". i - size: " << i - size << std::endl;
-//			//	std::cerr << "addr: " << (this->_data[i]) << std::endl;
-//				std::cerr << "addr: " << &(this->_data[0]) << std::endl;
-//				this->_data[i] = this->_data[0];//this->_data[i - size];
-//			//	this->_allocator.destroy(&(this->_data[i]));
-//				//this->_allocator.construct(&(this->_data[i]), this->_data[i - size]);
-//				
-//				i--;
-//			}
-//			for (i = 0; i < size; i++)
-//			{
-//				this->_allocator.construct(&(this->_data[pos + i]), typename ft::iterator_traits<InputIterator>::value_type(*(first)));
-//				first++;
-//			}
-//			this->_size += size;
-//
-
-
-//			this->_size += n;
-//			for (size_type i = 0; i < this->_size - pos; i++)
-//			{
-//				if ((i >= this->_size - pos - n) || i >= n)
-//					this->_allocator.destroy(&this->_data[this->_size - (i + 1)]);
-//				if (i >= this->_size - pos - n)
-//				{
-//					this->_allocator.construct(&this->_data[this->_size - (i + 1)], typename ft::iterator_traits<InputIterator>::value_type(*(--last)));
-//				}
-//				else
-//					this->_allocator.construct(&this->_data[this->_size - (i + 1)], this->_data[this->_size - (i + 1 + n)]);
-//			}
 		}
 		
 		iterator		erase (iterator position)
@@ -343,27 +293,6 @@ namespace ft
 				this->_allocator.destroy(&last[i]);				
 			}
 			return(iterator(p));
-
-//
-//
-//			size_type	pos = first - this->begin();
-//			size_type	size = (last - first) + 1;
-//
-//			for (size_type i = 0; i < size; i++)
-//			{
-//				std::cout << size <<std::endl;
-//				this->_allocator.destroy(&this->_data[pos + i]);
-//			}
-//			for (size_type i = 0; i < this->_size - size; i++)
-//			{
-//				if (this->begin() + pos + i + size < this->end())
-//				{
-//					this->_allocator.construct(&this->_data[pos + i], this->_data[pos + i + size]);
-//					this->_allocator.destroy(&this->_data[pos + i + size]);
-//				}
-//			}
-//			this->_size -= size;
-			return(this->begin());
 		}	
 
 		void			swap (vector& x)
@@ -391,6 +320,10 @@ namespace ft
 
 		allocator_type	get_allocator() const { return (allocator_type(this->_p)); };
 
+		/*
+		** Swap 
+		*/
+
 		template <typename _T, typename _Alloc>
 		friend void swap (vector<_T, _Alloc>& x, vector<_T, _Alloc>& y);
 	};
@@ -413,6 +346,13 @@ namespace ft
 		y._capacity = tmp_capacity;
 	}
 
+	/*
+	** operator overloads. They are declared as non member functions to
+	** mantain synmetry on implicit conversions. They could have been member overloads,
+	** but this style guide was followed:
+	** https://stackoverflow.com/questions/4421706/what-are-the-basic-rules-and-idioms-for-operator-overloading/4421729#4421729
+	*/
+
 	template <class T, class Alloc>
 	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { 
 		if (lhs.size() == rhs.size())
@@ -434,6 +374,10 @@ namespace ft
 
 	template <class T, class Alloc>
 	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (!(lhs < rhs)); }
+
+
 }
+
+
 
 #endif

@@ -15,7 +15,7 @@ NAME = ft_containers
 ORIGINAL = orig_containers
 
 CC = clang++
-CCFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CCFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
 
 SRC_DIR = ./srcs
 OBJ_DIR = ./build
