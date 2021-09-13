@@ -90,22 +90,32 @@ namespace ft
 	};
 
 	template<typename Iterator>
-	bool	operator==(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator>& y) { return x.base() == y.base(); }
+	bool	operator==(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator> &y) { return x.base() == y.base(); }
 
 	template<typename Iterator>
-	bool	operator<(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator>& y) { return y.base() < x.base(); }
+	bool	operator<(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator> &y) { return y.base() < x.base(); }
 
 	template<typename Iterator>
-	bool	operator!=(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator>& y) { return !(x == y); }
+	bool	operator!=(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator> &y) { return !(x == y); }
 
 	template<typename Iterator>
-	bool	operator>(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator>& y) { return y < x; }
+	bool	operator>(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator> &y) { return y < x; }
 
 	template<typename Iterator>
-	bool	operator<=(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator>& y) { return !(y < x); }
+	bool	operator<=(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator> &y) { return !(y < x); }
 
 	template<typename Iterator>
-	bool	operator>=(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator>& y) { return !(x < y); }
+	bool	operator>=(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator> &y) { return !(x < y); }
+
+	template<typename _Iterator>
+	typename reverse_iterator<_Iterator>::difference_type operator-(const reverse_iterator<_Iterator> &x,
+		const reverse_iterator<_Iterator>& y)
+	{ return y.base() - x.base(); }
+
+	template<typename _Iterator>
+	reverse_iterator<_Iterator> operator+(typename reverse_iterator<_Iterator>::difference_type n,
+		const reverse_iterator<_Iterator>& x)
+	{ return reverse_iterator<_Iterator>(x.base() - n); }
 
 	/*
 	** RevIterators vs ConstRevIterators

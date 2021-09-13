@@ -36,13 +36,14 @@ namespace ft
 			BidirectionalIterator(const BidirectionalIterator &b) { *this = b; };
 			virtual ~BidirectionalIterator() { }
 			operator const_self() const { return const_self(this->_p); }
+			pointer	base() const { return this->_p; }
 			BidirectionalIterator &operator=(BidirectionalIterator const &b)
 			{
 				this->_p = b._p;
 				return (*this);
 			}
-			bool operator==(BidirectionalIterator const &b) { return (this->_p == b._p); }
-			bool operator!=(BidirectionalIterator const &b) { return (this->_p != b._p); }
+//			bool operator==(BidirectionalIterator const &b) { return (this->_p == b._p); }
+//			bool operator!=(BidirectionalIterator const &b) { return (this->_p != b._p); }
 			reference operator*() { return *(this->_p); }
 			pointer operator->() { return (&(this->_p)); }
 			BidirectionalIterator &operator++()
@@ -76,6 +77,63 @@ namespace ft
 		protected:
 			pointer	_p;
 	};
+
+	template<typename IteratorL, typename IteratorR>
+	bool operator==(const IteratorL& lhs, const IteratorR& rhs)
+	{ return lhs.base() == rhs.base(); }
+
+	template<typename Iterator>
+	bool operator==(const Iterator& lhs, const Iterator& rhs)
+	{ return lhs.base() == rhs.base(); }
+
+	template<typename IteratorL, typename IteratorR>
+	bool operator!=(const IteratorL& lhs, const IteratorR& rhs)
+	{ return lhs.base() != rhs.base(); }
+
+	template<typename Iterator>
+	bool operator!=(const Iterator& lhs,
+				const Iterator& rhs)
+	{ return lhs.base() != rhs.base(); }
+
+	template<typename IteratorL, typename IteratorR>
+	bool operator<(const IteratorL& lhs,
+				const IteratorR& rhs)
+	{ return lhs.base() < rhs.base(); }
+
+	template<typename Iterator>
+	bool operator<(const Iterator& lhs,
+				const Iterator& rhs)
+	{ return lhs.base() < rhs.base(); }
+
+	template<typename IteratorL, typename IteratorR>
+	bool operator>(const IteratorL& lhs,
+				const IteratorR& rhs)
+	{ return lhs.base() > rhs.base(); }
+
+	template<typename Iterator>
+	bool operator>(const Iterator& lhs,
+				const Iterator& rhs)
+	{ return lhs.base() > rhs.base(); }
+
+	template<typename IteratorL, typename IteratorR>
+	bool operator<=(const IteratorL& lhs,
+				const IteratorR& rhs)
+	{ return lhs.base() <= rhs.base(); }
+
+	template<typename Iterator>
+	bool operator<=(const Iterator& lhs,
+				const Iterator& rhs)
+	{ return lhs.base() <= rhs.base(); }
+
+	template<typename IteratorL, typename IteratorR>
+	bool operator>=(const IteratorL& lhs,
+				const IteratorR& rhs)
+	{ return lhs.base() >= rhs.base(); }
+
+	template<typename Iterator>
+	bool operator>=(const Iterator& lhs,
+				const Iterator& rhs)
+	{ return lhs.base() >= rhs.base(); }
 
 	template <typename T>
 	class RandomAccessIterator : public ft::BidirectionalIterator<T>

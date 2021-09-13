@@ -15,6 +15,7 @@
 
 # include <memory>
 # include <exception>
+# include <stdexcept>
 # include "input_iterator.hpp"
 # include "reverse_iterator.hpp"
 # include "utils.hpp"
@@ -320,43 +321,16 @@ namespace ft
 
 		allocator_type	get_allocator() const { return (allocator_type(this->_p)); };
 
-	/*
-	** vector<bool> specialization
-	*/
-		template<typename _T = value_type>
-		void flip(typename ft::enable_if<ft::is_bool<_T>::value, _T >::type = 0)
-		{
-			for (iterator it = this->begin(); it != this->end(); it++)
-				*it = !(*it);
-		}
-		template<typename _T = value_type>
-		static void swap (reference ref1, reference ref2, typename ft::enable_if<ft::is_bool<_T>::value, _T >::type = 0)
-		{
-			value_type swp = ref1;
-			ref1 = ref2;
-			ref2 = swp;
-		}
-
-
 	};
 
 
 	template <typename T, typename Alloc>
-  	void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
+  	void swap (vector<T,Alloc>& lhs, vector<T,Alloc>& rhs)
 	{
-		typename vector<T, Alloc>::allocator_type		tmp_allocator = x._allocator;
-		typename vector<T, Alloc>::pointer 				tmp_data = x._data;
-		typename vector<T, Alloc>::size_type	 		tmp_size = x._size;
-		typename vector<T, Alloc>::size_type	 		tmp_capacity = x._capacity;
+		vector<T, Alloc> tmp(lhs);
 
-		x._allocator = y._allocator;
-		x._data = y._data;
-		x._size = y._size;
-		x._capacity = y._capacity;
-		y._allocator = tmp_allocator;
-		y._data = tmp_data;
-		y._size = tmp_size;
-		y._capacity = tmp_capacity;
+		lhs = rhs;
+		rhs = tmp;
 	}
 
 	/*
@@ -388,99 +362,6 @@ namespace ft
 	template <class T, class Alloc>
 	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (!(lhs < rhs)); }
 
-
-
-
-
-
-
-
-
-
-
-/*
-
-	template < class T, class Alloc = std::allocator<T> >
-	class vector : public vector<T, Alloc>
-	{
-		public:
-			typedef T														value_type;
-			typedef Alloc													allocator_type;
-			typedef typename allocator_type::reference						reference;
-			typedef typename allocator_type::const_reference				const_reference;
-			typedef typename allocator_type::pointer						pointer;
-			typedef typename allocator_type::const_pointer					const_pointer;
-			typedef ft::RandomAccessIterator<T>								iterator;
-			typedef ft::RandomAccessIterator<const T>						const_iterator;
-			typedef ft::reverse_iterator<iterator>							reverse_iterator;
-			typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
-			typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
-			typedef size_t													size_type;
-
-			explicit vector (const allocator_type &alloc = allocator_type()) : vector<T, Alloc>(alloc) {};
-			
-			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
-			: vector<T, Alloc>(n, val, alloc) {};
-			
-			template <class InputIterator>
-				vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
-			: vector<T, Alloc>(first, last, alloc) {};
-
-			vector (const vector& x): vector<T, Alloc>(x) {};
-			~vector() {};
-			vector& operator=(const vector& x)
-			{
-				this->vector<T, Alloc>::operator=(x);
-				return (*this); 
-			};
-	};
-	*/
-
-	/*
-	** Template specialization for vector<bool>. 
-	*/
-/*
-	template <class Alloc>
-	class vector<bool, Alloc> : public vector<bool,Alloc>
-	{
-		public:
-			typedef bool													value_type;
-			typedef Alloc													allocator_type;
-			typedef typename allocator_type::reference						reference;
-			typedef typename allocator_type::const_reference				const_reference;
-			typedef typename allocator_type::pointer						pointer;
-			typedef typename allocator_type::const_pointer					const_pointer;
-			typedef ft::RandomAccessIterator<bool>							iterator;
-			typedef ft::RandomAccessIterator<const bool>					const_iterator;
-			typedef ft::reverse_iterator<iterator>							reverse_iterator;
-			typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
-			typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
-			typedef size_t													size_type;
-
-			explicit vector (const allocator_type &alloc = allocator_type()) : vector<bool, Alloc>(alloc) { };
-			
-			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
-			: vector<bool, Alloc>(n, val, alloc) {};
-			
-			template <class InputIterator>
-				vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
-			: vector<bool, Alloc>(first, last, alloc) {};
-
-			vector (const vector& x): vector<bool, Alloc>(x) {};
-			~vector() {};
-			vector& operator=(const vector& x)
-			{
-				this->vector<bool, Alloc>::operator=(x);
-				return (*this); 
-			};
-			void flip()
-			{
-				for (iterator it = this->begin(); it != this->end(); it++)
-					*it = !(*it);
-			}
-			void bool_function() { std::cout << "bool function" << std::endl; };
-	};
-	*/
 }
 
 #endif

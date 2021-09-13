@@ -151,15 +151,16 @@ int main()
 		std::cout << *it << " | ";
 	std::cout << std::endl;
 	bool2 = booleano;
-	bool2.flip();
+//	bool2.flip();
 	for (ft::vector<bool>::const_iterator it = bool2.begin(); it != bool2.end(); it += 1)
 		std::cout << *it << " | ";
 	std::cout << std::endl;
-	ft::vector<bool>::swap(bool2[0], bool2[2]);
+//	ft::vector<bool>::swap(bool2[0], bool2[2]);
 	for (ft::vector<bool>::const_iterator it = bool2.begin(); it != bool2.end(); it += 1)
 		std::cout << *it << " | ";
 	std::cout << std::endl;
-	
+
+
 
 }
     //const int b[] = {1, 2, 3, 4, 5};
