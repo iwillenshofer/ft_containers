@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:52:15 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/15 10:54:06 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/15 15:32:51 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ namespace ft
 			bool operator==(BidirectionalIterator const &b) { return (this->_p == b._p); }
 			bool operator!=(BidirectionalIterator const &b) { return (this->_p != b._p); }
 			reference operator*() { return *(this->_p); }
-			pointer operator->() { return (&(this->_p)); }
+			pointer operator->() { return (this->_p); }
 			BidirectionalIterator &operator++() { this->_p++; return (*this); }
 			BidirectionalIterator &operator--() { this->_p--; return (*this); }
 

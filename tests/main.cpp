@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/15 13:43:19 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/15 17:39:29 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,14 @@ void iterate(Iterator first, Iterator last)
 template<typename T>
 void test_insert()
 {
-	T vector(10);
+	T vector(100);
 	std::cout << vector.capacity() << std::endl;
+	std::cout << "insert1: " << std::endl;
 	vector.insert(vector.begin() + 3, 1);
 	typename T::const_iterator std_it = vector.begin();
 	typename T::const_iterator std_end = vector.end();
 	std::cout << typeid(std_end).name() << '\n';
-
+	std::cout << "insert2: " << std::endl;
 	vector.insert(vector.begin() + 3, 1);
 	while (std_it != std_end)
 	{
@@ -56,12 +57,41 @@ void test_insert()
 	for (typename T::const_iterator it = vector.begin(); it != vector.end(); it += 1)
 		std::cout << *it << " | ";
 	std::cout << std::endl;
+	std::cout << "Capacity: ";
+	std::cout << vector.capacity() << std::endl;
+
+}
+
+template<typename T>
+void test_capacity(void)
+{
+	T vec;
+	
+	std::cout << "Capacity: " << vec.capacity() << std::endl;
+	vec.reserve(0);
+	std::cout << "Capacity: " << vec.capacity() << std::endl;
+	vec.reserve(1);
+
+	std::cout << "Capacity: " << vec.capacity() << std::endl;
+	vec.insert(vec.begin(), 1);
+	std::cout << "Capacity: " << vec.capacity() << std::endl;
+	vec.insert(vec.begin(), 1);
+	std::cout << "Capacity: " << vec.capacity() << std::endl;
+	int i[] = {1, 2, 3, 4, 5};
+	typename T::iterator begin(&i[0]);
+	typename T::iterator end(&i[5]);
+	vec.insert(vec.begin(), begin, end);
+	std::cout << "Capacity: " << vec.capacity() << std::endl;
+	vec.insert(vec.begin(), 1);
+	std::cout << "Capacity: " << vec.capacity() << std::endl;
 }
 
 int main(void)
 {
-	test_insert< std::vector<int> >();
-	test_insert< ft::vector<int> >();
+	test_capacity< std::vector<int> >();
+	test_capacity< ft::vector<int> >();
+//	test_insert< std::vector<int> >();
+//	test_insert< ft::vector<int> >();
 }
 
 int main2()
