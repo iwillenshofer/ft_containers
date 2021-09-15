@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.hpp                                          :+:      :+:    :+:   */
+/*   type_traits.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:14:55 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/10 17:36:55 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/15 10:52:59 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_HPP
 # define UTILS_HPP
+
+#include "iterator_traits.hpp"
 
 namespace ft
 {
@@ -117,65 +119,6 @@ namespace ft
 
 	template <typename T>
 	struct is_bool : public ft::is_bool_helper<typename ft::remove_cv<T>::type>::type {};
-
-	/*
-	** true if the first range is lexicographically less than the second.
-	*/
-	template< class InputIt1, class InputIt2 >
-	bool lexicographical_compare( InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2 )
-	{
-		while ((first1 != last1) && (first2 != last2))
-		{
-			if (*first1 < *first2)
-				return (true);
-			else if (*first1 > *first2)
-				return(false);
-			first1++;
-			first2++;
-		}
-		return ((first1 == last1) && (first2 != last2));
-	}
-	
-	template< class InputIt1, class InputIt2 >
-	bool equal(InputIt1 first1, InputIt1 last1, InputIt2 first2)
-	{
-		while (first1 != last1)
-		{
-			if (!(*first1 == *first2)) {
-				return false;
-			}
-			first1++;
-			first2++;
-		}
-		return true;
-	}
-	
-// implementation via tag dispatch, available in C++98 with constexpr removed
- 
-template<class Iterator>
-typename ft::iterator_traits<Iterator>::difference_type do_distance(Iterator first, Iterator last, ft::input_iterator_tag)
-{
-    typename std::iterator_traits<Iterator>::difference_type result = 0;
-    while (first != last) {
-        ++first;
-        ++result;
-    }
-    return result;
-}
- 
-template<class Iterator>
-typename ft::iterator_traits<Iterator>::difference_type do_distance(Iterator first, Iterator last, ft::random_access_iterator_tag)
-{
-    return last - first;
-}
- 
-
-template<class Iterator>
-typename ft::iterator_traits<Iterator>::difference_type  distance(Iterator first, Iterator last)
-{
-    return ft::do_distance(first, last,
-                               typename ft::iterator_traits<Iterator>::iterator_category());
-}
 
 }
 

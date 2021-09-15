@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/10 18:21:44 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:09:36 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 # define VECTOR_HPP
 
 # include <memory>
-# include <exception>
 # include <stdexcept>
-# include "input_iterator.hpp"
-# include "reverse_iterator.hpp"
-# include "utils.hpp"
+# include "includes/iterators.hpp"
+# include "includes/iterator_traits.hpp"
+# include "includes/reverse_iterator.hpp"
+# include "includes/type_traits.hpp"
+# include "includes/algorithm.hpp"
 
 namespace ft
 {

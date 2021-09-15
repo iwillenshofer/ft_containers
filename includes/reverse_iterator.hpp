@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reverse_iterator.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 13:34:42 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/29 16:55:11 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/13 18:42:57 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ namespace ft
 			explicit reverse_iterator (iterator_type it): _current_iterator(it) { }
 			template <class Iter>
 			reverse_iterator (const reverse_iterator<Iter> &rev_it): _current_iterator(rev_it.base())	{ }
-			iterator_type base() const { return (this->_current_iterator); }
 			virtual ~reverse_iterator () {};			
-			
+			iterator_type base() const { return (this->_current_iterator); }
+
+
 			reverse_iterator<iterator_type> &operator=(const reverse_iterator<iterator_type> &c)
 			{
 				this->_current_iterator = c.base();
