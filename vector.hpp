@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/15 11:09:36 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:21:28 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,7 @@ namespace ft
 			this->reserve(this->_size + size);
 			for (difference_type j = 0; j < move; j++)
 			{
+
 				this->_allocator.construct(&(this->_data[last_elem - j]), value_type(this->_data[last_elem - j - size]));
 				this->_allocator.destroy(&(this->_data[last_elem - j - size]));
             }

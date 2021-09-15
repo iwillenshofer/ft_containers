@@ -6,17 +6,18 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/15 10:57:23 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:43:19 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
 #include <iterator>
-#include <vector>
 #include <list>
 //#include "iterators.hpp"
 //#include "input_iterator.hpp"
 #include <typeinfo>  //for 'typeid' to work  
+#include <typeinfo>
+#include <vector>
+#include <iostream>
 #include "vector.hpp"
 
 template<class Iterator>
@@ -29,7 +30,41 @@ void iterate(Iterator first, Iterator last)
 		first++;
     }
 }
-int main()
+
+#include <typeinfo>
+#include <vector>
+#include <iostream>
+#include "vector.hpp"
+
+template<typename T>
+void test_insert()
+{
+	T vector(10);
+	std::cout << vector.capacity() << std::endl;
+	vector.insert(vector.begin() + 3, 1);
+	typename T::const_iterator std_it = vector.begin();
+	typename T::const_iterator std_end = vector.end();
+	std::cout << typeid(std_end).name() << '\n';
+
+	vector.insert(vector.begin() + 3, 1);
+	while (std_it != std_end)
+	{
+		std::cout << *std_it << " | ";
+		std_it++;
+	}
+	std::cout << std::endl;
+	for (typename T::const_iterator it = vector.begin(); it != vector.end(); it += 1)
+		std::cout << *it << " | ";
+	std::cout << std::endl;
+}
+
+int main(void)
+{
+	test_insert< std::vector<int> >();
+	test_insert< ft::vector<int> >();
+}
+
+int main2()
 {
 //	ft::vector<std::string> cont;
 	
@@ -160,23 +195,56 @@ int main()
 		std::cout << *it << " | ";
 	std::cout << std::endl;
 
-	std::vector<int> myvector;
+	ft::vector<int> myvector;
 	for (int i=0; i<10; i++) myvector.push_back(i);
 
 
-	typedef std::vector<int>::iterator iter_type;
+	typedef ft::vector<int>::iterator iter_type;
 
-	std::reverse_iterator<iter_type> rev_end (myvector.begin());
-	std::reverse_iterator<iter_type> rev_begin (myvector.end());
+	ft::reverse_iterator<iter_type> rev_end (myvector.begin());
+	ft::reverse_iterator<iter_type> rev_begin (myvector.end());
 
 	std::cout << "myvector:";
 	for (iter_type it = rev_end.base(); it != rev_begin.base(); ++it)
 	std::cout << ' ' << *it;
 	std::cout << '\n';
 
+	int capacity = 10;
+	ft::vector<int> capft(capacity);
+	std::cout << "Capacity: ";
+	std::cout << capft.capacity() << std::endl;
+	capft.insert(capft.begin() + 3, 1);
+	ft::vector<int>::const_iterator ft_it = capft.begin();
+	ft::vector<int>::const_iterator ft_end = capft.end();
+	capft.insert(capft.begin() + 3, 1);
+	while (ft_it != ft_end)
+	{
+		std::cout << *ft_it << " | ";
+		ft_it++;
+	}
+	std::cout << std::endl;
+	for (ft::vector<int>::const_iterator it = capft.begin(); it != capft.end(); it += 1)
+		std::cout << *it << " | ";
+	std::cout << std::endl;
+
+	std::vector<int> capstd(capacity);
+	std::cout << "Capacity: ";
+	std::cout << capstd.capacity() << std::endl;
+	capstd.insert(capstd.begin() + 3, 1);
+	std::vector<int>::const_iterator std_it = capstd.begin();
+	std::vector<int>::const_iterator std_end = capstd.end();
+	capstd.insert(capstd.begin() + 3, 1);
+	while (std_it != std_end)
+	{
+		std::cout << *std_it << " | ";
+		std_it++;
+	}
+	std::cout << std::endl;
+	for (std::vector<int>::const_iterator it = capstd.begin(); it != capstd.end(); it += 1)
+		std::cout << *it << " | ";
+	std::cout << std::endl;
+
 	return 0;
-
-
 
 }
     //const int b[] = {1, 2, 3, 4, 5};
