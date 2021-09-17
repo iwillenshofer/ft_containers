@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/15 17:39:00 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/16 13:23:35 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 namespace ft
 {
 	/*
-	** Reference for the Vector container?
+	** Reference for the Vector container:
 	** https://cplusplus.com/reference/vector/vector/
 	*/
 

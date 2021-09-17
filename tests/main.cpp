@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/15 17:39:29 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/16 13:01:52 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,35 @@ void test_capacity(void)
 	int i[] = {1, 2, 3, 4, 5};
 	typename T::iterator begin(&i[0]);
 	typename T::iterator end(&i[5]);
+	int size = 1000000;
+	int arr[size];
+	for (int z = 0; z < size; z++)
+		arr[z] = z;
 	vec.insert(vec.begin(), begin, end);
+	std::cout << "Capacity: " << vec.capacity() << std::endl;
+	vec.insert(vec.begin() + 7, &arr[0], &arr[size] );
 	std::cout << "Capacity: " << vec.capacity() << std::endl;
 	vec.insert(vec.begin(), 1);
 	std::cout << "Capacity: " << vec.capacity() << std::endl;
+	std::cout << "Capacity: " << vec.capacity() << std::endl;
+	for (typename T::const_iterator it = vec.begin(); it != vec.begin() + 50; it += 1)
+		std::cout << *it << " | ";
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
-	test_capacity< std::vector<int> >();
-	test_capacity< ft::vector<int> >();
-//	test_insert< std::vector<int> >();
-//	test_insert< ft::vector<int> >();
+	if (argc == 1)
+	{
+		test_insert< std::vector<int> >();
+		test_capacity< std::vector<int> >();
+	}
+	else
+	{
+		test_insert< ft::vector<int> >();
+		test_capacity< ft::vector<int> >();
+	}
+
+	(void)argv;
 }
 
 int main2()
