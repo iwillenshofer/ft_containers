@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/16 13:01:52 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/20 18:33:24 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,41 @@ void iterate(Iterator first, Iterator last)
 #include "vector.hpp"
 
 template<typename T>
+void test_insert2()
+{
+
+	T tmp;
+	tmp.clear();
+	tmp.push_back(5);
+	tmp.push_back(6);
+	tmp.push_back(7);
+	tmp.push_back(8);
+	typename T::iterator it = tmp.begin();
+//	++it;
+	tmp.insert(it, 5, 1);
+	for (typename T::const_iterator it = tmp.begin(); it != tmp.end(); it += 1)
+		std::cout << *it << " | ";
+
+	
+}
+
+
+
+template<typename T>
 void test_insert()
 {
 	T vector(100);
-	std::cout << vector.capacity() << std::endl;
-	std::cout << "insert1: " << std::endl;
+	std::cout << "Cap1: " << vector.capacity() << std::endl;
+	//std::cout << "insert1: " << std::endl;
 	vector.insert(vector.begin() + 3, 1);
+	std::cout << "Cap2: " << vector.capacity() << std::endl;
 	typename T::const_iterator std_it = vector.begin();
 	typename T::const_iterator std_end = vector.end();
-	std::cout << typeid(std_end).name() << '\n';
-	std::cout << "insert2: " << std::endl;
+//	std::cout << typeid(std_end).name() << '\n';
+	//std::cout << "insert2: " << std::endl;
 	vector.insert(vector.begin() + 3, 1);
+	std::cout << "Cap3: " << vector.capacity() << std::endl;
+
 	while (std_it != std_end)
 	{
 		std::cout << *std_it << " | ";
@@ -99,13 +123,15 @@ int main(int argc, char **argv)
 {
 	if (argc == 1)
 	{
-		test_insert< std::vector<int> >();
-		test_capacity< std::vector<int> >();
+//		test_capacity< std::vector<int> >();
+		test_insert2< std::vector<int> >();
+
 	}
 	else
 	{
-		test_insert< ft::vector<int> >();
-		test_capacity< ft::vector<int> >();
+//		test_capacity< ft::vector<int> >();
+		test_insert2< ft::vector<int> >();
+
 	}
 
 	(void)argv;

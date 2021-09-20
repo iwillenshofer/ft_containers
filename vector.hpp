@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/16 13:23:35 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/20 18:50:49 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,9 @@ namespace ft
 			** Iterators
 			*/
 			iterator		begin() { return (iterator(this->_data)); }
-			iterator		end() { return (iterator(&(this->_data[this->_size]))); }
+			iterator		end() { return (iterator(this->_data + this->_size)); }
 			const_iterator	begin() const { return (const_iterator(this->_data)); }
-			const_iterator	end() const { return const_iterator(&(this->_data[this->_size])); }
+			const_iterator	end() const { return const_iterator(this->_data + this->_size); }
 			reverse_iterator rbegin() { return (reverse_iterator(this->end())); }
 			const_reverse_iterator rbegin() const { return (const_reverse_iterator(this->end())); }
 			reverse_iterator rend() { return (reverse_iterator(this->begin())); }
@@ -159,12 +159,11 @@ namespace ft
 					throw std::length_error("Cannot reserve larger than max_size.");
 				if (n > this->_capacity)
 				{
-					n = (n > this->_capacity * 2) ? n : this->_capacity * 2;
 					tmp = this->_allocator.allocate(n);
 					for (size_type i = 0; i < old_size; i++)
-						this->_allocator.construct(&(tmp[i]), value_type(this->_data[i]));
+						this->_allocator.construct(&(tmp[i]), this->_data[i]);
 					this->clear();
-					this->_allocator.deallocate(&(*(this->_data)), this->_capacity);
+					this->_allocator.deallocate(this->_data, this->_capacity);
 					this->_capacity = n;
 					this->_data = tmp;
 					this->_size = old_size;
@@ -225,7 +224,7 @@ namespace ft
 		void			push_back(const value_type & val)
 		{	
 			this->reserve(this->_size + 1);
-			this->_allocator.construct(&(this->_data[this->_size]), value_type(val));
+			this->_allocator.construct(&(this->_data[this->_size]), val);
 			this->_size++;
 		}
 
@@ -255,20 +254,24 @@ namespace ft
 		template <typename InputIterator>
 		void			insert (iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0x0)
 		{
-			difference_type pos =  position - this->begin();
-			difference_type size = ft::distance(first, last);
-			difference_type move = this->_size - pos;
-			difference_type last_elem = this->_size + size - 1;
+			size_type pos =  position - this->begin();
+			size_type len = ft::distance(first, last);
+			size_type move = this->_size - pos;
+			size_type last_elem = this->_size + len - 1;
 
-			this->reserve(this->_size + size);
-			for (difference_type j = 0; j < move; j++)
+			if (this->_capacity < this->_size + len)
+				this->reserve(this->_size + (this->_size > len ? this->_size : len));
+			for (size_type j = 0; j < len; j++)
+				this->_allocator.construct(&(this->_data[(this->_size - 1) + len +  j]), *(first + j));
+			for (size_type j = 0; j < move; j++)
 			{
-				this->_allocator.construct(&(this->_data[last_elem - j]), value_type(this->_data[last_elem - j - size]));
-				this->_allocator.destroy(&(this->_data[last_elem - j - size]));
+				std::swap(this->_data[pos + j], this->_data[pos + len + j]);
+//				this->_allocator.construct(&(this->_data[last_elem - j]), value_type(this->_data[last_elem - j - len]));
+//				this->_allocator.destroy(&(this->_data[last_elem - j - len]));
             }
-			for (difference_type i = 0; i < size; ++i)
-				this->_allocator.construct(&(this->_data[pos + i]), typename ft::iterator_traits<InputIterator>::value_type(*(first + i)));
-			this->_size += size;
+//			for (size_type i = 0; i < len; ++i)
+//				this->_allocator.construct(&(this->_data[pos + i]), typename ft::iterator_traits<InputIterator>::value_type(*(first + i)));
+			this->_size += len;
 		}
 		
 		iterator		erase (iterator position)
