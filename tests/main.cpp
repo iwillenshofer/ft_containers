@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:18:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/20 18:33:24 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/21 15:53:46 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,20 @@ template<typename T>
 void test_insert2()
 {
 
+	T cont;
+	cont.clear();
+	cont.push_back(10);
+	cont.push_back(20);
+	cont.push_back(30);
+	cont.push_back(40);
 	T tmp;
-	tmp.clear();
-	tmp.push_back(5);
-	tmp.push_back(6);
-	tmp.push_back(7);
-	tmp.push_back(8);
-	typename T::iterator it = tmp.begin();
-//	++it;
-	tmp.insert(it, 5, 1);
-	for (typename T::const_iterator it = tmp.begin(); it != tmp.end(); it += 1)
+	tmp.push_back(15);
+	tmp.push_back(16);
+
+	cont.insert(cont.end() , tmp.begin(), tmp.end());
+		
+
+	for (typename T::const_iterator it = cont.begin(); it != cont.end(); it += 1)
 		std::cout << *it << " | ";
 
 	
@@ -125,6 +129,9 @@ int main(int argc, char **argv)
 	{
 //		test_capacity< std::vector<int> >();
 		test_insert2< std::vector<int> >();
+		std::cout << std::endl;
+		test_insert2< ft::vector<int> >();
+
 
 	}
 	else

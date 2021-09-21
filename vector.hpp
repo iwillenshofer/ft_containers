@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/20 18:50:49 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/21 16:08:34 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,20 +257,16 @@ namespace ft
 			size_type pos =  position - this->begin();
 			size_type len = ft::distance(first, last);
 			size_type move = this->_size - pos;
-			size_type last_elem = this->_size + len - 1;
 
 			if (this->_capacity < this->_size + len)
 				this->reserve(this->_size + (this->_size > len ? this->_size : len));
 			for (size_type j = 0; j < len; j++)
-				this->_allocator.construct(&(this->_data[(this->_size - 1) + len +  j]), *(first + j));
-			for (size_type j = 0; j < move; j++)
+				this->_allocator.construct((this->_data + this->_size + j), *(first + j));
+			for (size_type j = 0; j < len; j++)
 			{
-				std::swap(this->_data[pos + j], this->_data[pos + len + j]);
-//				this->_allocator.construct(&(this->_data[last_elem - j]), value_type(this->_data[last_elem - j - len]));
-//				this->_allocator.destroy(&(this->_data[last_elem - j - len]));
-            }
-//			for (size_type i = 0; i < len; ++i)
-//				this->_allocator.construct(&(this->_data[pos + i]), typename ft::iterator_traits<InputIterator>::value_type(*(first + i)));
+				for (size_type i = 0; i < move; i++)
+					std::swap(*(this->end() + j - i), *(this->end() + j - i - 1));
+			}
 			this->_size += len;
 		}
 		
