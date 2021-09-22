@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/21 18:18:34 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:41:46 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 
 # include <memory>
 # include <stdexcept>
+# include <functional>
 # include "includes/iterators.hpp"
 # include "includes/iterator_traits.hpp"
 # include "includes/reverse_iterator.hpp"
 # include "includes/type_traits.hpp"
 # include "includes/algorithm.hpp"
+# include "includes/utilities.hpp"
 
 namespace ft
 {
@@ -28,7 +30,7 @@ namespace ft
 	** https://cplusplus.com/reference/map/map/
 	*/
 
-	template < typename T, typename Alloc = std::allocator<T> >
+	template <typename Key, typename T, typename Compare = std::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
 	class map
 	{
 		public:

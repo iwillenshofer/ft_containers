@@ -6,7 +6,7 @@
 #    By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/09/21 18:37:24 by iwillens         ###   ########.fr        #
+#    Updated: 2021/09/22 17:23:26 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ INCLUDES = ${INC_DIR}/algorithm.hpp \
 			vector.hpp
 
 
-FT_SRCS = ${SRC_DIR}/main.cpp 
+FT_SRCS = ${SRC_DIR}/main.cpp
 
 ORIG_SRCS = ${SRC_DIR}/main.cpp
 
