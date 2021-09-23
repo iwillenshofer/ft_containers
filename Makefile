@@ -31,7 +31,8 @@ INCLUDES = ${INC_DIR}/algorithm.hpp \
 			vector.hpp
 
 
-FT_SRCS = ${SRC_DIR}/main.cpp
+FT_SRCS = ${SRC_DIR}/main.cpp \
+				${SRC_DIR}/colorize.cpp
 
 ORIG_SRCS = ${SRC_DIR}/main.cpp
 
