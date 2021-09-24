@@ -6,19 +6,20 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 18:48:06 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/23 18:48:45 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/24 17:08:44 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "colorize.hpp"
 
-bool ft::Colorize::colorized { true } ;
+bool ft::Tester::colorized { true } ;
 
-ft::Colorize::Colorize(): ft::Colorize::Colorize("") {};
+ft::Tester::Tester(void)
+: _text(""), _color(CLR_DEFAULT), _background(CLR_DEFAULT), _lightforeground(false), _lightbackground(false), _bold(false) { };
 
-ft::Colorize::Colorize(Colorize const &c) { *this = c; }
+ft::Tester::Tester(Tester const &c) { *this = c; }
 
-ft::Colorize::Colorize(std::string s, int color, int attributes, int background)
+ft::Tester::Tester(std::string s, int color, int attributes, int background)
 : _text(s), _color(color), _background(background), _lightforeground(false), _lightbackground(false), _bold(false)
 {
     if (attributes & CLR_LIGHTFG)
@@ -30,9 +31,9 @@ ft::Colorize::Colorize(std::string s, int color, int attributes, int background)
         this->Bold();
 };
 
-ft::Colorize::~Colorize() {};
+ft::Tester::~Tester() {};
 
-ft::Colorize &ft::Colorize::operator=(Colorize const &c)
+ft::Tester &ft::Tester::operator=(Tester const &c)
 {
     this->_text = c._text;
     this->_color = c._color;
@@ -43,29 +44,29 @@ ft::Colorize &ft::Colorize::operator=(Colorize const &c)
     return (*this);
 }
 
-void ft::Colorize::lightForeground(bool enabled) { this->_lightforeground = enabled; }
-void ft::Colorize::lightBackground(bool enabled) { this->_lightbackground = enabled; }
-void ft::Colorize::Bold(bool enabled) { this->_bold = enabled; }
-void ft::Colorize::Black() { this->_color = CLR_BLACK; }
-void ft::Colorize::Red() { this->_color = CLR_RED; }
-void ft::Colorize::Green() { this->_color = CLR_GREEN; }
-void ft::Colorize::Yellow() { this->_color = CLR_YELLOW; }
-void ft::Colorize::Blue() { this->_color = CLR_BLUE; }
-void ft::Colorize::Magenta() { this->_color = CLR_MAGENTA; }
-void ft::Colorize::Cyan() { this->_color = CLR_CYAN; }
-void ft::Colorize::White() { this->_color = CLR_WHITE; }
-void ft::Colorize::bgBlack() { this->_background = CLR_BLACK; }
-void ft::Colorize::bgRed() { this->_background = CLR_RED; }
-void ft::Colorize::bgGreen() { this->_background = CLR_GREEN; }
-void ft::Colorize::bgYellow() { this->_background = CLR_YELLOW; }
-void ft::Colorize::bgBlue() { this->_background = CLR_BLUE; }
-void ft::Colorize::bgMagenta() { this->_background = CLR_MAGENTA; }
-void ft::Colorize::bgCyan() { this->_background = CLR_CYAN; }
-void ft::Colorize::bgWhite() { this->_background = CLR_WHITE; }
+void ft::Tester::lightForeground(bool enabled) { this->_lightforeground = enabled; }
+void ft::Tester::lightBackground(bool enabled) { this->_lightbackground = enabled; }
+void ft::Tester::Bold(bool enabled) { this->_bold = enabled; }
+void ft::Tester::Black() { this->_color = CLR_BLACK; }
+void ft::Tester::Red() { this->_color = CLR_RED; }
+void ft::Tester::Green() { this->_color = CLR_GREEN; }
+void ft::Tester::Yellow() { this->_color = CLR_YELLOW; }
+void ft::Tester::Blue() { this->_color = CLR_BLUE; }
+void ft::Tester::Magenta() { this->_color = CLR_MAGENTA; }
+void ft::Tester::Cyan() { this->_color = CLR_CYAN; }
+void ft::Tester::White() { this->_color = CLR_WHITE; }
+void ft::Tester::bgBlack() { this->_background = CLR_BLACK; }
+void ft::Tester::bgRed() { this->_background = CLR_RED; }
+void ft::Tester::bgGreen() { this->_background = CLR_GREEN; }
+void ft::Tester::bgYellow() { this->_background = CLR_YELLOW; }
+void ft::Tester::bgBlue() { this->_background = CLR_BLUE; }
+void ft::Tester::bgMagenta() { this->_background = CLR_MAGENTA; }
+void ft::Tester::bgCyan() { this->_background = CLR_CYAN; }
+void ft::Tester::bgWhite() { this->_background = CLR_WHITE; }
 
-void ft::Colorize::setText(std::string s) { this->_text = s; }
+void ft::Tester::setText(std::string s) { this->_text = s; }
 
-void ft::Colorize::print()
+void ft::Tester::print()
 {
     std::string str("\033[");
     int attributes = 0;
@@ -97,3 +98,85 @@ void ft::Colorize::print()
     }
 }
 
+std::string &ft::Tester::line_fill(std::string &s, int align = ALN_CENTER)
+{
+	if (s.length() % 2)
+		s += " ";
+	s = " " + s + " ";	
+	while (s.length() < LINE_LEN)
+	{
+		if (align == ALN_CENTER || align == ALN_LEFT)
+			s = s + " ";
+		if (align == ALN_CENTER || align == ALN_RIGHT)
+			s = " " + s;
+	}
+	return (s);
+}
+
+void ft::Tester::printTitle()
+{
+	printTitle(this->_text);
+}
+
+void ft::Tester::printTitle(std::string s)
+{
+	std::string empty_str("");
+	s = "* * * " + s + " * * *";
+	std::cout << std::endl;
+	ft::Tester color;
+
+	empty_str = color.line_fill(empty_str);
+	color.setText(empty_str);
+	color.Blue();
+	color.lightBackground();
+	color.Bold();
+	color.bgWhite();
+	color.print();
+	std::cout << std::endl;
+	color.setText(color.line_fill(s));
+	color.print();
+	std::cout << std::endl;
+	color.setText(empty_str);
+	color.print();
+	std::cout << std::endl;
+}
+	
+void ft::Tester::printName()
+{
+	printName(this->_text);
+}
+
+void ft::Tester::printName(std::string s)
+{
+	ft::Tester color(s);
+
+	s = color.line_fill(s);
+	color.setText(s);
+	color.White();
+	color.Bold();
+	color.bgBlue();
+	color.print();
+	std::cout << std::endl;
+}
+
+void ft::Tester::startClock()
+{
+	this->_timestart = clock();	
+}
+
+void ft::Tester::printClock()
+{
+	double elapsedSeconds = (clock() - this->_timestart) / (double)(CLOCKS_PER_SEC);
+	std::string s = "Time Elapsed: " + std::to_string(elapsedSeconds);
+	ft::Tester color;
+
+	s = color.line_fill(s, ALN_RIGHT);
+	color.setText(s);
+	color.White();
+	color.Bold();
+	color.Black();
+	color.lightBackground();
+	color.print();
+	std::cout << std::endl;
+	
+}
