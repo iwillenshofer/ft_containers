@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/21 16:17:03 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/25 10:39:16 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,10 +215,10 @@ namespace ft
 
 		void			assign (size_type n, const value_type& val)
 		{
-			value_type values[n];
+			this->clear();
+			this->reserve(n);
 			for (size_type i = 0; i < n; i++)
-				values[i] = val;
-			assign(&values[0], &values[n]);
+				push_back(val);
 		}
 
 		void			push_back(const value_type & val)
@@ -243,12 +243,20 @@ namespace ft
 		}
 		
 		void			insert (iterator position, size_type n, const value_type& val)
-		{
-			value_type values[n];
-			
-			for (size_type i = 0; i < n; i++)
-				values[i] = val;
-			insert(position, values, values + n);
+		{	
+			size_type pos =  position - this->begin();
+			size_type move = this->_size - pos;
+
+			if (this->_capacity < this->_size + n)
+				this->reserve(this->_size + (this->_size > n ? this->_size : n));
+			for (size_type j = 0; j < n; j++)
+				this->_allocator.construct((this->_data + this->_size + j), value_type(val));
+			for (size_type j = 0; j < n; j++)
+			{
+				for (size_type i = 0; i < move; i++)
+					std::swap(*(this->end() + j - i), *(this->end() + j - i - 1));
+			}
+			this->_size += n;
 		}
 
 		template <typename InputIterator>

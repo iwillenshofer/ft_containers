@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type_traits.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:14:55 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/15 10:52:59 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/25 09:49:05 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ namespace ft
 	** true or false on is_integral, but true_type and false_type were created
 	** to follow the original implementation of is_integral as much as possible.
 	** types that will return true are: bool, char, char16_t, char32_t, wchar_t,
-	** short, int, long, long long.
+	** short, int, long, long.
 	** reference: https://en.cppreference.com/w/cpp/types/is_integral
 	*/
 	template <typename T, T val>
@@ -100,10 +100,6 @@ namespace ft
 	struct is_integral_helper<long> : public true_type {};
 	template <>
 	struct is_integral_helper<unsigned long> : public true_type {};
-	template <>
-	struct is_integral_helper<long long> : public true_type {};
-	template <>
-	struct is_integral_helper<unsigned long long> : public true_type {};
 
 	template <typename T>
 	struct is_integral : public ft::is_integral_helper<typename ft::remove_cv<T>::type>::type {};

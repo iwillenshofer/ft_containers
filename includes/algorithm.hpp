@@ -3,12 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   algorithm.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 10:52:16 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/15 10:52:31 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/25 10:12:54 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef ALGORITHM_HPP
+# define ALGORITHM_HPP
 
 namespace ft
 {
@@ -44,3 +47,5 @@ namespace ft
 		return true;
 	}
 }
+
+#endif

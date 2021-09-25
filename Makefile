@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/09/22 17:23:26 by iwillens         ###   ########.fr        #
+#    Updated: 2021/09/25 10:39:43 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = ft_containers
 ORIGINAL = orig_containers
 
 CC = clang++
-CCFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CCFLAGS = -Wall -Werror -Wextra -g -fsanitize=address -std=c++98 -pedantic
 
 SRC_DIR = ./tests
 OBJ_DIR = ./build
@@ -32,7 +32,10 @@ INCLUDES = ${INC_DIR}/algorithm.hpp \
 
 
 FT_SRCS = ${SRC_DIR}/main.cpp \
-				${SRC_DIR}/colorize.cpp
+				${SRC_DIR}/Tester.cpp \
+				${SRC_DIR}/test_utilities.cpp \
+				${SRC_DIR}/test_reverseiterator.cpp
+
 
 ORIG_SRCS = ${SRC_DIR}/main.cpp
 
