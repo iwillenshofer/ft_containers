@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:14:55 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/25 09:49:05 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/25 17:37:39 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ namespace ft
 	** can be used to overload a function only when a specific requirement is true,
 	** passed as a specialization parameter.
 	** Example: template <class T, 
-	**	typename fr::enable_if<std::is_integral<T>::value, T>::type* = nullptr>.
+	**	typename ft::enable_if<std::is_integral<T>::value, T>::type* = nullptr>.
 	** If the result of is_integral is false, enable_if won't have 'type', which
 	** causes the overload to fail (as expected).
 	*/	
@@ -116,6 +116,18 @@ namespace ft
 	template <typename T>
 	struct is_bool : public ft::is_bool_helper<typename ft::remove_cv<T>::type>::type {};
 
+	/*
+	** is_same to check if two types are the same.
+	*/
+	template<typename TL, typename TR>
+    struct is_same : public false_type {};
+
+  	template<typename T>
+    struct is_same<T, T> : public true_type {};
+	
 }
+
+
+
 
 #endif
