@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type_traits.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:14:55 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/25 17:37:39 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/27 12:49:26 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ namespace ft
 	struct is_integral_helper<long> : public true_type {};
 	template <>
 	struct is_integral_helper<unsigned long> : public true_type {};
-
 	template <typename T>
 	struct is_integral : public ft::is_integral_helper<typename ft::remove_cv<T>::type>::type {};
 

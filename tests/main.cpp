@@ -21,6 +21,14 @@ int main (int argc, char **argv)
 		test_makepair(tester);
 		tester.printClock();
 		test_reverseiterator(tester);
+
+		ft::vector<int> v;
+		for (int i = 0; i < 10; i++)
+		{
+			v.push_back(i);
+			std::cout << v.capacity() << std::endl;
+		}
+
 	}
 	(void)argv;
 	return (0);

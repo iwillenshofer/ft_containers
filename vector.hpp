@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/25 10:39:16 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/27 19:11:11 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ namespace ft
 			};
 
 			template <typename InputIterator>
-			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if< !ft::is_integral<InputIterator>::value, InputIterator >::type = 0):
+			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if< !ft::is_integral<InputIterator>::value, InputIterator >::type* = 0x0):
 			_allocator(alloc), _size(last - first), _capacity(last - first)
 			{
 				this->_data = this->_allocator.allocate(this->_size);
@@ -95,7 +95,7 @@ namespace ft
 				}
 				this->_size = x._size;
 				this->_capacity = x._capacity;
-				this->_data = this->_allocator.allocate(this->_size);
+				this->_data = this->_allocator.allocate(this->_capacity);
 				for (size_type i = 0; i < this->_size; i++)
 					this->_allocator.construct(&(this->_data[i]), value_type(x._data[i]));
 				return (*this);
@@ -130,16 +130,24 @@ namespace ft
 
 				if (n == this->_size)
 					return ;
-				tmp = this->_allocator.allocate(n);
-				for (size_type i = 0; i < (n < this->_size ? n : this->_size); i++)
-					this->_allocator.construct(&(tmp[i]), this->_data[i]);
-				for (size_type i = this->_size; i < n; i++)
-					this->_allocator.construct(&(tmp[i]), val);
-				this->clear();
-				this->_allocator.deallocate(&(*this->_data), this->_capacity);				
-				this->_data = tmp;
-				this->_size = n;
-				this->_capacity = n;
+				else if (n > this->_size)
+				{
+					tmp = this->_allocator.allocate(n);
+					for (size_type i = 0; i < (n < this->_size ? n : this->_size); i++)
+						this->_allocator.construct(&(tmp[i]), this->_data[i]);
+					for (size_type i = this->_size; i < n; i++)
+						this->_allocator.construct(&(tmp[i]), val);
+					this->clear();
+					this->_allocator.deallocate(&(*this->_data), this->_capacity);				
+					this->_data = tmp;
+					this->_size = n;
+					this->_capacity = n;
+				}
+				else
+				{
+					while (this->_size > n)
+						this->pop_back();
+				}
 			}
 
 			size_type		capacity() const { return (this->_capacity); }
@@ -200,7 +208,7 @@ namespace ft
 		** Modifiers
 		*/
 		template <class InputIterator>
-		void			assign (InputIterator first, InputIterator last)
+		void			assign (InputIterator first, InputIterator last, typename ft::enable_if< !ft::is_integral<InputIterator>::value, InputIterator >::type* = 0x0)
 		{
 			size_type n = last - first;
 
@@ -222,10 +230,18 @@ namespace ft
 		}
 
 		void			push_back(const value_type & val)
-		{	
-			this->reserve(this->_size + 1);
-			this->_allocator.construct(&(this->_data[this->_size]), val);
-			this->_size++;
+		{
+			if (this->_capacity < this->_size + 1)
+			{
+				this->reserve(this->_size ? this->_size * 2 : 1);
+				this->_allocator.construct(&(this->_data[this->_size]), val);
+				this->_size++;
+			}
+			else
+			{
+				this->_allocator.construct(&(this->_data[this->_size]), val);
+				this->_size++;
+			}
 		}
 
 		void			pop_back()
@@ -328,7 +344,7 @@ namespace ft
 				pop_back();
 		};
 
-		allocator_type	get_allocator() const { return (allocator_type(this->_p)); };
+		allocator_type	get_allocator() const { return (allocator_type(this->_allocator)); };
 
 	};
 
