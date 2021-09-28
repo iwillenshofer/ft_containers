@@ -21,6 +21,7 @@ int main (int argc, char **argv)
 		test_makepair(tester);
 		tester.printClock();
 		test_reverseiterator(tester);
+		test_iteratortraits(tester);
 
 		ft::vector<int> v;
 		for (int i = 0; i < 10; i++)

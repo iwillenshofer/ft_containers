@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 19:43:31 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/25 10:40:15 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/27 20:02:14 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void test_makepair(ft::Tester &tester);
 */
 
 void test_reverseiterator(ft::Tester tester);
+void test_iteratortraits(ft::Tester &tester);
 
 
 #endif

@@ -1,5 +1,33 @@
 #include "tests.hpp"
 
+template <typename Iterator, typename T >
+typename T::value_type test_iteratortraits_helper(Iterator first, Iterator last)
+{
+    typename T::difference_type n = last - first;
+    typename T::difference_type i = 0;
+    typename T::value_type val = typename T::value_type();
+    while (i < n)
+    {
+        val += *first++;
+        i++;
+    }
+    return (val);
+}
+
+void test_iteratortraits(ft::Tester &tester)
+{
+    tester.printName("ft::iterator_traits");
+    int i[10];
+    for (int j = 0; j < 10; j++)
+        i[j] = j;
+    char c[12];
+    for (int j = 0; j < 12; j++)
+        c[j] = j;
+    tester.compare(test_iteratortraits_helper<int*, ft::iterator_traits<int*> >(i, i + 10), test_iteratortraits_helper<int*, std::iterator_traits<int*> >(i, i + 10));
+    tester.compare(test_iteratortraits_helper<char*, ft::iterator_traits<char*> >(c, c + 12), test_iteratortraits_helper<char*, std::iterator_traits<char*> >(c, c + 12));
+
+}
+
 void test_pair(ft::Tester &tester)
 {
 	ft::pair<int,char> foo (10,'z');
