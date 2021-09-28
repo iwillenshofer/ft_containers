@@ -29,6 +29,10 @@ int main (int argc, char **argv)
 			v.push_back(i);
 			std::cout << v.capacity() << std::endl;
 		}
+		test_enableif(tester);
+		test_isintegral(tester);
+		test_equal(tester);
+		lexicographical_compare(tester);
 
 	}
 	(void)argv;

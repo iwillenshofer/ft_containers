@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 19:43:31 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/27 20:02:14 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/28 18:52:16 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@
 
 void test_pair(ft::Tester &tester);
 void test_makepair(ft::Tester &tester);
+void test_enableif(ft::Tester &tester);
+void test_isintegral(ft::Tester &tester);
+void test_equal(ft::Tester &tester);
+void lexicographical_compare(ft::Tester &tester);
 
 /*
 ** iterators
@@ -38,6 +42,7 @@ void test_makepair(ft::Tester &tester);
 
 void test_reverseiterator(ft::Tester tester);
 void test_iteratortraits(ft::Tester &tester);
+
 
 
 #endif
