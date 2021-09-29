@@ -1,4 +1,5 @@
 #include <limits>
+#include <algorithm>
 #include "tests.hpp"
 
 
@@ -7,7 +8,7 @@
 */
 bool mycomp (char c1, char c2)
 {
-	return std::tolower(c1) < std::tolower(c2);
+	return (std::tolower(c1) < std::tolower(c2));
 }
 
 void lexicographical_compare(ft::Tester &tester)
@@ -15,15 +16,49 @@ void lexicographical_compare(ft::Tester &tester)
 	tester.printName("ft::lexicographical_compare");
 	std::string s1("Apple");
 	std::string s2("apartment");
+	std::string s3("Apple");
+	std::string s4("Apartment2");
 
-    tester.compare(ft::lexicographical_compare(s1.begin(), s1.end(), s2.begin(), s2.end()), true);
-    tester.compare(ft::lexicographical_compare(s1.begin(), s1.end(), s2.begin(), s2.end(), mycomp), true);
+    tester.compare(
+		ft::lexicographical_compare(s1.begin(), s1.end(), s2.begin(), s2.end()),
+		std::lexicographical_compare(s1.begin(), s1.end(), s2.begin(), s2.end())
+		);
+    tester.compare(
+		ft::lexicographical_compare(s1.begin(), s1.end(), s1.begin(), s1.end()), 
+		std::lexicographical_compare(s1.begin(), s1.end(), s1.begin(), s1.end())
+	);
+    tester.compare(
+		ft::lexicographical_compare(s1.begin(), s1.end(), s3.begin(), s3.end()), 
+		std::lexicographical_compare(s1.begin(), s1.end(), s3.begin(), s3.end())
+		);
+    tester.compare(
+		ft::lexicographical_compare(s1.begin(), s1.end(), s2.begin(), s2.end(), mycomp),
+		std::lexicographical_compare(s1.begin(), s1.end(), s2.begin(), s2.end(), mycomp)
+		);
+    tester.compare(
+		ft::lexicographical_compare(s1.begin(), s1.end(), s1.begin(), s1.end(), mycomp),
+		std::lexicographical_compare(s1.begin(), s1.end(), s1.begin(), s1.end(), mycomp)
+		);
+    tester.compare(
+		ft::lexicographical_compare(s2.begin(), s2.end(), s4.begin(), s4.end()), 
+		std::lexicographical_compare(s2.begin(), s2.end(), s4.begin(), s4.end())
+		);
+    tester.compare(
+		ft::lexicographical_compare(s2.begin(), s2.end(), s4.begin(), s4.end(), mycomp),
+		std::lexicographical_compare(s2.begin(), s2.end(), s4.begin(), s4.end(), mycomp)
+		);
 	std::cout << std::endl;
 }
 
 /*
 ** ft::equal
 */
+
+bool mypredicate (char c1, char c2)
+{
+	return(std::tolower(c1) == std::tolower(c2));
+}
+
 void test_equal(ft::Tester &tester)
 {
 	tester.printName("ft::equal");
@@ -32,11 +67,76 @@ void test_equal(ft::Tester &tester)
 	std::string s3("Test3");
 	std::string s4("");
 	std::string s5("");
+	std::string s6("Test1 ");
+	std::string s7("Test1.");
+	std::string s8("TEST1.");
 
-    tester.compare(ft::equal(s1.begin(), s1.end(), s2.begin()), true);
-	tester.compare(ft::equal(s1.begin(), s1.end(), s3.begin()), false);
-	tester.compare(ft::equal(s1.begin(), s1.end(), s4.begin()), false);
-	tester.compare(ft::equal(s4.begin(), s4.end(), s5.begin()), true);
+
+    tester.compare(
+		ft::equal(s1.begin(), s1.end(), s2.begin()),
+		std::equal(s1.begin(), s1.end(), s2.begin())
+		);
+	tester.compare(
+		ft::equal(s1.begin(), s1.end(), s3.begin()), 
+		std::equal(s1.begin(), s1.end(), s3.begin())
+		);
+	tester.compare(
+		ft::equal(s1.begin(), s1.end(), s4.begin()), 
+		std::equal(s1.begin(), s1.end(), s4.begin())
+		);
+	tester.compare(
+		ft::equal(s4.begin(), s4.end(), s5.begin()),
+		std::equal(s4.begin(), s4.end(), s5.begin())
+		);
+	tester.compare(
+		ft::equal(s1.begin(), s1.end(), s4.begin()), 
+		std::equal(s1.begin(), s1.end(), s4.begin())
+		);
+	tester.compare(
+		ft::equal(s1.begin(), s1.end(), s6.begin()),
+		std::equal(s1.begin(), s1.end(), s6.begin())
+		);
+	tester.compare(
+		ft::equal(s6.begin(), s6.end(), s7.begin()), 
+		std::equal(s6.begin(), s6.end(), s7.begin())
+		);
+	tester.compare(
+		ft::equal(s7.begin(), s7.end(), s8.begin()), 
+		std::equal(s7.begin(), s7.end(), s8.begin())
+		);
+
+	tester.compare(
+		ft::equal(s1.begin(), s1.end(), s2.begin(), mypredicate),
+		std::equal(s1.begin(), s1.end(), s2.begin(), mypredicate)
+		);
+	tester.compare(
+		ft::equal(s1.begin(), s1.end(), s3.begin(), mypredicate), 
+		std::equal(s1.begin(), s1.end(), s3.begin(), mypredicate)
+		);
+	tester.compare(
+		ft::equal(s1.begin(), s1.end(), s4.begin(), mypredicate), 
+		std::equal(s1.begin(), s1.end(), s4.begin(), mypredicate)
+		);
+	tester.compare(
+		ft::equal(s4.begin(), s4.end(), s5.begin(), mypredicate),
+		std::equal(s4.begin(), s4.end(), s5.begin(), mypredicate)
+		);
+	tester.compare(
+		ft::equal(s1.begin(), s1.end(), s4.begin(), mypredicate), 
+		std::equal(s1.begin(), s1.end(), s4.begin(), mypredicate)
+		);
+	tester.compare(
+		ft::equal(s1.begin(), s1.end(), s6.begin(), mypredicate),
+		std::equal(s1.begin(), s1.end(), s6.begin(), mypredicate)
+		);
+	tester.compare(
+		ft::equal(s6.begin(), s6.end(), s7.begin(), mypredicate), 
+		std::equal(s6.begin(), s6.end(), s7.begin(), mypredicate)
+		);
+	tester.compare(
+		ft::equal(s7.begin(), s7.end(), s8.begin(), mypredicate),
+		std::equal(s7.begin(), s7.end(), s8.begin(), mypredicate)
+		);
 	std::cout << std::endl;
 }
 
@@ -109,6 +209,7 @@ void test_iteratortraits(ft::Tester &tester)
         c[j] = j;
     tester.compare(test_iteratortraits_helper<int*, ft::iterator_traits<int*> >(i, i + 10), test_iteratortraits_helper<int*, std::iterator_traits<int*> >(i, i + 10));
     tester.compare(test_iteratortraits_helper<char*, ft::iterator_traits<char*> >(c, c + 12), test_iteratortraits_helper<char*, std::iterator_traits<char*> >(c, c + 12));
+	std::cout << std::endl;
 
 }
 
@@ -166,4 +267,16 @@ void test_makepair(ft::Tester &tester)
 	tester.compare(foo.first == bar.first, true);
 	tester.compare(foo.second == bar.second, true);
 	std::cout << std::endl;
+}
+
+void test_utilities(ft::Tester &tester)
+{
+	tester.printTitle("Utilities");
+	test_pair(tester);
+	test_makepair(tester);
+	test_iteratortraits(tester);
+	test_enableif(tester);
+	test_isintegral(tester);
+	test_equal(tester);
+	lexicographical_compare(tester);
 }
