@@ -12,7 +12,7 @@
 
 #include "Tester.hpp"
 
-bool ft::Tester::colorized = true;
+int ft::Tester::kind = KIND_COMPARE;
 
 ft::Tester::Tester(void)
 : _text(""), _color(CLR_DEFAULT), _background(CLR_DEFAULT), _lightforeground(false), _lightbackground(false), _bold(false) { }
@@ -73,7 +73,7 @@ void ft::Tester::print()
     int color = this->_color;
     int background = this->_background;
 
-    if (this->colorized)
+    if (this->kind == KIND_COMPARE)
     {
         if (color && this->_lightforeground)
             color += 60;
@@ -166,8 +166,10 @@ void ft::Tester::startClock()
 
 void ft::Tester::printClock(std::string lib)
 {
+	if(!(this->kind == KIND_COMPARE))
+		return ;
 	double elapsedSeconds = (clock() - this->_timestart) / (double)(CLOCKS_PER_SEC);
-	std::string s = "Time Elapsed" + lib + ": " + ft::to_string(elapsedSeconds);
+	std::string s = "Time Elapsed" + lib + ": " + ft::to_string(elapsedSeconds * 1000);
 	ft::Tester color;
 
 	s = color.line_fill(s, ALN_RIGHT);
@@ -178,5 +180,14 @@ void ft::Tester::printClock(std::string lib)
 	color.lightBackground();
 	color.print();
 	std::cout << std::endl;
-	
+}
+
+/*
+** if is not compare, will print the result.
+*/
+std::string &ft::Tester::Return(std::string &s)
+{
+	if(!(ft::Tester::kind == KIND_COMPARE))
+		std::cout << s << std::endl ;
+	return (s);
 }

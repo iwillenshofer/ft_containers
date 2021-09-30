@@ -44,11 +44,17 @@
 # define ALN_LEFT		1
 # define ALN_RIGHT		2
 
+# define KIND_COMPARE	1
+# define KIND_FT		2
+# define KIND_STD		4
+
 namespace ft
 {
 	class Tester
-	{
-		
+	{	
+		public:
+			static int		kind;
+
 		private:
 			std::string 	_text;
 			int				_color;
@@ -64,7 +70,6 @@ namespace ft
 			Tester(std::string s, int color = CLR_DEFAULT, int attributes = CLR_DEFAULT, int background = CLR_DEFAULT);
 			virtual ~Tester();
 			Tester &operator=(Tester const &c);
-			static bool		colorized;
 			void setText(std::string s);
 
 			/*
@@ -106,6 +111,8 @@ namespace ft
 			template <typename T>
 			void compare(T t1, T t2)
 			{
+				if(!(this->kind == KIND_COMPARE))
+					return ;
 				ft::Tester color;
 				color.Bold();
 				color.Green();
@@ -127,6 +134,7 @@ namespace ft
 			*/
 			void startClock();
 			void printClock(std::string lib = "[ft ]");
+			static std::string &Return(std::string &s);
 
 	};
 	

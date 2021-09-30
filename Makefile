@@ -6,19 +6,20 @@
 #    By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/09/25 10:39:43 by iwillens         ###   ########.fr        #
+#    Updated: 2021/09/29 21:05:50 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_containers
-
-ORIGINAL = orig_containers
+NAME_STD = std_containers
 
 CC = clang++
 CCFLAGS = -Wall -Werror -Wextra -g -fsanitize=address -std=c++98 -pedantic
 
 SRC_DIR = ./tests
-OBJ_DIR = ./build
+OBJ_DIR = ./build_ft
+STD_OBJ_DIR = ./build_std
+
 INC_DIR = ./includes
 
 INCLUDES = ${INC_DIR}/algorithm.hpp \
@@ -31,37 +32,40 @@ INCLUDES = ${INC_DIR}/algorithm.hpp \
 			vector.hpp
 
 
-FT_SRCS = ${SRC_DIR}/main.cpp \
+SRCS = ${SRC_DIR}/main.cpp \
 				${SRC_DIR}/Tester.cpp \
 				${SRC_DIR}/test_utilities.cpp \
-				${SRC_DIR}/test_reverseiterator.cpp
+				${SRC_DIR}/test_reverseiterator.cpp \
+				${SRC_DIR}/vector_constructors.cpp \
+				${SRC_DIR}/vector.cpp
 
+FT_OBJS = $(patsubst ${SRC_DIR}/%.c, ${OBJ_DIR}/%.o, ${SRCS})
+STD_OBJS = $(patsubst ${SRC_DIR}/%.c, ${OBJ_DIR}/%.o, ${SRCS})
 
-ORIG_SRCS = ${SRC_DIR}/main.cpp
-
-FT_OBJS = $(patsubst ${SRC_DIR}/%.c, ${OBJ_DIR}/%.o, ${FT_SRCS})
-ORIG_OBJS = $(patsubst ${SRC_DIR}/%.c, ${OBJ_DIR}/%.o, ${ORIG_SRCS})
-
-all: ${NAME}
+all: ${NAME} ${NAME_STD}
 
 ${NAME}: ${PS_OBJS} ${INCLUDES}
-	${CC} ${CCFLAGS} ${FT_OBJS} -I. -I ${INC_DIR} -o ${NAME}
+	${CC} ${CCFLAGS} ${FT_OBJS} -DORIGINAL_STD=0 -I. -I ${INC_DIR} -o ${NAME}
 
-original: ${ORIGINAL}
-
-${ORIGINAL}: ${ORIG_OBJS} ${INCLUDES}
-	${CC} ${CCFLAGS} ${ORIG_OBJS} -I ${INC_DIR} -o ${ORIGINAL}
+${NAME_STD}: ${PS_OBJS} ${INCLUDES}
+	${CC} ${CCFLAGS} ${STD_OBJS} -DORIGINAL_STD=1 -I. -I ${INC_DIR} -o ${NAME_STD}
 
 ${OBJ_DIR}/%.o: ${SRC_DIR}/%.c ${INC_DIR}
 	mkdir -p ${OBJ_DIR}
 	${CC} -c ${CCFLAGS} $< -I. -I ${INC_DIR} -o $@
 
+${STD_OBJ_DIR}/%.o: ${SRC_DIR}/%.c ${INC_DIR}
+	mkdir -p ${STD_OBJ_DIR}
+	${CC} -c ${CCFLAGS} $< -I. -I ${INC_DIR} -o $@
+
+
 clean:
 	rm -rf ${OBJ_DIR}
+	rm -rf ${STD_OBJ_DIR}
 
 fclean: clean
 	rm -rf ./${NAME}
-	rm -rf ./${ORIGINAL}
+	rm -rf ./${NAME_STD}
 
 re: fclean all
 

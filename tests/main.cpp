@@ -9,19 +9,28 @@
 int main (int argc, char **argv)
 {
 	ft::Tester tester;
-	if (argc > 1)
+	if (argc == 1)
 	{
-		ft::Tester::colorized = false;
+		if (ORIGINAL_STD == 1)
+		{
+			std::cout << "ORIGINAL_STD" << std::endl;
+			ft::Tester::kind = KIND_STD;
+		}
+		else
+		{
+			std::cout << "FT" << std::endl;
+			ft::Tester::kind = KIND_FT;
+		}
 	}
 	else
-	{
-		tester.printTitle("Iterators");
-		test_reverseiterator(tester);
+		ft::Tester::kind = KIND_COMPARE;
+	
 
-//		tester.startClock();
-//		tester.printClock();
-		test_utilities(tester);
-	}
+	tester.printTitle("Iterators");
+	test_reverseiterator(tester);
+	test_utilities(tester);
+	test_vector(tester);
+
 	(void)argv;
 	return (0);
 }

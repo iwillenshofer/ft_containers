@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_reverseiterator.cpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 19:54:24 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/29 18:06:35 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/29 20:35:55 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ std::string test1()
 	return (s);
 }
 
-void test_reverseiterator(ft::Tester tester)
+void test_reverseiterator(ft::Tester &tester)
 {
 	typedef  std::vector<int>   STD1;
 	typedef  ft::vector<int>    FT1;
