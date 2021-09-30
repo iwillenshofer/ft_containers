@@ -111,7 +111,7 @@ namespace ft
 			template <typename T>
 			void compare(T t1, T t2)
 			{
-				if(!(this->kind == KIND_COMPARE))
+				if((kind != KIND_COMPARE))
 					return ;
 				ft::Tester color;
 				color.Bold();
