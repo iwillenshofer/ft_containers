@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_constructors.cpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 19:34:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/29 20:41:12 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/30 17:46:59 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,3 @@ void test_vector_constructors(ft::Tester &tester)
 	tester.printName("* CONSTRUCTORS *");
 	test_vector_default_constructor(tester);
 }
-
