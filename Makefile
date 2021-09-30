@@ -6,7 +6,7 @@
 #    By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/09/30 19:01:37 by iwillens         ###   ########.fr        #
+#    Updated: 2021/09/30 19:12:30 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS = ${SRC_DIR}/main.cpp \
 				${SRC_DIR}/test_utilities.cpp \
 				${SRC_DIR}/test_reverseiterator.cpp \
 				${SRC_DIR}/vector_constructors.cpp \
+				${SRC_DIR}/vector_capacity.cpp \
 				${SRC_DIR}/vector.cpp
 
 FT_OBJS = $(patsubst ${SRC_DIR}/%.cpp, ${FT_OBJ_DIR}/%.o, ${SRCS})
