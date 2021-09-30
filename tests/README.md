@@ -10,7 +10,6 @@ This variable is set by a MACRO defined on compile or according to the number of
 Both binaries have `ft::Tester::kind` overriden to `KIND_COMPARE` if any argument is passed. ie: `./ft_containers 1`.
 
 Some tester class functions will behave differently according to this kind:
-`tester.compare()` will do nothing unless `kind == KIND_COMPARE`.
 `tester.printClock()` will do nothing unless `kind == KIND_COMPARE`.
 `ft::Tester::Return()` will print the output of the return (it's argument) only if `kind != KIND_COMPARE`.
 
@@ -58,9 +57,9 @@ void test_vector_default_constructor(ft::Tester &tester)
 	if (tester.kind & (KIND_COMPARE | KIND_FT))
 	{
 		tester.startClock();
-		default_constructor1< ft::vector<int> >(),
-		default_constructor1< ft::vector<float> >(),
-		default_constructor1< ft::vector<bool> >(),
+		default_constructor1< ft::vector<int> >();
+		default_constructor1< ft::vector<float> >();
+		default_constructor1< ft::vector<bool> >();
 		tester.printClock("[ft ]"); // Will only be printed if kind = KIND_COMPARE
 	}
 
@@ -68,9 +67,9 @@ void test_vector_default_constructor(ft::Tester &tester)
 	if (tester.kind & (KIND_COMPARE | KIND_STD))
 	{
 		tester.startClock();
-		default_constructor1< std::vector<int> >(),
-		default_constructor1< std::vector<float> >(),
-		default_constructor1< std::vector<bool> >(),
+		default_constructor1< std::vector<int> >();
+		default_constructor1< std::vector<float> >();
+		default_constructor1< std::vector<bool> >();
 		tester.printClock("[std]");
 	}
 	std::cout << std::endl;
