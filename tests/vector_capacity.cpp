@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_capacity.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 19:34:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/30 20:42:46 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/01 15:30:04 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,83 @@ std::string capacity2()
 	return (ft::Tester::Return(s));
 }
 
+template <typename T>
+std::string vector_empty()
+{
+	T v(100, 42);
+	std::string s;
+
+	v.empty();
+	s = vector_attributes<T>(v);
+
+	return (ft::Tester::Return(s));
+}
+
+template <typename T>
+std::string vector_reserve()
+{
+	T v(100, 42);
+	std::string s;
+
+	v.reserve(200);
+	s = vector_attributes<T>(v);
+
+	return (ft::Tester::Return(s));
+}
+
+void test_vector_reserve(ft::Tester &tester)
+{
+	tester.printName("reserve()");
+	if (tester.kind == KIND_COMPARE)
+	{
+		tester.compare(
+			vector_reserve< ft::vector<int> >(),
+			vector_reserve< std::vector<int> >()
+		);
+	}
+	std::cout << std::endl;
+	if (tester.kind & (KIND_COMPARE | KIND_FT))
+	{
+		tester.startClock();
+		vector_reserve< ft::vector<int> >();
+		tester.printClock("[ft ]");
+	}
+	if (tester.kind & (KIND_COMPARE | KIND_STD))
+	{
+		tester.startClock();
+		vector_reserve< std::vector<int> >();
+		tester.printClock("[std]");
+	}
+}
+
+void test_vector_empty(ft::Tester &tester)
+{
+	tester.printName("empty()");
+	if (tester.kind == KIND_COMPARE)
+	{
+		tester.compare(
+			vector_empty< ft::vector<int> >(),
+			vector_empty< std::vector<int> >()
+		);
+	}
+	std::cout << std::endl;
+	if (tester.kind & (KIND_COMPARE | KIND_FT))
+	{
+		tester.startClock();
+		vector_empty< ft::vector<int> >();
+		tester.printClock("[ft ]");
+	}
+	if (tester.kind & (KIND_COMPARE | KIND_STD))
+	{
+		tester.startClock();
+		vector_empty< std::vector<int> >();
+		tester.printClock("[std]");
+	}
+}
+
 void test_vector_resize(ft::Tester &tester)
 {
-	tester.printName("Resize");
+	tester.printName("resize()");
 	if (tester.kind == KIND_COMPARE)
 	{
 		tester.compare(
@@ -117,7 +191,7 @@ void test_vector_resize(ft::Tester &tester)
 
 void test_vector_max_size(ft::Tester &tester)
 {
-	tester.printName("Max Size");
+	tester.printName("max_size()");
 	if (tester.kind == KIND_COMPARE)
 	{
 		tester.compare(
@@ -148,7 +222,7 @@ void test_vector_max_size(ft::Tester &tester)
 
 void test_vector_size(ft::Tester &tester)
 {
-	tester.printName("Size");
+	tester.printName("size()");
 	if (tester.kind == KIND_COMPARE)
 	{
 		tester.compare(
@@ -179,7 +253,7 @@ void test_vector_size(ft::Tester &tester)
 
 void test_vector_cap(ft::Tester &tester)
 {
-	tester.printName("Capacity");
+	tester.printName("capacity()");
 	if (tester.kind == KIND_COMPARE)
 	{
 		tester.compare(
@@ -211,8 +285,10 @@ void test_vector_cap(ft::Tester &tester)
 void test_vector_capacity(ft::Tester &tester)
 {
 	tester.printName("* CAPACITY *", true);
-	test_vector_cap(tester);
 	test_vector_size(tester);
 	test_vector_max_size(tester);
 	test_vector_resize(tester);
+	test_vector_cap(tester);
+	test_vector_empty(tester);
+	test_vector_reserve(tester);
 }

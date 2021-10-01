@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 19:43:31 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/30 20:46:55 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/01 17:44:11 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ void test_reverseiterator(ft::Tester &tester);
 void	test_vector(ft::Tester &tester);
 void    test_vector_constructors(ft::Tester &tester);
 void 	test_vector_capacity(ft::Tester &tester);
-
+void	test_vector_iterators(ft::Tester &tester);
+void	test_vector_elementaccess(ft::Tester &tester);
+void	test_vector_modifiers(ft::Tester &tester);
+void	test_vector_overloads(ft::Tester &tester);
 
 #endif

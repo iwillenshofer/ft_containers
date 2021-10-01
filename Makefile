@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+         #
+#    By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/09/30 21:10:05 by iwillens         ###   ########.fr        #
+#    Updated: 2021/10/01 17:42:51 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,12 +34,17 @@ INCLUDES = ${INC_DIR}/algorithm.hpp \
 
 
 SRCS = ${SRC_DIR}/main.cpp \
-				${SRC_DIR}/Tester.cpp \
-				${SRC_DIR}/test_utilities.cpp \
-				${SRC_DIR}/test_reverseiterator.cpp \
-				${SRC_DIR}/vector_constructors.cpp \
-				${SRC_DIR}/vector_capacity.cpp \
-				${SRC_DIR}/vector_tests.cpp
+			${SRC_DIR}/Tester.cpp \
+			${SRC_DIR}/test_utilities.cpp \
+			${SRC_DIR}/test_reverseiterator.cpp \
+			${SRC_DIR}/vector_constructors.cpp \
+			${SRC_DIR}/vector_capacity.cpp \
+			${SRC_DIR}/vector_iterators.cpp \
+			${SRC_DIR}/vector_elementaccess.cpp \
+			${SRC_DIR}/vector_modifiers.cpp \
+			${SRC_DIR}/vector_overloads.cpp \
+			${SRC_DIR}/vector_tests.cpp	
+				
 
 FT_OBJS = $(patsubst ${SRC_DIR}/%.cpp, ${FT_OBJ_DIR}/%.o, ${SRCS})
 STD_OBJS = $(patsubst ${SRC_DIR}/%.cpp, ${STD_OBJ_DIR}/%.o, ${SRCS})
