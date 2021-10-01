@@ -103,7 +103,7 @@ namespace ft
 			void printTitle();
 			void printTitle(std::string s);
 			void printName();
-			void printName(std::string s);
+			void printName(std::string s, bool subtitle = false);
 
 			/*
 			** test equality.

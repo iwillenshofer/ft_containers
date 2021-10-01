@@ -146,7 +146,7 @@ void ft::Tester::printName()
 	printName(this->_text);
 }
 
-void ft::Tester::printName(std::string s)
+void ft::Tester::printName(std::string s, bool subtitle)
 {
 	ft::Tester color(s);
 
@@ -155,6 +155,8 @@ void ft::Tester::printName(std::string s)
 	color.White();
 	color.Bold();
 	color.bgBlue();
+	if (subtitle)
+		color.bgMagenta();
 	color.print();
 	std::cout << std::endl;
 }

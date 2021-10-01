@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/27 19:11:11 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/09/30 20:27:43 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ namespace ft
 					this->_allocator.deallocate(&(*this->_data), this->_capacity);
 				}
 				this->_size = x._size;
-				this->_capacity = x._capacity;
+				this->_capacity = x._size;
 				this->_data = this->_allocator.allocate(this->_capacity);
 				for (size_type i = 0; i < this->_size; i++)
 					this->_allocator.construct(&(this->_data[i]), value_type(x._data[i]));
