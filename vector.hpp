@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/01 18:27:02 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 11:29:44 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 # include <memory>
 # include <stdexcept>
-# include "includes/iterators.hpp"
-# include "includes/iterator_traits.hpp"
-# include "includes/reverse_iterator.hpp"
-# include "includes/type_traits.hpp"
-# include "includes/algorithm.hpp"
+# include "includes/ft_iterators.hpp"
+# include "includes/ft_iterator_traits.hpp"
+# include "includes/ft_reverse_iterator.hpp"
+# include "includes/ft_type_traits.hpp"
+# include "includes/ft_algorithm.hpp"
 
 namespace ft
 {

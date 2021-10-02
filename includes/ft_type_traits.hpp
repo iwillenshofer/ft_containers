@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type_traits.hpp                                    :+:      :+:    :+:   */
+/*   ft_type_traits.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:14:55 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/27 12:49:26 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 11:30:14 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_HPP
-# define UTILS_HPP
+#ifndef FT_UTILS_HPP
+# define FT_UTILS_HPP
 
-#include "iterator_traits.hpp"
+#include "ft_iterator_traits.hpp"
 
 namespace ft
 {

@@ -6,7 +6,7 @@
 #    By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/10/01 21:51:56 by iwillens         ###   ########.fr        #
+#    Updated: 2021/10/02 11:32:34 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,11 @@ STD_OBJ_DIR = ${OBJ_DIR}/std
 
 INC_DIR = ./includes
 
-INCLUDES = ${INC_DIR}/algorithm.hpp \
-			${INC_DIR}/iterator_traits.hpp \
-			${INC_DIR}/iterators.hpp \
-			${INC_DIR}/reverse_iterator.hpp \
-			${INC_DIR}/type_traits.hpp \
+INCLUDES = ${INC_DIR}/ft_algorithm.hpp \
+			${INC_DIR}/ft_iterator_traits.hpp \
+			${INC_DIR}/ft_iterators.hpp \
+			${INC_DIR}/ft_reverse_iterator.hpp \
+			${INC_DIR}/ft_type_traits.hpp \
 			map.hpp \
 			stack.hpp \
 			vector.hpp

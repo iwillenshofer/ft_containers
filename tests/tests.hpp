@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 19:43:31 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/01 17:44:11 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 11:31:58 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <vector>
 # include <iostream>
 # include "vector.hpp"
-# include "utilities.hpp"
+# include "ft_utilities.hpp"
 # include "vector_tests.hpp"
 
 # ifndef ORIGINAL_STD

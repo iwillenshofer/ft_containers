@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   iterators.hpp                                      :+:      :+:    :+:   */
+/*   ft_iterators.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:52:15 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 11:22:29 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 11:30:29 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INPUT_ITERATOR_HPP
-# define INPUT_ITERATOR_HPP
+#ifndef FT_INPUT_ITERATOR_HPP
+# define FT_INPUT_ITERATOR_HPP
 
 //# include "utils.hpp"
-# include "iterator_traits.hpp"
+# include "ft_iterator_traits.hpp"
 
 namespace ft
 {

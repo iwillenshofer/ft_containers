@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   iterator_traits.hpp                                :+:      :+:    :+:   */
+/*   ft_iterator_traits.hpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:11 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/15 10:51:14 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 11:30:32 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ITERATORS_HPP
-# define ITERATORS_HPP
+#ifndef FT_ITERATORS_HPP
+# define FT_ITERATORS_HPP
 
 # include <cstddef>
 
