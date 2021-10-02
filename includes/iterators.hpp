@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:52:15 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/25 16:56:05 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 11:22:29 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,37 +150,37 @@ namespace ft
 	bool operator==(const BidirectionalIterator<IteratorL>& lhs, const BidirectionalIterator<IteratorR>& rhs) { return (lhs.base() == rhs.base()); }
 
 	template<typename Iterator>
-	bool operator==(const Iterator& lhs, const Iterator& rhs) { return (lhs.base() == rhs.base()); }
+	bool operator==(const BidirectionalIterator<Iterator>& lhs, const BidirectionalIterator<Iterator>& rhs) { return (lhs.base() == rhs.base()); }
 
 	template<typename IteratorL, typename IteratorR>
 	bool operator!=(const BidirectionalIterator<IteratorL>& lhs, const BidirectionalIterator<IteratorR>& rhs) { return (lhs.base() != rhs.base()); }
 
 	template<typename Iterator>
-	bool operator!=(const Iterator& lhs, const Iterator& rhs) { return (lhs.base() != rhs.base()); }
+	bool operator!=(const BidirectionalIterator<Iterator>& lhs, const BidirectionalIterator<Iterator>& rhs) { return (lhs.base() != rhs.base()); }
 
 	template<typename IteratorL, typename IteratorR>
 	bool operator<(const BidirectionalIterator<IteratorL>& lhs, const BidirectionalIterator<IteratorR>& rhs) { return (lhs.base() < rhs.base()); }
 
 	template<typename Iterator>
-	bool operator<(const Iterator& lhs, const Iterator& rhs) { return (lhs.base() < rhs.base()); }
+	bool operator<(const BidirectionalIterator<Iterator>& lhs, const BidirectionalIterator<Iterator>& rhs) { return (lhs.base() < rhs.base()); }
 
 	template<typename IteratorL, typename IteratorR>
 	bool operator>(const BidirectionalIterator<IteratorL>& lhs, const BidirectionalIterator<IteratorR>& rhs) { return (lhs.base() > rhs.base()); }
 
 	template<typename Iterator>
-	bool operator>(const Iterator& lhs, const Iterator& rhs) { return (lhs.base() > rhs.base()); }
+	bool operator>(const BidirectionalIterator<Iterator>& lhs, const BidirectionalIterator<Iterator>& rhs) { return (lhs.base() > rhs.base()); }
 
 	template<typename IteratorL, typename IteratorR>
 	bool operator<=(const BidirectionalIterator<IteratorL>& lhs, const BidirectionalIterator<IteratorR>& rhs) { return (lhs.base() <= rhs.base()); }
 
 	template<typename Iterator>
-	bool operator<=(const Iterator& lhs, const Iterator& rhs) { return (lhs.base() <= rhs.base()); }
+	bool operator<=(const BidirectionalIterator<Iterator>& lhs, const BidirectionalIterator<Iterator>& rhs) { return (lhs.base() <= rhs.base()); }
 
 	template<typename IteratorL, typename IteratorR>
 	bool operator>=(const BidirectionalIterator<IteratorL>& lhs, const BidirectionalIterator<IteratorR>& rhs) { return (lhs.base() >= rhs.base()); }
 
 	template<typename Iterator>
-	bool operator>=(const Iterator& lhs, const Iterator& rhs) { return (lhs.base() >= rhs.base()); }
+	bool operator>=(const BidirectionalIterator<Iterator>& lhs, const BidirectionalIterator<Iterator>& rhs) { return (lhs.base() >= rhs.base()); }
 }
 
 #endif
