@@ -6,7 +6,7 @@
 #    By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/10/02 13:55:00 by iwillens         ###   ########.fr        #
+#    Updated: 2021/10/02 18:30:14 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,11 +58,11 @@ ${NAME_STD}: ${STD_OBJS} ${INCLUDES}
 	@echo "\033[92mBuilding ./std_containers. \033[0m"
 	@${CC} ${CCFLAGS} ${STD_OBJS} -DORIGINAL_STD=1 -I. -I ${INC_DIR} -o ${NAME_STD}
 
-${FT_OBJ_DIR}/%.o: ${SRC_DIR}/%.cpp ${INC_DIR}
+${FT_OBJ_DIR}/%.o: ${SRC_DIR}/%.cpp ${INC_DIR} ${INCLUDES}
 	@mkdir -p $(dir $@)
 	@${CC} -c ${CCFLAGS} $< -DORIGINAL_STD=0 -I. -I ${INC_DIR} -o $@
 
-${STD_OBJ_DIR}/%.o: ${SRC_DIR}/%.cpp ${INC_DIR}
+${STD_OBJ_DIR}/%.o: ${SRC_DIR}/%.cpp ${INC_DIR} ${INCLUDES}
 	@mkdir -p $(dir $@)
 	@${CC} -c ${CCFLAGS} $< -DORIGINAL_STD=1 -I. -I ${INC_DIR} -o $@
 
@@ -96,3 +96,4 @@ time_mac: all
 	@/bin/bash -c "time ./ft_containers > /dev/null"
 	@echo "\033[93m./std_containers \033[0m"
 	@/bin/bash -c "time ./std_containers > /dev/null"
+	
