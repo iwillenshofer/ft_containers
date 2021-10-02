@@ -11,14 +11,15 @@ bool mycomp (char c1, char c2)
 	return (std::tolower(c1) < std::tolower(c2));
 }
 
-void lexicographical_compare(ft::Tester &tester)
+void lexicographical_compare(void)
 {
-	tester.printName("ft::lexicographical_compare");
+	ft::Tester tester; 
 	std::string s1("Apple");
 	std::string s2("apartment");
 	std::string s3("Apple");
 	std::string s4("Apartment2");
 
+	tester.printName("ft::lexicographical_compare");
     tester.compare(
 		ft::lexicographical_compare(s1.begin(), s1.end(), s2.begin(), s2.end()),
 		std::lexicographical_compare(s1.begin(), s1.end(), s2.begin(), s2.end())
@@ -59,9 +60,9 @@ bool mypredicate (char c1, char c2)
 	return(std::tolower(c1) == std::tolower(c2));
 }
 
-void test_equal(ft::Tester &tester)
+void test_equal(void)
 {
-	tester.printName("ft::equal");
+	ft::Tester tester;
 	std::string s1("Test1");
 	std::string s2("Test1");
 	std::string s3("Test3");
@@ -71,7 +72,7 @@ void test_equal(ft::Tester &tester)
 	std::string s7("Test1.");
 	std::string s8("TEST1.");
 
-
+	tester.printName("ft::equal");
     tester.compare(
 		ft::equal(s1.begin(), s1.end(), s2.begin()),
 		std::equal(s1.begin(), s1.end(), s2.begin())
@@ -104,7 +105,6 @@ void test_equal(ft::Tester &tester)
 		ft::equal(s7.begin(), s7.end(), s8.begin()), 
 		std::equal(s7.begin(), s7.end(), s8.begin())
 		);
-
 	tester.compare(
 		ft::equal(s1.begin(), s1.end(), s2.begin(), mypredicate),
 		std::equal(s1.begin(), s1.end(), s2.begin(), mypredicate)
@@ -146,8 +146,10 @@ void test_equal(ft::Tester &tester)
 
 struct A {};
 
-void test_isintegral(ft::Tester &tester)
+void test_isintegral(void)
 {
+	ft::Tester tester;
+
 	tester.printName("ft::is_integral");
 	tester.compare(ft::is_integral<A>::value, false);
     tester.compare(ft::is_integral<float>::value, false);
@@ -168,8 +170,10 @@ bool test_enableif_helper (void) {return true;}
 template <>
 bool test_enableif_helper<ft::enable_if<false, bool> > (void) {return false;}
 
-void test_enableif(ft::Tester &tester)
+void test_enableif(void)
 {
+	ft::Tester tester;
+
     tester.printName("ft::enable_if");
 	tester.compare(
 		test_enableif_helper<ft::enable_if<std::numeric_limits<int*>::is_integer, bool> >(), false
@@ -198,8 +202,9 @@ typename T::value_type test_iteratortraits_helper(Iterator first, Iterator last)
     return (val);
 }
 
-void test_iteratortraits(ft::Tester &tester)
+void test_iteratortraits(void)
 {
+	ft::Tester tester; 
     tester.printName("ft::iterator_traits");
     int i[10];
     for (int j = 0; j < 10; j++)
@@ -213,8 +218,9 @@ void test_iteratortraits(ft::Tester &tester)
 
 }
 
-void test_pair(ft::Tester &tester)
+void test_pair(void)
 {
+	ft::Tester tester; 
 	ft::pair<int,char> foo (10,'z');
 	ft::pair<int,char> bar (90,'a');
 
@@ -241,8 +247,9 @@ void test_pair(ft::Tester &tester)
 	std::cout << std::endl;
 }
 
-void test_makepair(ft::Tester &tester)
+void test_makepair(void)
 {
+	ft::Tester tester;
 	ft::pair<int,char> foo = ft::make_pair(10,'z');
 	ft::pair<int,char> bar = ft::make_pair(90,'a');
 
@@ -269,14 +276,16 @@ void test_makepair(ft::Tester &tester)
 	std::cout << std::endl;
 }
 
-void test_utilities(ft::Tester &tester)
+void test_utilities()
 {
+	ft::Tester tester; 
+
 	tester.printTitle("Utilities");
-	test_pair(tester);
-	test_makepair(tester);
-	test_iteratortraits(tester);
-	test_enableif(tester);
-	test_isintegral(tester);
-	test_equal(tester);
-	lexicographical_compare(tester);
+	test_pair();
+	test_makepair();
+	test_iteratortraits();
+	test_enableif();
+	test_isintegral();
+	test_equal();
+	lexicographical_compare();
 }

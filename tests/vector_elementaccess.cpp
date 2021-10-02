@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_elementaccess.cpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 19:34:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/01 16:23:27 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 11:56:48 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,113 +74,63 @@ std::string vector_back()
 }
 
 
-void 	test_vector_at(ft::Tester &tester)
+void 	test_vector_at(void)
 {
+	ft::Tester tester;
+
 	tester.printName("at()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_at< ft::vector<int> >(),
-			vector_at< std::vector<int> >()
+	tester.add(
+		vector_at< ft::vector<int> >,
+		vector_at< std::vector<int> >
 		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_at< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_at< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.run();
 }
 
 
-void 	test_vector_front(ft::Tester &tester)
+void 	test_vector_front(void)
 {
+	ft::Tester tester;
+
 	tester.printName("front()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_front< ft::vector<int> >(),
-			vector_front< std::vector<int> >()
+	tester.add(
+		vector_front< ft::vector<int> >,
+		vector_front< std::vector<int> >
 		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_front< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_front< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.run();
 }
 
-void 	test_vector_back(ft::Tester &tester)
+void 	test_vector_back(void)
 {
+	ft::Tester tester;
+
 	tester.printName("back()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_back< ft::vector<int> >(),
-			vector_back< std::vector<int> >()
+	tester.add(
+		vector_back< ft::vector<int> >,
+		vector_back< std::vector<int> >
 		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_back< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_back< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.run();
 }
 
-void 	test_vector_operator_brackets(ft::Tester &tester)
+void 	test_vector_operator_brackets(void)
 {
+	ft::Tester tester;
+	
 	tester.printName("operator[]");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_operator_brackets< ft::vector<int> >(),
-			vector_operator_brackets< std::vector<int> >()
+	tester.add(
+		vector_operator_brackets< ft::vector<int> >,
+		vector_operator_brackets< std::vector<int> >
 		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_operator_brackets< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_operator_brackets< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.run();
 }
 
-void test_vector_elementaccess(ft::Tester &tester)
+void test_vector_elementaccess(void)
 {
+	ft::Tester tester;
+
 	tester.printName("* ELEMENT ACCESS *", true);
-	test_vector_operator_brackets(tester);
-	test_vector_at(tester);
-	test_vector_front(tester);
-	test_vector_back(tester);
+	test_vector_operator_brackets();
+	test_vector_at();
+	test_vector_front();
+	test_vector_back();
 
 }

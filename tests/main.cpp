@@ -25,9 +25,9 @@ int main (int argc, char **argv)
 	
 
 	tester.printTitle("Iterators");
-	test_reverseiterator(tester);
-	test_utilities(tester);
-	test_vector(tester);
+	test_reverseiterator();
+	test_utilities();
+	test_vector();
 
 	(void)argv;
 	return (0);

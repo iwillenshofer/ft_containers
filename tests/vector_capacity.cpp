@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_capacity.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 19:34:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/01 15:30:04 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 12:04:04 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,187 +108,104 @@ std::string vector_reserve()
 	return (ft::Tester::Return(s));
 }
 
-void test_vector_reserve(ft::Tester &tester)
+void test_vector_reserve(void)
 {
+	ft::Tester tester;
+
 	tester.printName("reserve()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_reserve< ft::vector<int> >(),
-			vector_reserve< std::vector<int> >()
-		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_reserve< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_reserve< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.add(
+		vector_reserve< ft::vector<int> >,
+		vector_reserve< std::vector<int> >
+	);
+	tester.run();
+
 }
 
-void test_vector_empty(ft::Tester &tester)
+void test_vector_empty(void)
 {
+	ft::Tester tester;
+
 	tester.printName("empty()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_empty< ft::vector<int> >(),
-			vector_empty< std::vector<int> >()
-		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_empty< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_empty< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.add(
+		vector_empty< ft::vector<int> >,
+		vector_empty< std::vector<int> >
+	);
+	tester.run();
 }
 
-void test_vector_resize(ft::Tester &tester)
+void test_vector_resize(void)
 {
+	ft::Tester tester;
+
 	tester.printName("resize()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			resize1< ft::vector<int> >(),
-			resize1< std::vector<int> >()
-		);
-		tester.compare(
-			resize2< ft::vector<float> >(),
-			resize2< std::vector<float> >()
-		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		resize1< ft::vector<int> >();
-		resize2< ft::vector<float> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		resize1< std::vector<int> >();
-		resize2< std::vector<float> >();
-		tester.printClock("[std]");
-	}
+	tester.add(
+		resize1< ft::vector<int> >,
+		resize1< std::vector<int> >
+	);
+	tester.add(
+		resize2< ft::vector<float> >,
+		resize2< std::vector<float> >
+	);
+	tester.run();
 }
 
-void test_vector_max_size(ft::Tester &tester)
+void test_vector_max_size(void)
 {
+	ft::Tester tester;
+
 	tester.printName("max_size()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			max_size< ft::vector<int> >(),
-			max_size< std::vector<int> >()
-		);
-		tester.compare(
-			max_size< ft::vector<std::string> >(),
-			max_size< std::vector<std::string> >()
-		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		max_size< ft::vector<int> >();
-		max_size< ft::vector<std::string> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		max_size< std::vector<int> >();
-		max_size< std::vector<std::string> >();
-		tester.printClock("[std]");
-	}
+	tester.add(
+		max_size< ft::vector<int> >,
+		max_size< std::vector<int> >
+	);
+	tester.add(
+		max_size< ft::vector<std::string> >,
+		max_size< std::vector<std::string> >
+	);
+	tester.run();
 }
 
-void test_vector_size(ft::Tester &tester)
+void test_vector_size(void)
 {
+	ft::Tester tester;
+
 	tester.printName("size()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			size1< ft::vector<int> >(),
-			size1< std::vector<int> >()
-		);
-		tester.compare(
-			size2< ft::vector<int> >(),
-			size2< std::vector<int> >()
-		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		size1< ft::vector<int> >();
-		size2< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		size1< std::vector<int> >();
-		size2< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.add(
+		size1< ft::vector<int> >,
+		size1< std::vector<int> >
+	);
+	tester.add(
+		size2< ft::vector<int> >,
+		size2< std::vector<int> >
+	);
+	tester.run();
 }
 
-void test_vector_cap(ft::Tester &tester)
+void test_vector_cap(void)
 {
+	ft::Tester tester;
+
 	tester.printName("capacity()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			capacity1< ft::vector<int> >(),
-			capacity1< std::vector<int> >()
-		);
-		tester.compare(
-			capacity2< ft::vector<int> >(),
-			capacity2< std::vector<int> >()
-		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		capacity1< ft::vector<int> >();
-		capacity2< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		capacity1< std::vector<int> >();
-		capacity2< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.add(
+		capacity1< ft::vector<int> >,
+		capacity1< std::vector<int> >
+	);
+	tester.add(
+		capacity2< ft::vector<int> >,
+		capacity2< std::vector<int> >
+	);
+	tester.run();
 }
 
-void test_vector_capacity(ft::Tester &tester)
+void test_vector_capacity(void)
 {
+	ft::Tester tester;
+
 	tester.printName("* CAPACITY *", true);
-	test_vector_size(tester);
-	test_vector_max_size(tester);
-	test_vector_resize(tester);
-	test_vector_cap(tester);
-	test_vector_empty(tester);
-	test_vector_reserve(tester);
+	test_vector_size();
+	test_vector_max_size();
+	test_vector_resize();
+	test_vector_cap();
+	test_vector_empty();
+	test_vector_reserve();
 }

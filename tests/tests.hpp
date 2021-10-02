@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 19:43:31 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 11:46:45 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 12:04:44 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@
 ** Utilities
 */
 
-void test_utilities(ft::Tester &tester);
+void test_utilities();
 
 
 /*
 ** iterators
 */
 
-void test_reverseiterator(ft::Tester &tester);
+void test_reverseiterator();
 
 #endif

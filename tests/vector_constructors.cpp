@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_constructors.cpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 19:34:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/01 15:39:42 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 12:01:12 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,167 +63,96 @@ std::string default_constructor1()
 }
 
 
-void test_vector_copy_constructor(ft::Tester &tester)
+void test_vector_copy_constructor(void)
 {
+	ft::Tester tester;
+
 	tester.printName("Copy Constructor");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_copy_constructor1< ft::vector<int> >(),
-			vector_copy_constructor1< std::vector<int> >()
-		);
-		tester.compare(
-			vector_copy_constructor1< ft::vector<float> >(),
-			vector_copy_constructor1< std::vector<float> >()
-		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_copy_constructor1< ft::vector<int> >();
-		vector_copy_constructor1< ft::vector<float> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_copy_constructor1< std::vector<int> >();
-		vector_copy_constructor1< std::vector<float> >();
-		tester.printClock("[std]");
-	}
+	tester.add(
+		vector_copy_constructor1< ft::vector<int> >,
+		vector_copy_constructor1< std::vector<int> >
+	);
+	tester.add(
+		vector_copy_constructor1< ft::vector<float> >,
+		vector_copy_constructor1< std::vector<float> >
+	);
+	tester.run();
 }
 
-void test_vector_assignment_op(ft::Tester &tester)
+void test_vector_assignment_op(void)
 {
+	ft::Tester tester;
+
 	tester.printName("operator=()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_assignment_op< ft::vector<int> >(),
-			vector_assignment_op< std::vector<int> >()
-		);
-		tester.compare(
-			vector_assignment_op< ft::vector<float> >(),
-			vector_assignment_op< std::vector<float> >()
-		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_assignment_op< ft::vector<int> >();
-		vector_assignment_op< ft::vector<float> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_assignment_op< std::vector<int> >();
-		vector_assignment_op< std::vector<float> >();
-		tester.printClock("[std]");
-	}
+
+	tester.add(
+		vector_assignment_op< ft::vector<int> >,
+		vector_assignment_op< std::vector<int> >
+	);
+	tester.add(
+		vector_assignment_op< ft::vector<float> >,
+		vector_assignment_op< std::vector<float> >
+	);
+	tester.run();
 }
 
-void test_vector_range_constructor(ft::Tester &tester)
+void test_vector_range_constructor(void)
 {
+	ft::Tester tester;
+
 	tester.printName("Range Constructor");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			RangeConstructor_constructor1< ft::vector<int> >(),
-			RangeConstructor_constructor1< std::vector<int> >()
-		);
-		tester.compare(
-			RangeConstructor_constructor1< ft::vector<float> >(),
-			RangeConstructor_constructor1< std::vector<float> >()
-		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		RangeConstructor_constructor1< ft::vector<int> >();
-		RangeConstructor_constructor1< ft::vector<float> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		RangeConstructor_constructor1< std::vector<int> >();
-		RangeConstructor_constructor1< std::vector<float> >();
-		tester.printClock("[std]");
-	}
+	tester.add(
+		RangeConstructor_constructor1< ft::vector<int> >,
+		RangeConstructor_constructor1< std::vector<int> >
+	);
+	tester.add(
+		RangeConstructor_constructor1< ft::vector<float> >,
+		RangeConstructor_constructor1< std::vector<float> >
+	);
+	tester.run();
 }
 
-void test_vector_fill_constructor(ft::Tester &tester)
+void test_vector_fill_constructor(void)
 {
+	ft::Tester tester;
+
 	tester.printName("Fill Constructor");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			FillConstructor_constructor1< ft::vector<int> >(),
-			FillConstructor_constructor1< std::vector<int> >()
-		);
-		tester.compare(
-			FillConstructor_constructor1< ft::vector<float> >(),
-			FillConstructor_constructor1< std::vector<float> >()
-		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		FillConstructor_constructor1< ft::vector<int> >();
-		FillConstructor_constructor1< ft::vector<float> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		FillConstructor_constructor1< std::vector<int> >();
-		FillConstructor_constructor1< std::vector<float> >();
-		tester.printClock("[std]");
-	}
+
+	tester.add(
+		FillConstructor_constructor1< ft::vector<int> >,
+		FillConstructor_constructor1< std::vector<int> >
+	);
+	tester.add(
+		FillConstructor_constructor1< ft::vector<float> >,
+		FillConstructor_constructor1< std::vector<float> >
+	);
+	tester.run();
 }
 
-void test_vector_default_constructor(ft::Tester &tester)
+void test_vector_default_constructor(void)
 {
+	ft::Tester tester;
+
 	tester.printName("Default Constructor");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			default_constructor1< ft::vector<int> >(),
-			default_constructor1< std::vector<int> >()
+	tester.add(
+		default_constructor1< ft::vector<int> >,
+		default_constructor1< std::vector<int> >
 		);
-		tester.compare(
-			default_constructor1< ft::vector<float> >(),
-			default_constructor1< std::vector<float> >()
+	tester.add(
+		default_constructor1< ft::vector<float> >,
+		default_constructor1< std::vector<float> >
 		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		default_constructor1< ft::vector<int> >();
-		default_constructor1< ft::vector<float> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		default_constructor1< std::vector<int> >();
-		default_constructor1< std::vector<float> >();
-		tester.printClock("[std]");
-	}
+	tester.run();
 }
 
-void test_vector_constructors(ft::Tester &tester)
+void test_vector_constructors(void)
 {
+	ft::Tester tester;
+
 	tester.printName("* CONSTRUCTORS *", true);
-	test_vector_default_constructor(tester);
-	test_vector_fill_constructor(tester);
-	test_vector_range_constructor(tester);
-	test_vector_copy_constructor(tester);
-	test_vector_assignment_op(tester);
+	test_vector_default_constructor();
+	test_vector_fill_constructor();
+	test_vector_range_constructor();
+	test_vector_copy_constructor();
+	test_vector_assignment_op();
 }

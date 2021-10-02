@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 19:54:24 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/29 20:35:55 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 12:15:04 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,44 +92,31 @@ std::string test1()
 	v.push_back(4);
 	v.push_back(5);
 	for (typename T::reverse_iterator it = v.rbegin(); it != v.rend(); ++it)
-	{
 		s += ft::to_string(*it);
-	}
 	return (s);
 }
 
-void test_reverseiterator(ft::Tester &tester)
+void test_reverseiterator(void)
 {
-	typedef  std::vector<int>   STD1;
-	typedef  ft::vector<int>    FT1;
-	typedef  std::vector< std::vector<int> >   STD2;
-	typedef  ft::vector< ft::vector<int> >    FT2;
-	typedef  std::vector<char>   STD3;
-	typedef  ft::vector<char>   FT3;
+	ft::Tester tester; 
+
 	tester.printName("ft::reverse_iterator");
-
-	tester.compare(test1< STD1 >(), test1< FT1 >());
-    tester.compare(test2< STD2, STD1 >(), test2< FT2, FT1 >());
-	tester.compare(test3< FT3 >(), test3< FT3 >());
-
-	tester.compare(
-		test4< STD1, std::reverse_iterator<STD1::iterator> >(), 
-		test4< FT1, ft::reverse_iterator<FT1::iterator> >()
+	tester.add(
+		test1< std::vector<int> >,
+		test1< ft::vector<int> >
+		);
+    tester.add(
+		test2< std::vector< std::vector<int> >, std::vector<int> >,
+		test2< ft::vector< ft::vector<int> >, ft::vector<int> >
+		);
+	tester.add(
+		test3< std::vector<char> >,
+		test3< ft::vector<char> >
+		);
+	tester.add(
+		test4< std::vector<int>, std::reverse_iterator<std::vector<int>::iterator> >, 
+		test4< ft::vector<int>, ft::reverse_iterator<ft::vector<int>::iterator> >
 	);
-
-	std::cout << std::endl;
-	tester.startClock();
-	test1< STD1 >();
-	test2< STD2, STD1 >();
-	test3< STD3 >();
-	tester.printClock("[std]");
-
-	tester.startClock();
-	test1< FT1 >();
-	test2< FT2, FT1 >();
-	test3< FT3 >();
-	tester.printClock("[ft ]");
-	std::cout << std::endl;
-
+	tester.run();
 }
 
