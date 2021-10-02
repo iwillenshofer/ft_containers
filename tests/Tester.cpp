@@ -15,12 +15,15 @@
 int ft::Tester::kind = KIND_COMPARE;
 
 ft::Tester::Tester(void)
-: _text(""), _color(CLR_DEFAULT), _background(CLR_DEFAULT), _lightforeground(false), _lightbackground(false), _bold(false) { }
+: _text(""), _color(CLR_DEFAULT), _background(CLR_DEFAULT), _lightforeground(false), _lightbackground(false), _bold(false), _allocator(std::allocator<t_function>()), _size(0)
+{
+	this->_data = this->_allocator.allocate(0);
+}
 
 ft::Tester::Tester(Tester const &c) { *this = c; }
 
 ft::Tester::Tester(std::string s, int color, int attributes, int background)
-: _text(s), _color(color), _background(background), _lightforeground(false), _lightbackground(false), _bold(false)
+: _text(s), _color(color), _background(background), _lightforeground(false), _lightbackground(false), _bold(false),  _allocator(std::allocator<t_function>()), _size(0)
 {
     if (attributes & CLR_LIGHTFG)
         this->lightForeground();
@@ -29,9 +32,15 @@ ft::Tester::Tester(std::string s, int color, int attributes, int background)
     attributes = attributes & 15;
     if (attributes == CLR_BOLD)
         this->Bold();
+	this->_data = this->_allocator.allocate(0);
 }
 
-ft::Tester::~Tester() {}
+ft::Tester::~Tester()
+{
+	for (size_t i = 0; i < this->_size; i++)
+		this->_allocator.destroy(&(this->_data[i]));
+	this->_allocator.deallocate(this->_data, this->_size);
+}
 
 ft::Tester &ft::Tester::operator=(Tester const &c)
 {
@@ -41,6 +50,9 @@ ft::Tester &ft::Tester::operator=(Tester const &c)
     this->_lightforeground = c._lightforeground;
     this->_lightbackground = c._lightbackground;
     this->_bold = c._bold;
+	this->_allocator = c._allocator;
+	this->_data = this->_allocator.allocate(0);
+	this->_size = 0;
     return (*this);
 }
 
@@ -192,4 +204,28 @@ std::string &ft::Tester::Return(std::string &s)
 	if(!(ft::Tester::kind == KIND_COMPARE))
 		std::cout << s << std::endl ;
 	return (s);
+}
+
+void ft::Tester::run(void)
+{
+	if (this->kind == KIND_COMPARE)
+	{
+		for (size_t i = 0; i < this->_size; i++)
+			this->compare(this->_data[i].ft(), this->_data[i].std());
+	}
+	std::cout << std::endl;
+	if (this->kind & (KIND_COMPARE | KIND_FT))
+	{
+		this->startClock();
+		for (size_t i = 0; i < this->_size; i++)
+			this->_data[i].ft();
+		this->printClock("[ft ]");
+	}
+	if (this->kind & (KIND_COMPARE | KIND_STD))
+	{
+		this->startClock();
+		for (size_t i = 0; i < this->_size; i++)
+			this->_data[i].std();
+		this->printClock("[std]");
+	}
 }

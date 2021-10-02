@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/10/01 17:42:51 by iwillens         ###   ########.fr        #
+#    Updated: 2021/10/01 21:51:56 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ INCLUDES = ${INC_DIR}/algorithm.hpp \
 			map.hpp \
 			stack.hpp \
 			vector.hpp
-
 
 SRCS = ${SRC_DIR}/main.cpp \
 			${SRC_DIR}/Tester.cpp \

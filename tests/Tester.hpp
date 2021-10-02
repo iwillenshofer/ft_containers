@@ -17,6 +17,7 @@
 # include <iostream>
 # include <time.h>
 # include <sstream>
+# include "vector.hpp"
 
 # define LINE_LEN		120
 
@@ -50,19 +51,30 @@
 
 namespace ft
 {
+	typedef struct s_function
+	{
+		std::string (*ft)();
+		std::string (*std)();
+	} t_function;
+
 	class Tester
 	{	
 		public:
 			static int		kind;
-
+			typedef std::allocator<t_function>		allocator_type;
+			typedef allocator_type::reference		reference;
+			typedef allocator_type::pointer			pointer;
 		private:
-			std::string 	_text;
-			int				_color;
-			int				_background;
-			bool			_lightforeground;
-			bool			_lightbackground;
-			bool			_bold;
-			clock_t			_timestart;
+			std::string 				_text;
+			int							_color;
+			int							_background;
+			bool						_lightforeground;
+			bool						_lightbackground;
+			bool						_bold;
+			clock_t						_timestart;
+			std::allocator<t_function>	_allocator;
+			t_function					*_data;
+			size_t						_size;
 
 		public:
 			Tester();
@@ -135,8 +147,27 @@ namespace ft
 			void startClock();
 			void printClock(std::string lib = "[ft ]");
 			static std::string &Return(std::string &s);
+			void run();
+			//void add(std::string (*ft)(void), std::string (*std)(void));
 
-	};
+
+			void add(std::string (*ft)(), std::string (*std)())
+			{
+				pointer new_data = this->_allocator.allocate(this->_size + 1);
+				for (size_t i = 0; i < this->_size; i++)
+				{
+					this->_allocator.construct(&new_data[i], this->_data[i]);
+					this->_allocator.destroy(&(this->_data[i]));
+				}
+				this->_allocator.construct(&new_data[this->_size], t_function());
+				new_data[this->_size].ft = ft;
+				new_data[this->_size].std = std;
+				this->_allocator.deallocate(this->_data, this->_size);
+				this->_size++;
+				this->_data = new_data;
+			}
+
+};
 	
 	template<typename T>
 	std::string to_string(const T& value)

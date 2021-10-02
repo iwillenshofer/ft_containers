@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_overloads.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 19:34:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/01 18:27:31 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/01 21:41:38 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,104 +131,74 @@ std::string vector_swap(void (*swap)(T&, T&))
 	return (ft::Tester::Return(s));
 }
 
-void 	test_vector_getallocator(ft::Tester &tester)
+void 	test_vector_getallocator()
 {
-	tester.printName("get_allocator()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_getallocator< ft::vector<int> >(),
-			vector_getallocator< std::vector<int> >()
+	ft::Tester test;
+	
+	test.printName("get_allocator()");
+	test.add(
+		vector_getallocator< ft::vector<int> >,
+		vector_getallocator< std::vector<int> >
 		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_getallocator< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_getallocator< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	test.run();
 }
 
-void 	test_vector_relationalops(ft::Tester &tester)
+void 	test_vector_nonmemberswap(void)
 {
-	tester.printName("relational operators");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_relational1< ft::vector<int> >(),
-			vector_relational1< std::vector<int> >()
-		);
-		tester.compare(
-			vector_relational2< ft::vector<int> >(),
-			vector_relational2< std::vector<int> >()
-		);
-		tester.compare(
-			vector_relational3< ft::vector<int> >(),
-			vector_relational3< std::vector<int> >()
-		);
-		tester.compare(
-			vector_relational4< ft::vector<int> >(),
-			vector_relational4< std::vector<int> >()
-		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_relational1< ft::vector<int> >();
-		vector_relational2< ft::vector<int> >();
-		vector_relational3< ft::vector<int> >();
-		vector_relational4< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_relational1< std::vector<int> >();
-		vector_relational2< std::vector<int> >();
-		vector_relational3< std::vector<int> >();
-		vector_relational4< std::vector<int> >();
-		tester.printClock("[std]");
-	}
-}
+	ft::Tester test;
 
-void 	test_vector_nonmemberswap(ft::Tester &tester)
-{
-	tester.printName("swap");
-	if (tester.kind == KIND_COMPARE)
+	test.printName("swap");
+	if (test.kind == KIND_COMPARE)
 	{
-		tester.compare(
+		test.compare(
 			vector_swap< ft::vector<int> >(ft::swap),
 			vector_swap< std::vector<int> >(std::swap)
 		);
 	}
 	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
+	if (test.kind & (KIND_COMPARE | KIND_FT))
 	{
-		tester.startClock();
+		test.startClock();
 		vector_swap< ft::vector<int> >(ft::swap);
-		tester.printClock("[ft ]");
+		test.printClock("[ft ]");
 	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
+	if (test.kind & (KIND_COMPARE | KIND_STD))
 	{
-		tester.startClock();
+		test.startClock();
 		vector_swap< std::vector<int> >(std::swap);
-		tester.printClock("[std]");
+		test.printClock("[std]");
 	}
+}
+
+void 	test_vector_relationalops(void)
+{
+	ft::Tester test;
+
+	test.printName("relational operators");
+	test.add(
+		vector_relational1< ft::vector<int> >,
+		vector_relational1< std::vector<int> >
+		);
+	test.add(
+		vector_relational2< ft::vector<int> >,
+		vector_relational2< std::vector<int> >
+		);
+	test.add(
+		vector_relational3< ft::vector<int> >,
+		vector_relational3< std::vector<int> >
+		);
+	test.add(
+		vector_relational4< ft::vector<int> >,
+		vector_relational4< std::vector<int> >
+		);
+	test.run();
 }
 
 void test_vector_overloads(ft::Tester &tester)
 {
 	tester.printName("* ALLOCATOR *", true);
-	test_vector_getallocator(tester);
+	test_vector_getallocator();
 	tester.printName("* NON-MEMBER FUNCTION OVERLOADS *", true);
-	test_vector_relationalops(tester);
-	test_vector_nonmemberswap(tester);
+	test_vector_relationalops();
+	test_vector_nonmemberswap();
 }

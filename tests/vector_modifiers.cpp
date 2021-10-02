@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_modifiers.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 19:34:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/01 18:04:25 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/01 21:51:32 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,263 +251,143 @@ std::string vector_clear()
 	return (ft::Tester::Return(s));
 }
 
-void 	test_vector_assign(ft::Tester &tester)
+void 	test_vector_assign()
 {
+
+	ft::Tester tester;
+
 	tester.printName("assign()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_assign1< ft::vector<int> >(),
-			vector_assign1< std::vector<int> >()
+	tester.add(
+		vector_assign1< ft::vector<int> >,
+		vector_assign1< std::vector<int> >
 		);
-		tester.compare(
-			vector_assign2< ft::vector<int> >(),
-			vector_assign2< std::vector<int> >()
+	tester.add(
+		vector_assign2< ft::vector<int> >,
+		vector_assign2< std::vector<int> >
 		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_assign1< ft::vector<int> >();
-		vector_assign2< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_assign1< std::vector<int> >();
-		vector_assign2< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.run();
 }
 
-
-void 	test_vector_pushback(ft::Tester &tester)
+void 	test_vector_pushback()
 {
+	ft::Tester tester;
+
 	tester.printName("push_back()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_pushback1< ft::vector<int> >(),
-			vector_pushback1< std::vector<int> >()
+	tester.add(
+		vector_pushback1< ft::vector<int> >,
+		vector_pushback1< std::vector<int> >
 		);
-		tester.compare(
-			vector_pushback2< ft::vector<int> >(),
-			vector_pushback2< std::vector<int> >()
+	tester.add(
+		vector_pushback2< ft::vector<int> >,
+		vector_pushback2< std::vector<int> >
 		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_pushback1< ft::vector<int> >();
-		vector_pushback2< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_pushback1< std::vector<int> >();
-		vector_pushback2< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.run();
 }
 
-void 	test_vector_popback(ft::Tester &tester)
+void 	test_vector_popback()
 {
+	ft::Tester tester;
+
 	tester.printName("pop_back()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_popback1< ft::vector<int> >(),
-			vector_popback1< std::vector<int> >()
+	tester.add(
+		vector_popback1< ft::vector<int> >,
+		vector_popback1< std::vector<int> >
 		);
-		tester.compare(
-			vector_popback2< ft::vector<int> >(),
-			vector_popback2< std::vector<int> >()
+	tester.add(
+		vector_popback2< ft::vector<int> >,
+		vector_popback2< std::vector<int> >
 		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_popback1< ft::vector<int> >();
-		vector_popback2< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_popback1< std::vector<int> >();
-		vector_popback2< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.run();
 }
 
-void 	test_vector_insert(ft::Tester &tester)
+void 	test_vector_insert()
 {
+	ft::Tester tester;
+
 	tester.printName("insert()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_insert1< ft::vector<int> >(),
-			vector_insert1< std::vector<int> >()
+	tester.add(
+		vector_insert1< ft::vector<int> >,
+		vector_insert1< std::vector<int> >
 		);
-		tester.compare(
-			vector_insert2< ft::vector<int> >(),
-			vector_insert2< std::vector<int> >()
+	tester.add(
+		vector_insert2< ft::vector<int> >,
+		vector_insert2< std::vector<int> >
 		);
-		tester.compare(
-			vector_insert3< ft::vector<int> >(),
-			vector_insert3< std::vector<int> >()
+	tester.add(
+		vector_insert3< ft::vector<int> >,
+		vector_insert3< std::vector<int> >
 		);
-		tester.compare(
-			vector_insert4< ft::vector<int> >(),
-			vector_insert4< std::vector<int> >()
+	tester.add(
+		vector_insert4< ft::vector<int> >,
+		vector_insert4< std::vector<int> >
 		);
-		tester.compare(
-			vector_insert5< ft::vector<int> >(),
-			vector_insert5< std::vector<int> >()
+	tester.add(
+		vector_insert5< ft::vector<int> >,
+		vector_insert5< std::vector<int> >
 		);
-		tester.compare(
-			vector_insert6< ft::vector<int> >(),
-			vector_insert6< std::vector<int> >()
+	tester.add(
+		vector_insert6< ft::vector<int> >,
+		vector_insert6< std::vector<int> >
 		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_insert1< ft::vector<int> >();
-		vector_insert2< ft::vector<int> >();
-		vector_insert3< ft::vector<int> >();
-		vector_insert4< ft::vector<int> >();
-		vector_insert5< ft::vector<int> >();
-		vector_insert6< ft::vector<int> >();
-
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_insert1< std::vector<int> >();
-		vector_insert2< std::vector<int> >();
-		vector_insert3< std::vector<int> >();
-		vector_insert4< std::vector<int> >();
-		vector_insert5< std::vector<int> >();
-		vector_insert6< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.run();
 }
 
-void 	test_vector_erase(ft::Tester &tester)
+void 	test_vector_erase()
 {
+	ft::Tester tester;
+
 	tester.printName("erase()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_erase1< ft::vector<int> >(),
-			vector_erase1< std::vector<int> >()
+	tester.add(
+		vector_erase1< ft::vector<int> >,
+		vector_erase1< std::vector<int> >
 		);
-		tester.compare(
-			vector_erase2< ft::vector<int> >(),
-			vector_erase2< std::vector<int> >()
+	tester.add(
+		vector_erase2< ft::vector<int> >,
+		vector_erase2< std::vector<int> >
 		);
-		tester.compare(
-			vector_erase3< ft::vector<int> >(),
-			vector_erase3< std::vector<int> >()
+	tester.add(
+		vector_erase3< ft::vector<int> >,
+		vector_erase3< std::vector<int> >
 		);
-		tester.compare(
-			vector_erase4< ft::vector<int> >(),
-			vector_erase4< std::vector<int> >()
+	tester.add(
+		vector_erase4< ft::vector<int> >,
+		vector_erase4< std::vector<int> >
 		);
-		tester.compare(
-			vector_erase5< ft::vector<int> >(),
-			vector_erase5< std::vector<int> >()
-		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_erase1< ft::vector<int> >();
-		vector_erase2< ft::vector<int> >();
-		vector_erase3< ft::vector<int> >();
-		vector_erase4< ft::vector<int> >();
-		vector_erase5< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_erase1< std::vector<int> >();
-		vector_erase2< std::vector<int> >();
-		vector_erase3< std::vector<int> >();
-		vector_erase4< std::vector<int> >();
-		vector_erase5< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.run();
 }
 
-void 	test_vector_swap(ft::Tester &tester)
+void 	test_vector_swap()
 {
+	ft::Tester tester;
+
 	tester.printName("swap()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_swap< ft::vector<int> >(),
-			vector_swap< std::vector<int> >()
+	tester.add(
+		vector_swap< ft::vector<int> >,
+		vector_swap< std::vector<int> >
 		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_swap< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_swap< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.run();
 }
 
-void 	test_vector_clear(ft::Tester &tester)
+void 	test_vector_clear()
 {
+	ft::Tester tester;
+
 	tester.printName("clear()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			vector_clear< ft::vector<int> >(),
-			vector_clear< std::vector<int> >()
+	tester.add(
+		vector_clear< ft::vector<int> >,
+		vector_clear< std::vector<int> >
 		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		vector_clear< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		vector_clear< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.run();
 }
 
-void test_vector_modifiers(ft::Tester &tester)
+void test_vector_modifiers(ft:: Tester &tester)
 {
 	tester.printName("* MODIFIERS *", true);
-	test_vector_assign(tester);
-	test_vector_pushback(tester);
-	test_vector_popback(tester);
-	test_vector_insert(tester);
-	test_vector_erase(tester);
-	test_vector_swap(tester);
-	test_vector_clear(tester);
+	test_vector_assign();
+	test_vector_pushback();
+	test_vector_popback();
+	test_vector_insert();
+	test_vector_erase();
+	test_vector_swap();
+	test_vector_clear();
 }
