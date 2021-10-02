@@ -6,7 +6,7 @@
 #    By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/10/02 11:32:34 by iwillens         ###   ########.fr        #
+#    Updated: 2021/10/02 13:55:00 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,15 +34,15 @@ INCLUDES = ${INC_DIR}/ft_algorithm.hpp \
 
 SRCS = ${SRC_DIR}/main.cpp \
 			${SRC_DIR}/Tester.cpp \
-			${SRC_DIR}/test_utilities.cpp \
-			${SRC_DIR}/test_reverseiterator.cpp \
-			${SRC_DIR}/vector_constructors.cpp \
-			${SRC_DIR}/vector_capacity.cpp \
-			${SRC_DIR}/vector_iterators.cpp \
-			${SRC_DIR}/vector_elementaccess.cpp \
-			${SRC_DIR}/vector_modifiers.cpp \
-			${SRC_DIR}/vector_overloads.cpp \
-			${SRC_DIR}/vector_tests.cpp	
+			${SRC_DIR}/utilities/test_utilities.cpp \
+			${SRC_DIR}/utilities/test_reverseiterator.cpp \
+			${SRC_DIR}/vector/vector_constructors.cpp \
+			${SRC_DIR}/vector/vector_capacity.cpp \
+			${SRC_DIR}/vector/vector_iterators.cpp \
+			${SRC_DIR}/vector/vector_elementaccess.cpp \
+			${SRC_DIR}/vector/vector_modifiers.cpp \
+			${SRC_DIR}/vector/vector_overloads.cpp \
+			${SRC_DIR}/vector/vector_tests.cpp	
 				
 
 FT_OBJS = $(patsubst ${SRC_DIR}/%.cpp, ${FT_OBJ_DIR}/%.o, ${SRCS})
@@ -59,11 +59,11 @@ ${NAME_STD}: ${STD_OBJS} ${INCLUDES}
 	@${CC} ${CCFLAGS} ${STD_OBJS} -DORIGINAL_STD=1 -I. -I ${INC_DIR} -o ${NAME_STD}
 
 ${FT_OBJ_DIR}/%.o: ${SRC_DIR}/%.cpp ${INC_DIR}
-	@mkdir -p ${FT_OBJ_DIR}
+	@mkdir -p $(dir $@)
 	@${CC} -c ${CCFLAGS} $< -DORIGINAL_STD=0 -I. -I ${INC_DIR} -o $@
 
 ${STD_OBJ_DIR}/%.o: ${SRC_DIR}/%.cpp ${INC_DIR}
-	@mkdir -p ${STD_OBJ_DIR}
+	@mkdir -p $(dir $@)
 	@${CC} -c ${CCFLAGS} $< -DORIGINAL_STD=1 -I. -I ${INC_DIR} -o $@
 
 clean:
@@ -89,3 +89,10 @@ time: all
 	@time -f ${FORMAT} ./ft_containers > /dev/null
 	@echo "\033[93m./std_containers \033[0m"
 	@time -f ${FORMAT} ./std_containers > /dev/null
+
+time_mac: all
+	@echo "\033[92mTime difference between std:: and ft:: tests: \033[0m"
+	@echo "\033[93m./ft_containers \033[0m"
+	@/bin/bash -c "time ./ft_containers > /dev/null"
+	@echo "\033[93m./std_containers \033[0m"
+	@/bin/bash -c "time ./std_containers > /dev/null"

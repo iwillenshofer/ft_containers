@@ -6,11 +6,11 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 19:47:16 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 11:48:44 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 13:33:59 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests.hpp"
+#include "vector_tests.hpp"
 
 void test_vector(void)
 {

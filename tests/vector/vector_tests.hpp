@@ -6,23 +6,14 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 20:44:04 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 11:47:10 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 13:52:37 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_TESTS
 # define VECTOR_TESTS
 
-/*
-** vector
-*/
-void	test_vector(void);
-void    test_vector_constructors(void);
-void 	test_vector_capacity(void);
-void	test_vector_iterators(void);
-void	test_vector_elementaccess(void);
-void	test_vector_modifiers(void);
-void	test_vector_overloads(void);
+#include "../tests.hpp"
 
 template <typename T>
 std::string vector_attributes(T &v)
@@ -38,5 +29,17 @@ std::string vector_attributes(T &v)
     s += "]";
 	return (s);
 }
+
+/*
+** vector
+*/
+void	test_vector(void);
+void    test_vector_constructors(void);
+void 	test_vector_capacity(void);
+void	test_vector_iterators(void);
+void	test_vector_elementaccess(void);
+void	test_vector_modifiers(void);
+void	test_vector_overloads(void);
+
 
 #endif

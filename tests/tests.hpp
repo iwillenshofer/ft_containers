@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 19:43:31 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 12:04:44 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 13:55:26 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 */
 # include <vector>
 # include <iostream>
+# include <limits>
+# include <algorithm>
 
 /*
 ** ft:: includes
@@ -37,7 +39,7 @@
 ** tests
 */
 
-# include "vector_tests.hpp"
+# include "./vector/vector_tests.hpp"
 
 
 # ifndef ORIGINAL_STD

@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 11:41:20 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 13:17:33 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,9 +348,8 @@ namespace ft
 
 	};
 
-
 	template <typename T, typename Alloc>
-  	void swap (vector<T,Alloc>& lhs, vector<T,Alloc>& rhs)
+  	void swap (vector<T, Alloc>& lhs, vector<T, Alloc>& rhs)
 	{
 		lhs.swap(rhs);
 	}
