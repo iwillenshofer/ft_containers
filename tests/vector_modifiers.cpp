@@ -6,12 +6,11 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 19:34:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/01 21:51:32 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 11:49:44 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.hpp"
-
 
 template <typename T>
 std::string vector_pushback1()
@@ -380,8 +379,10 @@ void 	test_vector_clear()
 	tester.run();
 }
 
-void test_vector_modifiers(ft:: Tester &tester)
+void test_vector_modifiers(void)
 {
+	ft::Tester tester;
+
 	tester.printName("* MODIFIERS *", true);
 	test_vector_assign();
 	test_vector_pushback();

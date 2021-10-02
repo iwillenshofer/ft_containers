@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_iterators.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 19:34:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/01 15:16:22 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 11:52:14 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,34 +72,28 @@ std::string iterator_begin1()
 	return (ft::Tester::Return(s));
 }
 
-void test_vector_iterator_end(ft::Tester &tester)
+void test_vector_iterator_end(void)
 {
+	ft:: Tester tester;
 	tester.printName("end()");
-	if (tester.kind == KIND_COMPARE)
-	{
-		tester.compare(
-			iterator_end1< ft::vector<int> >(),
-			iterator_end1< std::vector<int> >()
-		);
-	}
-	std::cout << std::endl;
-	if (tester.kind & (KIND_COMPARE | KIND_FT))
-	{
-		tester.startClock();
-		iterator_end1< ft::vector<int> >();
-		tester.printClock("[ft ]");
-	}
-	if (tester.kind & (KIND_COMPARE | KIND_STD))
-	{
-		tester.startClock();
-		iterator_end1< std::vector<int> >();
-		tester.printClock("[std]");
-	}
+	tester.add(
+		iterator_end1< ft::vector<int> >,
+		iterator_end1< std::vector<int> >
+	);
+	tester.run();
 }
 
-void test_vector_iterator_begin(ft::Tester &tester)
+void test_vector_iterator_begin(void)
 {
+	ft:: Tester tester;
+
 	tester.printName("begin()");
+	tester.add(
+		iterator_end1< ft::vector<int> >,
+		iterator_end1< std::vector<int> >
+	);
+	tester.run();
+	
 	if (tester.kind == KIND_COMPARE)
 	{
 		tester.compare(
@@ -123,8 +117,10 @@ void test_vector_iterator_begin(ft::Tester &tester)
 }
 
 
-void test_vector_iterator_rend(ft::Tester &tester)
+void test_vector_iterator_rend(void)
 {
+	ft:: Tester tester;
+
 	tester.printName("rend()");
 	if (tester.kind == KIND_COMPARE)
 	{
@@ -148,8 +144,10 @@ void test_vector_iterator_rend(ft::Tester &tester)
 	}
 }
 
-void test_vector_iterator_rbegin(ft::Tester &tester)
+void test_vector_iterator_rbegin(void)
 {
+	ft:: Tester tester;
+
 	tester.printName("rbegin()");
 	if (tester.kind == KIND_COMPARE)
 	{
@@ -173,11 +171,13 @@ void test_vector_iterator_rbegin(ft::Tester &tester)
 	}
 }
 
-void test_vector_iterators(ft::Tester &tester)
+void test_vector_iterators(void)
 {
+	ft:: Tester tester;
+
 	tester.printName("* ITERATORS *", true);
-	test_vector_iterator_begin(tester);
-	test_vector_iterator_end(tester);
-	test_vector_iterator_rbegin(tester);
-	test_vector_iterator_rend(tester);
+	test_vector_iterator_begin();
+	test_vector_iterator_end();
+	test_vector_iterator_rbegin();
+	test_vector_iterator_rend();
 }
