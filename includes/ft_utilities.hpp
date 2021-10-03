@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:42:01 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 23:36:47 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/03 16:25:56 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,29 @@ namespace ft
 	{
 		return ( ft::pair<T1,T2>(x, y) );
 	}
+
+	/*
+	** structures to get first or second type/value of a Pair
+	*/
+	template <class Arg, class Result>
+	struct unary_function
+	{
+		typedef Arg argument_type;
+		typedef Result result_type;
+	};
+	template <class Pair>
+	struct Select1st : public unary_function<Pair, typename Pair::first_type>
+	{
+		typename Pair::first_type &operator()(Pair& x) const { return x.first; }
+		const typename Pair::first_type &operator()(const Pair& x) const { return x.first; }
+	};
+
+	template <class Pair>
+	struct Select2nd : public unary_function<Pair,	typename Pair::second_type>
+	{
+		typename Pair::second_type &operator()(Pair& x) const { return x.second; }
+		const typename Pair::second_type &operator()(const Pair& x) const { return x.second; }
+	};
 
 	template< class T >
 	struct less

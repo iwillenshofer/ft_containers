@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 23:50:35 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/03 16:56:31 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "includes/ft_type_traits.hpp"
 # include "includes/ft_algorithm.hpp"
 # include "includes/ft_utilities.hpp"
+# include "includes/ft_redblacktree.hpp"
 
 namespace ft
 {
@@ -50,49 +51,15 @@ namespace ft
 			typedef size_t													size_type;
 
 		private:
-			/*
-			** Binarytree implementation.
-			*/ 
-			class Node
-			{
-				public:
-					typedef typename allocator_type::template rebind<Node>::other	node_allocator;
-					typedef typename node_allocator::pointer						node_pointer;
-
-				private:
-
-					Node() {};
-
-				public:
-					value_type				_data;
-					node_pointer			*_left;
-					node_pointer			*_right;
-					node_allocator			_allocator;
-					Node(Node &cp): _data(cp.data), _left(cp.left), _right(cp.right) { *this = cp; };
-					Node& operator=(const Node& cp)
-					{
-						this->data = cp.data;
-						this->left = cp.left;
-						this->right = cp.right;
-						return (*this);
-					}
-					virtual ~Node() {}
-
-			};
-		public:
-			typedef typename Node::node_pointer		node_pointer;
-			typedef typename Node::node_allocator	node_allocator_type;
+			typedef typename Alloc::template rebind<value_type>::other pair_alloc_type;
+			typedef ft::RbTree<key_type, value_type, ft::Select1st<value_type>, key_compare, pair_alloc_type> red_black_tree_type;
+			typedef ft::RbNode<value_type>*							link_type;
 
 			/*
 			** basic data structure.
 			*/
-			allocator_type					_allocator;
-			pointer 						_data;
-			size_type	 					_size;
-			size_type	 					_capacity;
-			key_compare						_compare;
-			node_pointer					_rbroot;
-			node_allocator_type				_node_allocator;
+//			node_allocator_type				_node_allocator;
+			red_black_tree_type _rb_tree;
 
 		public:	
 
@@ -101,26 +68,11 @@ namespace ft
 			*/
 
 			explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-			: _allocator(alloc), _size(0), _capacity(0), _compare(comp),  _rbroot(nullptr), _node_allocator(node_allocator_type())
-			{
+			: _rb_tree(comp, pair_alloc_type(alloc)) { }
 
-			};
-
-		public:
-			node_pointer _create_node(value_type val)
-			{
-				node_pointer tmp;
-				
-				tmp = this->_node_allocator.allocate(1);
-				this->_allocator.construct(&(tmp->_data), val);
-				return (tmp);
-			}
-
-			void 		_delete_node(node_pointer n)
-			{
-				this->_allocator.destroy(&(n->_data));
-				this->_node_allocator.deallocate(n, 1);
-			}
+			map (const map &x): _rb_tree(x._rb_tree) { }
+			
+			ft::pair<iterator, bool> insert(const value_type& x)	{ return _rb_tree.insertUnique(x); }
 	};
 }
 

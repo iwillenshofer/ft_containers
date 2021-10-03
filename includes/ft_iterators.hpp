@@ -6,14 +6,13 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:52:15 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 11:30:29 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/03 13:37:22 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_INPUT_ITERATOR_HPP
 # define FT_INPUT_ITERATOR_HPP
 
-//# include "utils.hpp"
 # include "ft_iterator_traits.hpp"
 
 namespace ft

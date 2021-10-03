@@ -36,9 +36,10 @@ int main2 (int argc, char **argv)
 int main(void)
 {
 	ft::map<char, int> m;
-	ft::pair<char, int> p('a', 100);
+	m.insert(ft::make_pair('a', 3));
+	//ft::pair<char, int> p = 
 	
-	ft::map<char, int>::node_pointer n = m._create_node(p);
-	m._delete_node(n);
+//	ft::map<char, int>::node_pointer n = m._create_node(ft::make_pair('a', 100));
+//	m._delete_node(n);
 	return (0);
 }

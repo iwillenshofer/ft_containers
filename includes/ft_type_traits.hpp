@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:14:55 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 11:30:14 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/03 16:09:28 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ namespace ft
 
   	template<typename T>
     struct is_same<T, T> : public true_type {};
-	
+
 }
 
 
