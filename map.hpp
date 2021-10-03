@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/09/22 16:41:46 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 23:50:35 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 
 # include <memory>
 # include <stdexcept>
-# include <functional>
-# include "includes/iterators.hpp"
-# include "includes/iterator_traits.hpp"
-# include "includes/reverse_iterator.hpp"
-# include "includes/type_traits.hpp"
-# include "includes/algorithm.hpp"
-# include "includes/utilities.hpp"
+# include "includes/ft_iterators.hpp"
+# include "includes/ft_iterator_traits.hpp"
+# include "includes/ft_reverse_iterator.hpp"
+# include "includes/ft_type_traits.hpp"
+# include "includes/ft_algorithm.hpp"
+# include "includes/ft_utilities.hpp"
 
 namespace ft
 {
@@ -30,28 +29,70 @@ namespace ft
 	** https://cplusplus.com/reference/map/map/
 	*/
 
-	template <typename Key, typename T, typename Compare = std::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
+	template <typename Key, typename T, typename Compare = ft::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
 	class map
 	{
 		public:
-			typedef T														value_type;
+			typedef	Key														key_type;
+			typedef T														mapped_type;
+			typedef ft::pair<const Key, T>									value_type;
+			typedef Compare													key_compare;
 			typedef Alloc													allocator_type;
 			typedef typename allocator_type::reference						reference;
 			typedef typename allocator_type::const_reference				const_reference;
 			typedef typename allocator_type::pointer						pointer;
 			typedef typename allocator_type::const_pointer					const_pointer;
-			typedef ft::RandomAccessIterator<T>								iterator;
-			typedef ft::RandomAccessIterator<const T>						const_iterator;
+			typedef ft::BidirectionalIterator<T>							iterator;
+			typedef ft::BidirectionalIterator<const T>						const_iterator;
 			typedef ft::reverse_iterator<iterator>							reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
 			typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
 			typedef size_t													size_type;
 
 		private:
-			allocator_type		_allocator;
-			pointer 			_data;
-			size_type	 		_size;
-			size_type	 		_capacity;
+			/*
+			** Binarytree implementation.
+			*/ 
+			class Node
+			{
+				public:
+					typedef typename allocator_type::template rebind<Node>::other	node_allocator;
+					typedef typename node_allocator::pointer						node_pointer;
+
+				private:
+
+					Node() {};
+
+				public:
+					value_type				_data;
+					node_pointer			*_left;
+					node_pointer			*_right;
+					node_allocator			_allocator;
+					Node(Node &cp): _data(cp.data), _left(cp.left), _right(cp.right) { *this = cp; };
+					Node& operator=(const Node& cp)
+					{
+						this->data = cp.data;
+						this->left = cp.left;
+						this->right = cp.right;
+						return (*this);
+					}
+					virtual ~Node() {}
+
+			};
+		public:
+			typedef typename Node::node_pointer		node_pointer;
+			typedef typename Node::node_allocator	node_allocator_type;
+
+			/*
+			** basic data structure.
+			*/
+			allocator_type					_allocator;
+			pointer 						_data;
+			size_type	 					_size;
+			size_type	 					_capacity;
+			key_compare						_compare;
+			node_pointer					_rbroot;
+			node_allocator_type				_node_allocator;
 
 		public:	
 
@@ -59,13 +100,57 @@ namespace ft
 			** Constructors, destructor and Assign operator.
 			*/
 
-			explicit vector(const allocator_type& alloc = allocator_type()):
+			explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+			: _allocator(alloc), _size(0), _capacity(0), _compare(comp),  _rbroot(nullptr), _node_allocator(node_allocator_type())
+			{
+
+			};
+
+		public:
+			node_pointer _create_node(value_type val)
+			{
+				node_pointer tmp;
+				
+				tmp = this->_node_allocator.allocate(1);
+				this->_allocator.construct(&(tmp->_data), val);
+				return (tmp);
+			}
+
+			void 		_delete_node(node_pointer n)
+			{
+				this->_allocator.destroy(&(n->_data));
+				this->_node_allocator.deallocate(n, 1);
+			}
+	};
+}
+
+/*
+
+			template <class InputIterator>
+			map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+				_allocator(alloc), _size(last - first), _capacity(last - first), _rbroot(nullptr) {}
+		
+			map (const map& x): _allocator(x._allocator), _data(0x0), _size(x._size), _capacity(x._capacity) { *this = x; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+			explicit map(const allocator_type& alloc = allocator_type()):
 			_allocator(alloc), _size(0), _capacity(0)
 			{
 				this->_data = this->_allocator.allocate(0);
 			};
 
-			explicit vector(size_type n, const value_type &val = value_type(), const allocator_type& alloc = allocator_type()):
+			explicit map(size_type n, const value_type &val = value_type(), const allocator_type& alloc = allocator_type()):
 			_allocator(alloc), _size(n), _capacity(n)
 			{
 				this->_data = this->_allocator.allocate(n);
@@ -74,7 +159,7 @@ namespace ft
 			};
 
 			template <typename InputIterator>
-			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if< !ft::is_integral<InputIterator>::value, InputIterator >::type = 0):
+			map(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if< !ft::is_integral<InputIterator>::value, InputIterator >::type = 0):
 			_allocator(alloc), _size(last - first), _capacity(last - first)
 			{
 				this->_data = this->_allocator.allocate(this->_size);
@@ -85,10 +170,10 @@ namespace ft
 				}
 			};
 
-			vector(const vector &x):
+			map(const map &x):
 			_allocator(x._allocator), _data(0x0), _size(x._size), _capacity(x._capacity) { *this = x; }
 
-			vector& operator=(const vector& x)
+			map& operator=(const map& x)
 			{
 				if (this->_data)
 				{
@@ -103,15 +188,13 @@ namespace ft
 				return (*this);
 			}
 
-			virtual ~vector()
+			virtual ~map()
 			{
 				this->clear();
 				this->_allocator.deallocate(this->_data, this->_capacity);
 			};
 
-			/*
-			** Iterators
-			*/
+
 			iterator		begin() { return (iterator(this->_data)); }
 			iterator		end() { return (iterator(this->_data + this->_size)); }
 			const_iterator	begin() const { return (const_iterator(this->_data)); }
@@ -121,9 +204,6 @@ namespace ft
 			reverse_iterator rend() { return (reverse_iterator(this->begin())); }
 			const_reverse_iterator rend() const { return (const_reverse_iterator(this->begin())); }
 
-			/*
-			** Capacity
-			*/
 			size_type		size() const { return (this->_size); }
 			size_type		max_size() const { return (this->_allocator.max_size()); }
 			void			resize(size_type n, value_type val = value_type())
@@ -172,9 +252,6 @@ namespace ft
 				}
 			}
 		
-		/*
-		** Element Access:
-		*/
 
 		reference operator[] (size_type n) { return (this->_data[n]); };
 		const_reference operator[] (size_type n) const{ return (this->_data[n]); };
@@ -198,9 +275,7 @@ namespace ft
 		reference back() { return (this->_data[this->_size - 1]); }
 		const_reference back() const { return (this->_data[this->_size - 1]); }
 
-		/*
-		** Modifiers
-		*/
+
 		template <class InputIterator>
 		void			assign (InputIterator first, InputIterator last)
 		{
@@ -299,7 +374,7 @@ namespace ft
 			return(iterator(p));
 		}	
 
-		void			swap (vector& x)
+		void			swap (map& x)
 		{
 			allocator_type		tmp_allocator = this->_allocator;
 			pointer 			tmp_data = this->_data;
@@ -328,23 +403,17 @@ namespace ft
 
 
 	template <typename T, typename Alloc>
-  	void swap (vector<T,Alloc>& lhs, vector<T,Alloc>& rhs)
+  	void swap (map<T,Alloc>& lhs, map<T,Alloc>& rhs)
 	{
-		vector<T, Alloc> tmp(lhs);
+		map<T, Alloc> tmp(lhs);
 
 		lhs = rhs;
 		rhs = tmp;
 	}
 
-	/*
-	** operator overloads. They are declared as non member functions to
-	** mantain synmetry on implicit conversions. They could have been member overloads,
-	** but this style guide was followed:
-	** https://stackoverflow.com/questions/4421706/what-are-the-basic-rules-and-idioms-for-operator-overloading/4421729#4421729
-	*/
 
 	template <class T, class Alloc>
-	bool operator== (const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs)
+	bool operator== (const map<T,Alloc> &lhs, const map<T,Alloc> &rhs)
 	{ 
 		if (lhs.size() == rhs.size())
 			return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
@@ -352,20 +421,20 @@ namespace ft
 	}
 
 	template <class T, class Alloc>
-	bool operator!= (const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) { return (!(lhs == rhs)); }
+	bool operator!= (const map<T, Alloc> &lhs, const map<T, Alloc> &rhs) { return (!(lhs == rhs)); }
 
 	template <class T, class Alloc>
-	bool operator<  (const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) { return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end())); }
+	bool operator<  (const map<T, Alloc> &lhs, const map<T, Alloc> &rhs) { return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end())); }
 
 	template <class T, class Alloc>
-	bool operator<= (const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) { return (!(lhs > rhs)); }
+	bool operator<= (const map<T, Alloc> &lhs, const map<T, Alloc> &rhs) { return (!(lhs > rhs)); }
 
 	template <class T, class Alloc>
-	bool operator>  (const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs){ return (!(lhs == rhs) && !(ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()))); }
+	bool operator>  (const map<T, Alloc> &lhs, const map<T, Alloc> &rhs){ return (!(lhs == rhs) && !(ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()))); }
 
 	template <class T, class Alloc>
-	bool operator>= (const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) { return (!(lhs < rhs)); }
+	bool operator>= (const map<T, Alloc> &lhs, const map<T, Alloc> &rhs) { return (!(lhs < rhs)); }
 
 }
-
+*/
 #endif

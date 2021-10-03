@@ -44,7 +44,7 @@ void test_vector_copy_constructor(void)
 }
 ```
 
-### Example of individual test:
+#### Example of individual test:
 vector_constructors.hpp
 ```c++
 template <typename T>
