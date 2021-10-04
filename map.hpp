@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/03 21:25:10 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/03 21:27:01 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,41 +66,41 @@ namespace ft
 		*/
 
 		explicit map(const Compare& comp, const allocator_type& a = allocator_type())
-		: _btree(comp, allocator_type(a)) { }
+		: this->_btree(comp, allocator_type(a)) { }
 
 		template<typename InputIterator>
 		map(InputIterator first, InputIterator last, const Compare& comp, const allocator_type& a = allocator_type())
-		: _btree(comp, allocator_type(a))
-		{ _btree.insertUnique(first, last); }
+		: this->_btree(comp, allocator_type(a))
+		{ this->_btree.insertUnique(first, last); }
 
-		map(const map& x): _btree(x._btree) { }
+		map(const map& x): this->_btree(x.this->_btree) { }
 
 		~map() {}
 
 		map	&operator=(const map& x)
 		{
-			_btree = x._btree;
+			this->_btree = x.this->_btree;
 			return (*this);
 		}
 
 		/*
 		** iterators
 		*/
-		iterator begin() { return (_btree.begin()); }
-		const_iterator begin() const { return (_btree.begin()); }
-		iterator end() { return (_btree.end()); }
-		const_iterator end() const { return (_btree.end()); }
-		reverse_iterator rbegin() { return (_btree.rbegin()); }
-		const_reverse_iterator rbegin() const { return (_btree.rbegin()); }
-		reverse_iterator rend() { return (_btree.rend()); }
-		const_reverse_iterator rend() const { return (_btree.rend()); }
+		iterator begin() { return (this->_btree.begin()); }
+		const_iterator begin() const { return (this->_btree.begin()); }
+		iterator end() { return (this->_btree.end()); }
+		const_iterator end() const { return (this->_btree.end()); }
+		reverse_iterator rbegin() { return (this->_btree.rbegin()); }
+		const_reverse_iterator rbegin() const { return (this->_btree.rbegin()); }
+		reverse_iterator rend() { return (this->_btree.rend()); }
+		const_reverse_iterator rend() const { return (this->_btree.rend()); }
 
 		/*
 		** capacity
 		*/
-		bool empty() const { return (_btree.empty()); }
-		size_type size() const { return (_btree.size()); }
-		size_type max_size() const { return (_btree.max_size()); }
+		bool empty() const { return (this->_btree.empty()); }
+		size_type size() const { return (this->_btree.size()); }
+		size_type max_size() const { return (this->_btree.max_size()); }
 
 		/*
 		** element access
@@ -116,46 +116,46 @@ namespace ft
 		/*
 		** modifiers
 		*/
-		ft::pair<iterator, bool> insert(const value_type& val) { return (_btree.insertUnique(val)); }
-		iterator insert(iterator position, const value_type& val) { return (_btree.insertUnique(position, val)); }
+		ft::pair<iterator, bool> insert(const value_type& val) { return (this->_btree.insertUnique(val)); }
+		iterator insert(iterator position, const value_type& val) { return (this->_btree.insertUnique(position, val)); }
 
 		template<typename InputIterator>
-		void insert(InputIterator first, InputIterator last) { _btree.insertUnique(first, last); }
+		void insert(InputIterator first, InputIterator last) { this->_btree.insertUnique(first, last); }
 
-		void erase(iterator position) { _btree.erase(position); }
-		size_type erase(const key_type& k) { return (_btree.erase(k)); }
-		void erase(iterator first, iterator last) { _btree.erase(first, last); }
+		void erase(iterator position) { this->_btree.erase(position); }
+		size_type erase(const key_type& k) { return (this->_btree.erase(k)); }
+		void erase(iterator first, iterator last) { this->_btree.erase(first, last); }
 		
-		void swap(map& x) { _btree.swap(x._btree); }
-		void clear() { _btree.clear(); }
+		void swap(map& x) { this->_btree.swap(x.this->_btree); }
+		void clear() { this->_btree.clear(); }
 
 		/*
 		** observers
 		*/
-		key_compare key_comp() const { return (_btree.key_comp()); }
-		value_compare value_comp() const { return (value_compare(_btree.key_comp())); }
+		key_compare key_comp() const { return (this->_btree.key_comp()); }
+		value_compare value_comp() const { return (value_compare(this->_btree.key_comp())); }
 
 		/*
 		** operations
 		*/
-		iterator find(const key_type& x) { return (_btree.find(x)); }
-		const_iterator find(const key_type& x) const { return (_btree.find(x)); }
+		iterator find(const key_type& x) { return (this->_btree.find(x)); }
+		const_iterator find(const key_type& x) const { return (this->_btree.find(x)); }
 
-		size_type count(const key_type& x) const { return (_btree.find(x) == _btree.end() ? 0 : 1); }
+		size_type count(const key_type& x) const { return (this->_btree.find(x) == this->_btree.end() ? 0 : 1); }
 
-		iterator lower_bound(const key_type& x) { return (_btree.lower_bound(x)); }
-		const_iterator lower_bound(const key_type& x) const { return (_btree.lower_bound(x)); }
+		iterator lower_bound(const key_type& x) { return (this->_btree.lower_bound(x)); }
+		const_iterator lower_bound(const key_type& x) const { return (this->_btree.lower_bound(x)); }
 
-		iterator upper_bound(const key_type& x) { return (_btree.upper_bound(x)); }
-		const_iterator upper_bound(const key_type& x) const { return (_btree.upper_bound(x)); }
+		iterator upper_bound(const key_type& x) { return (this->_btree.upper_bound(x)); }
+		const_iterator upper_bound(const key_type& x) const { return (this->_btree.upper_bound(x)); }
 
-		ft::pair<iterator, iterator> equal_range(const key_type& x) { return (_btree.equal_range(x)); }
-		ft::pair<const_iterator, const_iterator> equal_range(const key_type& x) const { return (_btree.equal_range(x)); }
+		ft::pair<iterator, iterator> equal_range(const key_type& x) { return (this->_btree.equal_range(x)); }
+		ft::pair<const_iterator, const_iterator> equal_range(const key_type& x) const { return (this->_btree.equal_range(x)); }
 
 		/*
 		** allocator
 		*/
-		allocator_type getAllocator() const { return (allocator_type(_btree.getAllocator())); }
+		allocator_type getAllocator() const { return (allocator_type(this->_btree.getAllocator())); }
 
 		template<typename _K1, typename _T1, typename _C1, typename _A1>
 		friend bool operator==(const map<_K1, _T1, _C1, _A1>&, const map<_K1, _T1, _C1, _A1>&);
@@ -166,11 +166,11 @@ namespace ft
 
 	template<typename Key, typename T, typename Compare, typename Alloc>
 	bool operator==(const map<Key, T, Compare, Alloc>& x, const map<Key, T, Compare, Alloc>& y)
-	{ return (x._btree == y._btree); }
+	{ return (x.this->_btree == y.this->_btree); }
 
 	template<typename Key, typename T, typename Compare, typename Alloc>
 	bool operator<(const map<Key, T, Compare, Alloc>& x, const map<Key, T, Compare, Alloc>& y)
-	{ return (x._btree < y._btree); }
+	{ return (x.this->_btree < y.this->_btree); }
 
 	template<typename Key, typename T, typename Compare, typename Alloc>
 	bool operator!=(const map<Key, T, Compare, Alloc>& x, const map<Key, T, Compare, Alloc>& y)
