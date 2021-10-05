@@ -21,11 +21,12 @@ namespace ft
 	class Node
 	{
 		public:
-			typedef ft::pair<const K, T>			value_type;
+			typedef ft::pair<K, T>			value_type;
 			typedef Node<K, T>*						node_pointer;
 			typedef Node<K, T>&						node_reference;
 			typedef const K&						key_reference;
 			typedef T&								value_reference;
+			typedef Node<K, T>						_Self;
 
 		public:
 			Node(void) {}
@@ -41,13 +42,29 @@ namespace ft
 			{
 				this->_left = cp._left;
 				this->_right = cp._right;
-				this->_right = value_type(cp._value);
+				this->_parent = cp._parent;
+				this->_value = cp._value;
 				return (*this);
 			}
 			virtual ~Node() {}
 			value_type &Pair(void) { return (this->_value); }
 			key_reference Key(void) { return (this->_value.first); }
 			value_reference Value(void) { return (this->_value.second); }
+			void swap(node_pointer node)
+			{
+				_Self tmp;
+
+				tmp = *node;
+				*node = *this;
+				*this = tmp;
+			}
+			void swapValue(node_pointer node)
+			{
+				value_type tmp = node->_value;
+
+				node->_value = this->_value;
+				this->_value = tmp;
+			}
 	};
 }
 

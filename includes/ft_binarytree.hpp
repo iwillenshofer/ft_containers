@@ -18,7 +18,7 @@
 # include "ft_iterator_traits.hpp"
 # include "ft_reverse_iterator.hpp"
 # include <memory>
-
+# include <iostream>
 namespace ft
 {
 	template <typename Key, typename T, typename Compare = ft::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
@@ -36,8 +36,13 @@ namespace ft
 			typedef ft::pair<const Key, T>											value_type;
 			typedef typename Alloc::template rebind<ft::Node<Key, T> >::other		allocator;
 
-			BinaryTree(): _root(nullptr) {}
+			BinaryTree(): _root(nullptr), _allocator(allocator()) {}
 			BinaryTree(BinaryTree const &cp): _root(cp._root) { *this = cp; }
+			BinaryTree &operator=(BinaryTree const &cp)
+			{
+				this->_allocator = cp._allocator;
+				this->_root = cp._root;
+			}
 			virtual ~BinaryTree() {};
 
 			node_pointer	_root;
@@ -76,14 +81,66 @@ namespace ft
 
 			/*
 			** erases a single node
-			*/	
-			void erase(node_pointer node)
+			*/
+			/* erases node if it has two children */
+			node_pointer _erase_singlechild(node_pointer node)
+			{
+				node_pointer child = node->_right? node->_right : node->_left;
+		
+				this->swapValue(node, child);
+				node->_left = child->_left;
+				node->_right = child->_right;
+				if (node->_left)
+					node->_left->_parent = node;
+				if (node->_right)
+					node->_right->_parent = node;
+				delete_node(child);
+				return(node);
+			}
+
+			/* erases node if it has two children */
+			/*
+			** 1. finds the sucessor
+			** 2. replaces itself with the successor.
+
+			*/
+			node_pointer _erase_twochildren(node_pointer node)
+			{
+				std::cout << "twochildren\n";
+				node_pointer suc = successor(node);
+				if (suc->_parent && suc->_parent->_right == suc)
+					suc->_parent->_right = nullptr;
+				if (suc->_parent && suc->_parent->_left == suc)
+					suc->_parent->_left = nullptr;
+				if (suc->_right && suc->_parent)
+					suc->_parent->_left = suc->_right;
+				this->swapValue(node, suc);
+
+				delete_node(suc);
+				return(node);
+			}
+			/* erases node if it has two children */
+			node_pointer _erase_leaf(node_pointer node)
 			{
 				node_pointer parent = node->_parent;
-				node_pointer left = node->_left;
-				node_pointer right = node->_right;
-	
-				
+
+				if (parent && parent->_right == node)
+					parent->_right = nullptr;
+				if (parent && parent->_left == node)
+					parent->_left = nullptr;
+				delete_node(node);
+				return (nullptr);
+			}
+
+			void erase(node_pointer node)
+			{
+				node_pointer new_node;
+				if (!(node->_left) && !(node->_right))
+					new_node = _erase_leaf(node);
+				else if (node->_left && node->_right)
+					new_node = _erase_twochildren(node);
+				else
+					new_node = _erase_singlechild(node);
 			}
 
 			node_pointer create_node(value_type const &val)
@@ -113,9 +170,58 @@ namespace ft
 					if (node->_parent->_right == node)
 						node->_parent->_right = nullptr;
 				}
-				if (node == this->_root)
-					this->_root = nullptr;
 				delete_node(node);
+			}
+
+			void swapValue(node_pointer lhs, node_pointer rhs)
+			{
+				(*lhs).swapValue(rhs);
+			}
+
+			node_pointer minimum(void) { return (minimum(this->_root)); }
+			node_pointer minimum(node_pointer node)
+			{
+				while (node && node->_left)
+					node = node->_left;
+				return (node);
+			}
+
+			node_pointer maximum(void) { return (maximum(this->_root)); }
+			node_pointer maximum(node_pointer node)
+			{
+				while (node && node->_right)
+					node = node->_right;
+				return (node);
+			}
+
+			node_pointer successor(node_pointer node)
+			{
+				node_pointer parent = nullptr;
+
+				if (node && node->_right)
+					return(minimum(node->_right));
+				parent = node->_parent;
+				while (node && node == parent->_right)
+				{
+					node = parent;
+					parent = node->_parent;
+				}
+				return (parent);
+			}
+	
+			node_pointer predecessor(node_pointer node)
+			{
+				node_pointer parent = nullptr;
+
+				if (node && node->_left)
+					return(maximum(node->_left));
+				parent = node->_parent;
+				while (node && node == parent->_left)
+				{
+					node = parent;
+					parent = node->_parent;
+				}
+				return (parent);
 			}
 	};
 }

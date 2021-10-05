@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redblacktree.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 10:13:20 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/04 10:59:10 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/03 17:33:03 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,40 +18,34 @@
 namespace ft
 {
 	/*
-	** individual nodes for Binary Tree
+	** individual nodes for RbTree
 	*/
-	template <typename Key, typename T>
-	class Node
+	template <typename Val>
+	class RbNode
 	{
 		public:
-			typedef ft::pair<const Key, T>		value_type;
-			typedef Node<Val>*					pointer;
-			typedef Node<const Val>*			const_pointer;
-			typedef Node<Val>&					reference;
-			typedef Node<const Val>&			const_reference;
-
-		private:
-			Node(void) {}
-			value_type		_value;
-			node_pointer	_left;
-			node_pointer	_right;
+			typedef RbNode*			node_pointer;
+			typedef const RbNode*	const_node_pointer;
+			typedef RbNode<Val>*	link_type;
 
 		public:
-			Node(value_type *val): _value(value_type(val)), _left(0x0), _right(0x0) {}
-			Node(Node &cp) { *this = cp; }
-			Node& operator=(const Node& cp)
+			RbColor			_color;
+			node_pointer	_parent;
+			node_pointer	_left;
+			node_pointer	_right;
+			Val				_value;
+
+			RbNode(): _color(RbRed), _parent(0x0), _left(0x0), _right(0x0) {};
+			RbNode(RbNode &cp) { *this = cp; };
+			RbNode& operator=(const RbNode& cp)
 			{
+				this->_color = cp._color;
+				this->_parent = cp._parent;
 				this->_left = cp._left;
 				this->_right = cp._right;
-				this->_right = value_type(cp._value)
 				return (*this);
 			}
-			reference Right(void) { return (this->_right); }
-			reference Left(void) { return (this->_left); }
-			value_type &Pair(void) { return (this->_value); }
-			value_type &Key(void) { return (this->_value.first); }
-			value_type &Value(void) { return (this->_value.second); }
-			virtual ~Node() {}
+			virtual ~RbNode() {}
 	};
 
 	/*
@@ -61,11 +55,11 @@ namespace ft
 	class RbTree
 	{
 		private:
-			typedef typename Alloc::template rebind<Node<Val> >::other node_allocator;
+			typedef typename Alloc::template rebind<RbNode<Val> >::other node_allocator;
 		
 		protected:
-			typedef	Node<Val>*			node_pointer;
-			typedef	const Node<Val>*		const_node_pointer;
+			typedef	RbNode<Val>*			node_pointer;
+			typedef	const RbNode<Val>*		const_node_pointer;
 
 		public:
 			typedef Key										key_type;
@@ -74,8 +68,8 @@ namespace ft
 			typedef value_type&								reference;
 			typedef const value_type*						const_pointer;
 			typedef const value_type&						const_reference;
-			typedef Node<Val>*							link_type;
-			typedef const Node<Val>*						const_link_type;
+			typedef RbNode<Val>*							link_type;
+			typedef const RbNode<Val>*						const_link_type;
 			typedef size_t									size_type;
 			typedef ptrdiff_t								difference_type;
 			typedef Alloc									allocator_type;
@@ -93,7 +87,7 @@ namespace ft
 			{
 				public:
 					KeyCompare      	key_compare;
-					Node<Val>		    root;
+					RbNode<Val>		    root;
 					size_type			node_count;
 
 					RbTreeImpl()
@@ -200,7 +194,7 @@ namespace ft
 			}
 
 
-			void insertAndRebalance(const bool insert_left, node_pointer new_node, node_pointer parent, Node<Val> header)
+			void insertAndRebalance(const bool insert_left, node_pointer new_node, node_pointer parent, RbNode<Val> header)
 			{
 				node_pointer root = header._parent;
 				new_node->_parent = parent;

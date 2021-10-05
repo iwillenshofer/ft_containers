@@ -18,6 +18,7 @@ void print_node(ft::BinaryTree<char, int>::node_pointer n)
 {
 	std::cout << "Key: " << n->Key();
 	std::cout << ". Value: " << n->Value();
+	std::cout << ". Address: " << n;
 	std::cout << ". Left: " << n->_left;
 	std::cout << ". Right: " << n->_right;
 	std::cout << ". Parent: " << n->_parent << std::endl;
@@ -37,20 +38,35 @@ int main(void)
 {
 //	ft::Node<int, char> n*(ft::make_pair(10, 'c'));
 
-	typename ft::BinaryTree<char, int>::node_pointer n;
+	ft::BinaryTree<char, int>::node_pointer n;
 	ft::BinaryTree<char, int> tree;
 
 
-	tree.insert(ft::make_pair('c', 3));
-n = tree.insert(ft::make_pair('z', 26));
-	tree.insert(ft::make_pair('d', 4));
-	tree.insert(ft::make_pair('a', 1));
-n = tree.insert(ft::make_pair('b', 2));
-	tree.insert(ft::make_pair('h', 8));
-	tree.clear(n);
+	tree.insert(ft::make_pair('k', 3));
+	tree.insert(ft::make_pair('z', 3));
 
-	std::cout << std::endl;
-	std::cout << std::endl;
+	tree.insert(ft::make_pair('c', 3));
+
+	tree.insert(ft::make_pair('d', 26));
+	tree.insert(ft::make_pair('g', 26));
+
+  tree.insert(ft::make_pair('e', 26));
+ 
+	tree.insert(ft::make_pair('9', 3));
+
+	tree.insert(ft::make_pair('y', 3));
+
+	tree.insert(ft::make_pair('d', 26));
+	tree.insert(ft::make_pair('g', 26));
+
+n=	tree.insert(ft::make_pair('p', 26));
+	tree.insert(ft::make_pair('x', 26));
+
+
 	display(tree._root);
+	tree.erase(n);
+	std::cout << "after erase: " << std::endl;
+	display(tree._root);
+
 	tree.clear(tree._root);
 }

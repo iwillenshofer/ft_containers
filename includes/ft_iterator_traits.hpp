@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_iterator_traits.hpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:11 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/04 13:17:28 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/02 11:30:32 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
