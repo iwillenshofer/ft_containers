@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/04 16:11:31 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/05 13:51:19 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ namespace ft
 	class Node
 	{
 		public:
-			typedef ft::pair<K, T>			value_type;
+			typedef ft::pair<K, T>					value_type;
 			typedef Node<K, T>*						node_pointer;
 			typedef Node<K, T>&						node_reference;
 			typedef const K&						key_reference;
 			typedef T&								value_reference;
+			typedef T*								value_pointer;
 			typedef Node<K, T>						_Self;
 
 		public:
@@ -64,6 +65,52 @@ namespace ft
 
 				node->_value = this->_value;
 				this->_value = tmp;
+			}
+			
+			node_pointer minimum(void) { return (minimum(this)); }
+			node_pointer minimum(node_pointer node)
+			{
+				while (node && node->_left)
+					node = node->_left;
+				return (node);
+			}
+
+			node_pointer maximum(void) { return (maximum(this)); }
+			node_pointer maximum(node_pointer node)
+			{
+				while (node && node->_right)
+					node = node->_right;
+				return (node);
+			}
+			node_pointer successor(void) { return (successor(this)); }
+			node_pointer successor(node_pointer node)
+			{
+				node_pointer parent = nullptr;
+
+				if (node && node->_right)
+					return(minimum(node->_right));
+				parent = node->_parent;
+				while (node && parent && node == parent->_right)
+				{
+					node = parent;
+					parent = node->_parent;
+				}
+				return (parent);
+			}
+			node_pointer predecessor(void) { return (predecessor(this)); }
+			node_pointer predecessor(node_pointer node)
+			{
+				node_pointer parent = nullptr;
+
+				if (node && node->_left)
+					return(maximum(node->_left));
+				parent = node->_parent;
+				while (node && node == parent->_left)
+				{
+					node = parent;
+					parent = node->_parent;
+				}
+				return (parent);
 			}
 	};
 }

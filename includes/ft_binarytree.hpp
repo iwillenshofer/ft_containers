@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/04 17:54:39 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/05 17:56:27 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_BINARYTREE_HPP
 
 # include "ft_binarytree_node.hpp"
+# include "ft_binarytree_iterator.hpp"
 # include "ft_iterators.hpp"
 # include "ft_iterator_traits.hpp"
 # include "ft_reverse_iterator.hpp"
@@ -28,37 +29,43 @@ namespace ft
 			/*
 			** regular iterators will be replaced by BinaryTree interators.
 			*/
-			typedef ft::RandomAccessIterator<T>										iterator;
-			typedef ft::RandomAccessIterator<const T>								const_iterator;
+			typedef ft::BinaryTreeIterator<T>										iterator;
+			typedef ft::BinaryTreeIterator<const T>									const_iterator;
 			typedef ft::reverse_iterator<iterator>									reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>							const_reverse_iterator;
-			typedef ft::Node<Key, T>*												node_pointer;
+			typedef ft::Node<Key, T>												node;
+			typedef node*															node_pointer;
+			typedef node&															node_reference;
 			typedef ft::pair<const Key, T>											value_type;
 			typedef typename Alloc::template rebind<ft::Node<Key, T> >::other		allocator;
+			typedef ft::pair<node_pointer, bool>									node_pointer_pair;
 
-			BinaryTree(): _root(nullptr), _allocator(allocator()) {}
+			BinaryTree(): _root(nullptr), _allocator(allocator()) { }
 			BinaryTree(BinaryTree const &cp): _root(cp._root) { *this = cp; }
 			BinaryTree &operator=(BinaryTree const &cp)
 			{
 				this->_allocator = cp._allocator;
-				this->_root = cp._root;
+				setRoot(cp._root);
 			}
 			virtual ~BinaryTree() {};
 
-			node_pointer	_root;
+			node			_header; /* element before first element */
+			node_pointer	_root; /* first element */
 			allocator		_allocator;
 
-			node_pointer insert(value_type const &val) { return(this->insert(this->_root, val)); }
+			node_pointer_pair insert(value_type const &val) { return(this->insert(this->_root, val)); }
 
-			node_pointer insert(node_pointer node, value_type const &val)
+			node_pointer_pair insert(node_pointer node, value_type const &val)
 			{
 				node_pointer	parent = nullptr;
 				bool			left_side = false;
-				bool			compare;
+				bool			compare = true;
 				while (node)
 				{
 					parent = node;
 					compare = Compare()(val.first, node->_value.first);
+					if (compare == Compare()(node->_value.first, val.first))
+						return(ft::make_pair(node, false));
 					if (compare)
 					{
 						node = node->_left;
@@ -75,10 +82,17 @@ namespace ft
 				if (parent)
 					left_side ? parent->_left = node : parent->_right = node;
 				if (!(this->_root))
-					this->_root = node;
-				return (node);
+					setRoot(node);
+				return (ft::make_pair(node, true));
 			}
 
+			void setRoot(node_pointer node)
+			{
+				this->_root = node;
+				this->_header._left = this->_root;
+				if (this->_root)
+					this->_root->_parent = &(this->_header);
+			}
 			/*
 			** erases a single node
 			*/
@@ -106,8 +120,7 @@ namespace ft
 			*/
 			node_pointer _erase_twochildren(node_pointer node)
 			{
-				std::cout << "twochildren\n";
-				node_pointer suc = successor(node);
+				node_pointer suc = (*node).successor();
 				if (suc->_parent && suc->_parent->_right == suc)
 					suc->_parent->_right = nullptr;
 				if (suc->_parent && suc->_parent->_left == suc)
@@ -115,7 +128,6 @@ namespace ft
 				if (suc->_right && suc->_parent)
 					suc->_parent->_left = suc->_right;
 				this->swapValue(node, suc);
-
 				delete_node(suc);
 				return(node);
 			}
@@ -154,6 +166,8 @@ namespace ft
 			{
 				this->_allocator.destroy(p);
 				this->_allocator.deallocate(p, 1);
+				if (p == this->_root)
+					setRoot(nullptr);
 			}
 			
 			void clear() { this->clear(this->_root); }
@@ -171,6 +185,7 @@ namespace ft
 						node->_parent->_right = nullptr;
 				}
 				delete_node(node);
+				setRoot(nullptr);
 			}
 
 			void swapValue(node_pointer lhs, node_pointer rhs)
@@ -178,51 +193,10 @@ namespace ft
 				(*lhs).swapValue(rhs);
 			}
 
-			node_pointer minimum(void) { return (minimum(this->_root)); }
-			node_pointer minimum(node_pointer node)
-			{
-				while (node && node->_left)
-					node = node->_left;
-				return (node);
-			}
+			iterator begin() { return(iterator(this->_root->minimum())); }
+			iterator end() { return(iterator(nullptr)); }
 
-			node_pointer maximum(void) { return (maximum(this->_root)); }
-			node_pointer maximum(node_pointer node)
-			{
-				while (node && node->_right)
-					node = node->_right;
-				return (node);
-			}
 
-			node_pointer successor(node_pointer node)
-			{
-				node_pointer parent = nullptr;
-
-				if (node && node->_right)
-					return(minimum(node->_right));
-				parent = node->_parent;
-				while (node && node == parent->_right)
-				{
-					node = parent;
-					parent = node->_parent;
-				}
-				return (parent);
-			}
-	
-			node_pointer predecessor(node_pointer node)
-			{
-				node_pointer parent = nullptr;
-
-				if (node && node->_left)
-					return(maximum(node->_left));
-				parent = node->_parent;
-				while (node && node == parent->_left)
-				{
-					node = parent;
-					parent = node->_parent;
-				}
-				return (parent);
-			}
 	};
 }
 
