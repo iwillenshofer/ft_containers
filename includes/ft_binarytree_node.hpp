@@ -14,7 +14,7 @@
 # define FT_BINARYTREE_NODE_HPP
 
 # include "ft_utilities.hpp"
-
+# define NULL 0
 namespace ft
 {
 	template <typename K, typename T>
@@ -29,7 +29,6 @@ namespace ft
 			typedef T*								value_pointer;
 			typedef Node<K, T>						_Self;
 
-		public:
 			Node(void) {}
 			value_type		_value;
 			node_pointer	_parent;
@@ -67,25 +66,25 @@ namespace ft
 				this->_value = tmp;
 			}
 			
-			node_pointer minimum(void) { return (minimum(this)); }
-			node_pointer minimum(node_pointer node)
+			node_pointer minimum(void) const { return (minimum(this)); }
+			node_pointer minimum(node_pointer node) const
 			{
 				while (node && node->_left)
 					node = node->_left;
 				return (node);
 			}
 
-			node_pointer maximum(void) { return (maximum(this)); }
-			node_pointer maximum(node_pointer node)
+			node_pointer maximum(void) const { return (maximum(this)); }
+			node_pointer maximum(node_pointer node) const
 			{
 				while (node && node->_right)
 					node = node->_right;
 				return (node);
 			}
-			node_pointer successor(void) { return (successor(this)); }
-			node_pointer successor(node_pointer node)
+			node_pointer successor(void) const { return (successor(this)); }
+			node_pointer successor(node_pointer node) const
 			{
-				node_pointer parent = nullptr;
+				node_pointer parent = NULL;
 
 				if (node && node->_right)
 					return(minimum(node->_right));
@@ -97,10 +96,10 @@ namespace ft
 				}
 				return (parent);
 			}
-			node_pointer predecessor(void) { return (predecessor(this)); }
-			node_pointer predecessor(node_pointer node)
+			node_pointer predecessor(void) const { return (predecessor(this)); }
+			node_pointer predecessor(node_pointer node) const
 			{
-				node_pointer parent = nullptr;
+				node_pointer parent = NULL;
 
 				if (node && node->_left)
 					return(maximum(node->_left));

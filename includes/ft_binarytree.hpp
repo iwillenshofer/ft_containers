@@ -29,11 +29,11 @@ namespace ft
 			/*
 			** regular iterators will be replaced by BinaryTree interators.
 			*/
-			typedef ft::BinaryTreeIterator<T>										iterator;
-			typedef ft::BinaryTreeIterator<const T>									const_iterator;
+			typedef ft::Node<Key, T>												node;
+			typedef ft::BinaryTreeIterator<node>									iterator;
+			typedef ft::BinaryTreeIterator<const node>									const_iterator;
 			typedef ft::reverse_iterator<iterator>									reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>							const_reverse_iterator;
-			typedef ft::Node<Key, T>												node;
 			typedef node*															node_pointer;
 			typedef node&															node_reference;
 			typedef ft::pair<const Key, T>											value_type;
@@ -193,8 +193,41 @@ namespace ft
 				(*lhs).swapValue(rhs);
 			}
 
-			iterator begin() { return(iterator(this->_root->minimum())); }
-			iterator end() { return(iterator(nullptr)); }
+			iterator begin() const { return(iterator(this->_root->minimum())); }
+			iterator end() const { return(iterator(&this->_header)); }
+			reverse_iterator rbegin() const { return(reverse_iterator(this->end())); }
+			reverse_iterator rend() const { return(reverse_iterator(this->begin())); }
+
+			node_pointer successor(void) { return (successor(this)); }
+			node_pointer successor(node_pointer node)
+			{
+				node_pointer parent = NULL;
+
+				if (node && node->_right)
+					return(minimum(node->_right));
+				parent = node->_parent;
+				while (node && parent != this->_header && node == parent->_right)
+				{
+					node = parent;
+					parent = node->_parent;
+				}
+				return (parent);
+			}
+			node_pointer predecessor(void) { return (predecessor(this)); }
+			node_pointer predecessor(node_pointer node)
+			{
+				node_pointer parent = NULL;
+
+				if (node && node->_left)
+					return(maximum(node->_left));
+				parent = node->_parent;
+				while (node && parent != this->_header && node == parent->_left)
+				{
+					node = parent;
+					parent = node->_parent;
+				}
+				return (parent);
+			}
 
 
 	};

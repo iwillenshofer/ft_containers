@@ -42,8 +42,8 @@ namespace ft
 			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::reference			reference;
 		
 		private:
-			typedef typename ft::BinaryTreeIterator<value_type>									_self;
-			typedef typename ft::BinaryTreeIterator<const value_type>							const_self;
+			typedef typename ft::BinaryTreeIterator<T>									_self;
+			typedef typename ft::BinaryTreeIterator<const T>							const_self;
 
 		protected:
 			pointer	_p;
@@ -71,10 +71,35 @@ namespace ft
 			reference operator*() { return (*(this->_p)); }
 			pointer operator->() { return (&(this->_p)); }
 
-			_self &operator++() { this->_p = this->_p->successor(); return (*this); }
-			_self &operator--() { this->_p = this->_p->predecessor(); return (*this); }
+			BinaryTreeIterator	operator+(difference_type const &n) const { return (_self(this->_p + n)); }
+			BinaryTreeIterator	operator-(difference_type const &n) const
+			{
+				pointer tmp = this->_p;
+				difference_type steps = n;
+				if (steps > 0)
+				{
+					while (steps)
+					{
+						tmp = tmp->predecessor();
+						steps--;
+					}	
+				}
+				else
+				{
+					while (steps)
+					{
+						tmp = tmp->successor();
+						steps++;
+					}
+				}
+				return (_self(tmp));
+			}
 
-			_self operator++(int)
+
+			BinaryTreeIterator &operator++() { this->_p = this->_p->successor(); return (*this); }
+			BinaryTreeIterator &operator--() {	 this->_p->predecessor(); return (*this);}
+
+			BinaryTreeIterator operator++(int)
 			{
 				_self tmp(*this);
 
@@ -82,7 +107,7 @@ namespace ft
 				return (tmp); 
 			}
 
-			_self operator--(int)
+			BinaryTreeIterator operator--(int)
 			{
 				_self tmp(*this);
 
@@ -94,6 +119,7 @@ namespace ft
 			bool operator!=(const _self &x) const { return (this->_p != x.base()); }
 
 	};
+
 
 	template<typename Val>
 	inline bool	operator==(const BinaryTreeIterator<Val>& x,	const BinaryTreeIterator<Val>& y)

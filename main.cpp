@@ -27,7 +27,7 @@ void print_node(ft::BinaryTree<char, int>::node_reference n)
 
 void display(ft::BinaryTree<char, int>::node_pointer root)
 {
-    if (!root)
+    if (!root )
    		return;
 	display(root->_left);
 	print_node(*root);
@@ -61,14 +61,15 @@ int main(void)
 //	std::cout << "after erase: " << std::endl;
 	n =  tree.insert(ft::make_pair('g', 7)).first;
 	it = ft::BinaryTreeIterator<ft::Node<char, int> >(tree._root->minimum());
-	ft::BinaryTreeIterator<ft::Node<char, int> > ite = ft::BinaryTreeIterator<ft::Node<char, int> >(nullptr);
+	ft::BinaryTree<char, int>::iterator ite = tree.end();
 //	tree.erase(n);
-	while (it != ite)
-	{
-		print_node(*it);
-		it++;
-	}
+for (ft::BinaryTree<char, int>::reverse_iterator it = tree.rbegin(); it != tree.rend(); ++it)
+{
+	print_node(*it);
+}
 			
+ft::BinaryTree<char, int>::const_iterator it2 = tree.end();
+it2--;
 
 //	display(tree._root);
 
