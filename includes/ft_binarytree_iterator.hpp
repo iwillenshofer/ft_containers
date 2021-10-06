@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 12:44:58 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/05 13:45:43 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/06 12:05:27 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ namespace ft
 			bool operator!=(const _self &x) const { return (this->_p != x.base()); }
 
 	};
-
 
 	template<typename Val>
 	inline bool	operator==(const BinaryTreeIterator<Val>& x,	const BinaryTreeIterator<Val>& y)

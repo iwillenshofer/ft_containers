@@ -6,15 +6,16 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/05 13:51:19 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/06 14:19:48 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_BINARYTREE_NODE_HPP
 # define FT_BINARYTREE_NODE_HPP
 
+# include <algorithm>
 # include "ft_utilities.hpp"
-# define NULL 0
+
 namespace ft
 {
 	template <typename K, typename T>
@@ -24,10 +25,13 @@ namespace ft
 			typedef ft::pair<K, T>					value_type;
 			typedef Node<K, T>*						node_pointer;
 			typedef Node<K, T>&						node_reference;
+			typedef const Node<K, T>*				const_node_pointer;
 			typedef const K&						key_reference;
 			typedef T&								value_reference;
 			typedef T*								value_pointer;
 			typedef Node<K, T>						_Self;
+			typedef const Node<K, T>				const_self;
+			typedef std::size_t							size_type;
 
 			Node(void) {}
 			value_type		_value;
@@ -65,24 +69,28 @@ namespace ft
 				node->_value = this->_value;
 				this->_value = tmp;
 			}
-			
-			node_pointer minimum(void) const { return (minimum(this)); }
-			node_pointer minimum(node_pointer node) const
+
+			node_pointer minimum(void) { return const_cast<node_pointer>(minimum(this)); }
+			const_node_pointer minimum(void) const { return (minimum(this)); }
+			const_node_pointer minimum(const_node_pointer node) const
 			{
 				while (node && node->_left)
 					node = node->_left;
 				return (node);
 			}
 
-			node_pointer maximum(void) const { return (maximum(this)); }
-			node_pointer maximum(node_pointer node) const
+			node_pointer maximum(void) { return const_cast<node_pointer>(maximum(this)); }
+			const_node_pointer maximum(void) const { return (maximum(this)); }
+			const_node_pointer maximum(const_node_pointer node) const
 			{
 				while (node && node->_right)
 					node = node->_right;
 				return (node);
 			}
-			node_pointer successor(void) const { return (successor(this)); }
-			node_pointer successor(node_pointer node) const
+
+			node_pointer successor(void)  { return const_cast<node_pointer>(successor(this)); }
+			const_node_pointer successor(void) const { return (successor(this)); }
+			const_node_pointer successor(node_pointer node) const
 			{
 				node_pointer parent = NULL;
 
@@ -96,8 +104,10 @@ namespace ft
 				}
 				return (parent);
 			}
-			node_pointer predecessor(void) const { return (predecessor(this)); }
-			node_pointer predecessor(node_pointer node) const
+
+			node_pointer predecessor(void)  { return const_cast<node_pointer>(predecessor(this)); }
+			const_node_pointer predecessor(void) const { return (predecessor(this)); }
+			const_node_pointer predecessor(const_node_pointer node) const
 			{
 				node_pointer parent = NULL;
 
@@ -111,6 +121,27 @@ namespace ft
 				}
 				return (parent);
 			}
+
+//			size_type height(void)  { return const_cast<node_pointer>(height(this)); }
+			size_type height(void) const { return (height(this)); }
+			size_type height(const_node_pointer node) const
+			{
+				if (node == nullptr)
+					return (0);
+				else
+					return (std::max(height(node->_left), height(node->_right)) + 1);
+			}
+			
+			bool balanced(void) const { return (balanced(this)); }
+			bool balanced(const_node_pointer node) const
+			{
+				size_type left = height(node->_left);
+				size_type right = height(node->_right);
+				size_type diff = left > right ? left - right : right - left;
+
+				return (diff <= 1);
+			}
+
 	};
 }
 

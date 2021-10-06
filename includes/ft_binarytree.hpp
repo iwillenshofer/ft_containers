@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/05 17:56:27 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/06 16:33:41 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ namespace ft
 			*/
 			typedef ft::Node<Key, T>												node;
 			typedef ft::BinaryTreeIterator<node>									iterator;
-			typedef ft::BinaryTreeIterator<const node>									const_iterator;
+			typedef ft::BinaryTreeIterator<const node>								const_iterator;
 			typedef ft::reverse_iterator<iterator>									reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>							const_reverse_iterator;
 			typedef node*															node_pointer;
 			typedef node&															node_reference;
+			typedef const node*														const_node_pointer;
+			typedef const node&														const_node_reference;
 			typedef ft::pair<const Key, T>											value_type;
 			typedef typename Alloc::template rebind<ft::Node<Key, T> >::other		allocator;
 			typedef ft::pair<node_pointer, bool>									node_pointer_pair;
@@ -83,6 +85,7 @@ namespace ft
 					left_side ? parent->_left = node : parent->_right = node;
 				if (!(this->_root))
 					setRoot(node);
+				balance(node);
 				return (ft::make_pair(node, true));
 			}
 
@@ -193,10 +196,14 @@ namespace ft
 				(*lhs).swapValue(rhs);
 			}
 
-			iterator begin() const { return(iterator(this->_root->minimum())); }
-			iterator end() const { return(iterator(&this->_header)); }
-			reverse_iterator rbegin() const { return(reverse_iterator(this->end())); }
-			reverse_iterator rend() const { return(reverse_iterator(this->begin())); }
+			iterator begin() { return(iterator(this->_root->minimum())); }
+			iterator end() { return(iterator(&this->_header)); }
+			reverse_iterator rbegin() { return(reverse_iterator(this->end())); }
+			reverse_iterator rend() { return(reverse_iterator(this->begin())); }
+			const_iterator begin() const { return(const_iterator(this->_root->minimum())); }
+			const_iterator end() const { return(const_iterator(&this->_header)); }
+			const_reverse_iterator rbegin() const { return(const_reverse_iterator(this->end())); }
+			const_reverse_iterator rend() const { return(const_reverse_iterator(this->begin())); }
 
 			node_pointer successor(void) { return (successor(this)); }
 			node_pointer successor(node_pointer node)
@@ -230,6 +237,85 @@ namespace ft
 			}
 
 
+			/*
+			** binary tree rotation reference;
+			** https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm
+			*/
+
+			void	rotate_left(node_pointer x)
+			{
+				node_pointer y = x->_parent;
+
+				x->_parent = y->_parent;
+				y->_parent = x;
+				y->_right = nullptr;
+				if (x->_parent->_right == y)
+					x->_parent->_right = x;
+				else if (x->_parent->_left == y)
+					x->_parent->_left = x;
+				x->_left = y;
+				if (this->_root == y)
+					setRoot(x);
+			}
+
+			void	rotate_right(node_pointer x)
+			{
+				node_pointer y = x->_parent;
+
+				x->_parent = y->_parent;
+				y->_parent = x;
+				y->_left = nullptr;
+				if (x->_parent->_left == y)
+					x->_parent->_left = x;
+				else if (x->_parent->_right == y)
+					x->_parent->_right = x;
+				x->_right = y;
+				if (this->_root == y)
+					setRoot(x);
+			}
+			
+			void	rotate_leftright(node_pointer x)
+			{
+				rotate_left(x);
+				rotate_right(x);
+			}
+			
+			void	rotate_rightleft(node_pointer x)
+			{
+				rotate_right(x);
+				rotate_left(x);
+			}
+
+			void	balance(node_pointer node)
+			{
+				node_pointer x = node->_parent;
+				node_pointer y = x->_parent;
+
+				if (node == &this->_header || x == &this->_header || y == &this->_header || y->balanced())
+					return ;
+				std::cout << "Node Key: " << node->Key() << " ";
+				if (node == x->_right && x == y->_left)
+				{
+					std::cout << "RLR"<< std::endl;
+					rotate_leftright(node);
+				}
+				else if (node == x->_left && x == y->_right)
+				{
+					std::cout << "RRL"<< std::endl;
+					rotate_rightleft(node);
+				}
+				else if (node == x->_right && x == y->_right)
+				{
+					std::cout << "RL"<< std::endl;
+					rotate_left(x);
+				}
+				else if (node == x->_left && x == y->_left)
+				{
+					std::cout << "RR"<< std::endl;
+					rotate_right(x);
+				}	
+				balance(x);
+			};
 	};
 }
 

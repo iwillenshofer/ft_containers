@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utilities.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:42:01 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/03 16:25:56 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/06 12:02:39 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_UTILITIES_HPP
 # define FT_UTILITIES_HPP
+
+# include <climits>
 
 namespace ft
 {
