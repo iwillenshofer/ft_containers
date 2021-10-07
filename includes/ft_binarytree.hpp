@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_binarytree.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/06 23:01:45 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:11:16 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ namespace ft
 				node_pointer	parent = nullptr;
 				bool			left_side = false;
 				bool			compare = true;
+
+				std::cout << "[" << val.first << "]" << std::endl << std::flush;
+
 				while (node)
 				{
 					parent = node;
@@ -250,115 +253,72 @@ namespace ft
 				std::cout << ". Left: " << n._left;
 				std::cout << ". Right: " << n._right;
 				std::cout << ". Parent: " << n._parent;
-				std::cout << ". Height: " << n.height();
-				std::cout << ". Balanced: " << n.balanced() << std::endl;
+		//		std::cout << ". Height: " << n.height();
+		//		std::cout << ". Balanced: " << n.balanced() << std::endl;
 				std::cout << std::endl;
 			}
 
-			void	rotate_left(node_pointer parent)
+			void	rotate_left(node_pointer x)
 			{
-				
-				std::cout << "Left Rotate: " << parent->Value() << std::endl;
-				node_pointer child = parent->_right;
-				node_pointer orig_parent = parent;
-				
-				print_node(*child);
-				print_node(*parent);
-				
-				node tmp = *parent;
+				node_pointer root = x->_parent;;
+				node_pointer y = x->_right;
 
-				child->_left = parent;
-				parent->_parent = child;
-				if (tmp._parent->_right == parent)
-					tmp._parent->_right = child;
+				y->_parent = x->_parent;
+				x->_right = y->_left;
+				x->_parent = y;
+				y->_left = x;
+				if(x->_right)
+					x->_right->_parent = x;
+				if(x->_left)
+					x->_left->_parent = x;
+				if (root->_left == x)
+					root->_left = y;
 				else
-					tmp._parent->_left = child;
-				child->_parent = tmp._parent;
-				if (this->_root == orig_parent)
-					setRoot(child);
-				print_node(*child);
-				print_node(*parent);
-
-/*
-
-				x->_parent = y->_parent;
-				y->_parent = x;
-				y->_right = nullptr;
-				if (x->_parent->_right == y)
-					x->_parent->_right = x;
-				else if (x->_parent->_left == y)
-					x->_parent->_left = x;
-				x->_left = y;
-				if (this->_root == y)
-					setRoot(x);*/
+					root->_right = y;
+				if (this->_root == x)
+					setRoot(y);
 			}
 
-			void	rotate_right(node_pointer parent)
+			void	rotate_right(node_pointer x)
 			{
-				std::cout << "Right Rotate: " << parent->Value() << std::endl;
-				node_pointer child = parent->_left;
-				node_pointer orig_parent = parent;
-				node tmp = *parent;
-				std::cout << "|BEGIN| "  << std::endl;
-				print_node(*child);
-				print_node(*parent);
-				
-				child->_right = parent;
-				parent->_parent = child;
-				if (tmp._parent->_left == parent)
-					tmp._parent->_left = child;
+				node_pointer root = x->_parent;;
+				node_pointer y = x->_left;
+
+				y->_parent = x->_parent;
+				x->_left = y->_right;
+				x->_parent = y;
+				y->_right = x;
+				if(x->_right)
+						x->_right->_parent = x;
+				if(x->_left)
+						x->_left->_parent = x;
+				if (root->_left == x)
+					root->_left = y;
 				else
-					tmp._parent->_right = child;
-				child->_parent = tmp._parent;
-			std::cout << "|END| "  << std::endl << std::flush;
-				if (this->_root == orig_parent)
-					setRoot(child);
-				print_node(*child);
-				print_node(*parent);
+					root->_right = y;
+				if (this->_root == x)
+					setRoot(y);
 			}
 			
-			void	rotate_leftright(node_pointer x)
-			{
-				rotate_left(x);
-				rotate_right(x);
-			}
-			
-			void	rotate_rightleft(node_pointer x)
-			{
-				rotate_right(x);
-				rotate_left(x);
-			}
-
 			void	balance(node_pointer node)
 			{
 				if (node == &this->_header || (node == this->_root && node->balanced()))
 					return ;
-				std::cout << node << std::endl;
 				if (!(node->balanced()))
 				{
 					if (node->_right->height() > node->_left->height())
 					{
 						// left rotation or right left rotation
 						if (node->_right->_left && (!(node->_right->_right) || node->_right->_left->height() > node->_right->_right->height()))
-						{
-							std::cout << "rotating right left" << std::endl;
-
-						//	node_pointer tmp= node->_right;
 							rotate_right(node->_right);
-							rotate_left(node);
-						}	
-						else
-						{
-							std::cout << "rotated left" << std::endl;
-							rotate_left(node);
-						}
+						rotate_left(node);
 					}
 					else
 					{
 						// right rotation or left right rotation.
 						if (node->_left->_right && (!(node->_left->_left) || node->_left->_right->height() > node->_left->_left->height()))
 							rotate_left(node->_left);
-						rotate_right(node->_left);
+						rotate_right(node);
 					}
 				}
 				balance(node->_parent);
