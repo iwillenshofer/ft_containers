@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 16:21:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/07 17:01:23 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:51:33 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,26 @@ void print_tree(ft::BinaryTree<int, int>::node_pointer root)
 int main(void)
 {
 //	ft::Node<int, char> n*(ft::make_pair(10, 'c'));
-//	ft::BinaryTree<int, int>::node_pointer n[50];
+	ft::BinaryTree<int, int>::node_pointer n[10000];
 	ft::BinaryTree<int, int> tree;
 	ft::BinaryTreeIterator<ft::Node<int, int> > it;
 	std::vector<int> v;
 //	tree.insert(ft::make_pair(35, 3));
 	srand (time(NULL));
 
-	for (int i = 0; i < 100000; i++)
+	for (int i = 0; i < 10000; i++)
 	{
-		int rnd = rand() % 100000 + 1;
+		int rnd = rand() % 10000 + 1;
 		v.push_back(rnd);
-		tree.insert(ft::make_pair(rnd, 3));
+		n[i] = tree.insert(ft::make_pair(rnd, 3)).first;
 	}
 
+tree.erase(n[1]);
 
+for (ft::BinaryTree<int, int>::iterator it = tree.begin(); it != tree.end(); ++it)
+{
+	print_node(*it);
+}
 
 
 //n[2]=	tree.insert(ft::make_pair(31, 3)).first;
@@ -111,10 +116,6 @@ int main(void)
 ////	ft::BinaryTree<char, int>::iterator ite = tree.end();
 //	tree.erase(n);
 
-for (ft::BinaryTree<int, int>::iterator it = tree.begin(); it != tree.end(); ++it)
-{
-	print_node(*it);
-}
 
 //	tree.rotate_left(n[0]);
 //	tree.rotate_left(n[0]);

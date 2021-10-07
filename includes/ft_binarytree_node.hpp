@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_binarytree_node.hpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/06 22:51:16 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:28:02 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ namespace ft
 			bool balanced(void) const { return (balanced(this)); }
 			bool balanced(const_node_pointer node) const
 			{
-				size_type left = height(node->_left);
+				size_type left = node->_left ? height(node->_left) : 0;
 				size_type right = height(node->_right);
 				size_type diff = left > right ? left - right : right - left;
 

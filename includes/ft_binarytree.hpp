@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/07 17:11:16 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:51:21 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ namespace ft
 				node_pointer	parent = nullptr;
 				bool			left_side = false;
 				bool			compare = true;
-
-				std::cout << "[" << val.first << "]" << std::endl << std::flush;
 
 				while (node)
 				{
@@ -127,12 +125,18 @@ namespace ft
 			node_pointer _erase_twochildren(node_pointer node)
 			{
 				node_pointer suc = (*node).successor();
+				print_node(*(node));
+
 				if (suc->_parent && suc->_parent->_right == suc)
 					suc->_parent->_right = nullptr;
 				if (suc->_parent && suc->_parent->_left == suc)
 					suc->_parent->_left = nullptr;
 				if (suc->_right && suc->_parent)
 					suc->_parent->_left = suc->_right;
+				if (suc->_right)
+					suc->_right->_parent = suc;
+				if (suc->_left)
+					suc->_left->_parent = suc;
 				this->swapValue(node, suc);
 				delete_node(suc);
 				return(node);
@@ -153,12 +157,16 @@ namespace ft
 			void erase(node_pointer node)
 			{
 				node_pointer new_node;
+				node_pointer parent = node->_parent;
+
+
 				if (!(node->_left) && !(node->_right))
 					new_node = _erase_leaf(node);
 				else if (node->_left && node->_right)
 					new_node = _erase_twochildren(node);
 				else
 					new_node = _erase_singlechild(node);
+				balance(parent);
 			}
 
 			node_pointer create_node(value_type const &val)
