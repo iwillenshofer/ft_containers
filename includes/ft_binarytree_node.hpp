@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_binarytree_node.hpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/06 14:19:48 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/06 22:51:16 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <algorithm>
 # include "ft_utilities.hpp"
-
+#include <iostream>
 namespace ft
 {
 	template <typename K, typename T>
@@ -126,7 +126,7 @@ namespace ft
 			size_type height(void) const { return (height(this)); }
 			size_type height(const_node_pointer node) const
 			{
-				if (node == nullptr)
+				if (!(node))
 					return (0);
 				else
 					return (std::max(height(node->_left), height(node->_right)) + 1);
