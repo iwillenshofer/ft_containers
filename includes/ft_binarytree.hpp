@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/07 17:51:21 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/07 18:58:48 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,17 +103,17 @@ namespace ft
 			/* erases node if it has two children */
 			node_pointer _erase_singlechild(node_pointer node)
 			{
-				node_pointer child = node->_right? node->_right : node->_left;
-		
-				this->swapValue(node, child);
-				node->_left = child->_left;
-				node->_right = child->_right;
-				if (node->_left)
-					node->_left->_parent = node;
-				if (node->_right)
-					node->_right->_parent = node;
-				delete_node(child);
-				return(node);
+				node_pointer child = node->_right ? node->_right : node->_left;
+				bool root = (this->_root == node);
+				child->_parent = node->_parent;
+				if(node->_parent && node->_parent->_right == node)
+					node->_parent->_right = child;
+				if(node->_parent && node->_parent->_left == node)
+					node->_parent->_left = child;
+				delete_node(node);
+				if (root)
+					setRoot(child);
+				return(child);
 			}
 
 			/* erases node if it has two children */
@@ -122,24 +122,30 @@ namespace ft
 			** 2. replaces itself with the successor.
 
 			*/
-			node_pointer _erase_twochildren(node_pointer node)
+			node_pointer _erase_twochildren(node_pointer nd)
 			{
-				node_pointer suc = (*node).successor();
-				print_node(*(node));
+				node_pointer suc = (*nd).successor();
+				node tmp = *suc;
+				bool root = (this->_root == nd);
 
-				if (suc->_parent && suc->_parent->_right == suc)
-					suc->_parent->_right = nullptr;
-				if (suc->_parent && suc->_parent->_left == suc)
-					suc->_parent->_left = nullptr;
-				if (suc->_right && suc->_parent)
-					suc->_parent->_left = suc->_right;
-				if (suc->_right)
-					suc->_right->_parent = suc;
-				if (suc->_left)
-					suc->_left->_parent = suc;
-				this->swapValue(node, suc);
-				delete_node(suc);
-				return(node);
+				suc->_parent = nd->_parent;
+				suc->_right = nd->_right;
+				suc->_left = nd->_left;
+				if (nd->_parent->_left == nd)
+					nd->_parent->_left = suc;
+				if (nd->_parent->_right == nd)
+					nd->_parent->_right = suc;
+				nd->_left = tmp._left;
+				nd->_right = tmp._right;
+				nd->_parent = tmp._parent;
+				if (nd->_parent->_left == suc)
+					nd->_parent->_left = nd;
+				if (nd->_parent->_right == suc)
+					nd->_parent->_right = nd;
+				if(root)
+					this->_root = suc;
+				erase(nd);
+				return(suc);
 			}
 			/* erases node if it has two children */
 			node_pointer _erase_leaf(node_pointer node)
@@ -157,16 +163,16 @@ namespace ft
 			void erase(node_pointer node)
 			{
 				node_pointer new_node;
-				node_pointer parent = node->_parent;
-
-
+//				node_pointer parent = node->_parent;
 				if (!(node->_left) && !(node->_right))
 					new_node = _erase_leaf(node);
 				else if (node->_left && node->_right)
 					new_node = _erase_twochildren(node);
 				else
 					new_node = _erase_singlechild(node);
-				balance(parent);
+				if (node == this->_root)
+					setRoot(new_node);
+	//			balance(parent);
 			}
 
 			node_pointer create_node(value_type const &val)

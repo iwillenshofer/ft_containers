@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 16:21:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/07 17:51:33 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/07 19:00:02 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,20 @@ int main(void)
 	ft::BinaryTreeIterator<ft::Node<int, int> > it;
 	std::vector<int> v;
 //	tree.insert(ft::make_pair(35, 3));
-	srand (time(NULL));
+//	srand (time(NULL));
 
-	for (int i = 0; i < 10000; i++)
-	{
-		int rnd = rand() % 10000 + 1;
-		v.push_back(rnd);
-		n[i] = tree.insert(ft::make_pair(rnd, 3)).first;
-	}
+for (int i = 0; i < 10000; i++)
+{
+	int rnd = rand() % 10000 + 1;
+	v.push_back(rnd);
+	n[i] = tree.insert(ft::make_pair(rnd, 3)).first;
+}
 
-tree.erase(n[1]);
+print_node(*(n[0]));
+tree.erase(n[0]);
+print_node(*(n[1]));
+std::cout << tree._root << std::endl;
+
 
 for (ft::BinaryTree<int, int>::iterator it = tree.begin(); it != tree.end(); ++it)
 {
