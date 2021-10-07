@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/07 18:58:48 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/07 19:16:04 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ namespace ft
 			node_pointer _erase_singlechild(node_pointer node)
 			{
 				node_pointer child = node->_right ? node->_right : node->_left;
+	
 				bool root = (this->_root == node);
 				child->_parent = node->_parent;
 				if(node->_parent && node->_parent->_right == node)
@@ -113,6 +114,7 @@ namespace ft
 				delete_node(node);
 				if (root)
 					setRoot(child);
+				balance(child);
 				return(child);
 			}
 
@@ -157,13 +159,14 @@ namespace ft
 				if (parent && parent->_left == node)
 					parent->_left = nullptr;
 				delete_node(node);
+				balance(parent);
 				return (nullptr);
 			}
 
 			void erase(node_pointer node)
 			{
 				node_pointer new_node;
-//				node_pointer parent = node->_parent;
+
 				if (!(node->_left) && !(node->_right))
 					new_node = _erase_leaf(node);
 				else if (node->_left && node->_right)
@@ -172,7 +175,6 @@ namespace ft
 					new_node = _erase_singlechild(node);
 				if (node == this->_root)
 					setRoot(new_node);
-	//			balance(parent);
 			}
 
 			node_pointer create_node(value_type const &val)

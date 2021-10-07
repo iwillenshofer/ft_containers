@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 16:21:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/07 19:00:02 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/07 19:19:11 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,11 @@ for (int i = 0; i < 10000; i++)
 
 print_node(*(n[0]));
 tree.erase(n[0]);
-print_node(*(n[1]));
+//print_node(*(n[1]));
 std::cout << tree._root << std::endl;
+
+
+
 
 
 for (ft::BinaryTree<int, int>::iterator it = tree.begin(); it != tree.end(); ++it)
