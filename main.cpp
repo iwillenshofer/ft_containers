@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 16:21:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/07 19:19:11 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/07 22:14:10 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,31 @@ int main(void)
 	ft::BinaryTreeIterator<ft::Node<int, int> > it;
 	std::vector<int> v;
 //	tree.insert(ft::make_pair(35, 3));
+
+
+
 //	srand (time(NULL));
+//for (int i = 0; i < 10000; i++)
+//{
+//	int rnd = rand() % 10000 + 1;
+//	v.push_back(rnd);
+//	n[i] = tree.insert(ft::make_pair(rnd, i)).first;
+//}
 
-for (int i = 0; i < 10000; i++)
+	n[0] = tree.insert(ft::make_pair(3, 0)).first;
+	n[1] = tree.insert(ft::make_pair(1,1)).first;
+	n[2] = tree.insert(ft::make_pair(6,2)).first;
+	n[3] = tree.insert(ft::make_pair(16,3)).first;
+	n[4] = tree.insert(ft::make_pair(4,4)).first;
+	n[4] = tree.insert(ft::make_pair(9,4)).first;
+	n[4] = tree.insert(ft::make_pair(6,4)).first;
+
+
+for (int i = 0; i < 5; i++)
 {
-	int rnd = rand() % 10000 + 1;
-	v.push_back(rnd);
-	n[i] = tree.insert(ft::make_pair(rnd, 3)).first;
+	std::cout << "I: " << i << std::endl << std::flush;
+	tree.erase(n[i]);
 }
-
-print_node(*(n[0]));
-tree.erase(n[0]);
 //print_node(*(n[1]));
 std::cout << tree._root << std::endl;
 
@@ -80,10 +94,10 @@ std::cout << tree._root << std::endl;
 
 
 
-for (ft::BinaryTree<int, int>::iterator it = tree.begin(); it != tree.end(); ++it)
-{
-	print_node(*it);
-}
+//for (ft::BinaryTree<int, int>::iterator it = tree.begin(); it != tree.end(); ++it)
+//{
+//	print_node(*it);
+//}
 
 
 //n[2]=	tree.insert(ft::make_pair(31, 3)).first;

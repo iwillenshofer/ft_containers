@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_binarytree.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/07 19:16:04 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/07 22:05:48 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,17 +104,12 @@ namespace ft
 			node_pointer _erase_singlechild(node_pointer node)
 			{
 				node_pointer child = node->_right ? node->_right : node->_left;
-	
-				bool root = (this->_root == node);
-				child->_parent = node->_parent;
-				if(node->_parent && node->_parent->_right == node)
-					node->_parent->_right = child;
-				if(node->_parent && node->_parent->_left == node)
-					node->_parent->_left = child;
+				node_pointer parent = node->_parent;
+
+				parent->_right == node ? parent->_right = child :parent->_left = child;
+				child->_parent = parent;
 				delete_node(node);
-				if (root)
-					setRoot(child);
-				balance(child);
+				balance(child->_parent);
 				return(child);
 			}
 
@@ -126,38 +121,25 @@ namespace ft
 			*/
 			node_pointer _erase_twochildren(node_pointer nd)
 			{
-				node_pointer suc = (*nd).successor();
-				node tmp = *suc;
-				bool root = (this->_root == nd);
+				node_pointer pred = nd->_left->maximum();
+				
+				node pred_cp = *pred; // will do a full swap
+				node nd_cp = *nd; // will do a full swap
 
-				suc->_parent = nd->_parent;
-				suc->_right = nd->_right;
-				suc->_left = nd->_left;
-				if (nd->_parent->_left == nd)
-					nd->_parent->_left = suc;
-				if (nd->_parent->_right == nd)
-					nd->_parent->_right = suc;
-				nd->_left = tmp._left;
-				nd->_right = tmp._right;
-				nd->_parent = tmp._parent;
-				if (nd->_parent->_left == suc)
-					nd->_parent->_left = nd;
-				if (nd->_parent->_right == suc)
-					nd->_parent->_right = nd;
-				if(root)
-					this->_root = suc;
+				*pred = *nd;
+				*nd = pred_cp;
+				pred_cp._parent->_right == pred ? pred_cp._parent->_right = nd : pred_cp._parent->_left = nd;
+				nd_cp._parent->_right == nd ? nd_cp._parent->_right = pred : nd_cp._parent->_left = pred;
+				nd->swapValue(pred);				
 				erase(nd);
-				return(suc);
+				return(nd);
 			}
 			/* erases node if it has two children */
 			node_pointer _erase_leaf(node_pointer node)
 			{
 				node_pointer parent = node->_parent;
 
-				if (parent && parent->_right == node)
-					parent->_right = nullptr;
-				if (parent && parent->_left == node)
-					parent->_left = nullptr;
+				parent->_right == node ? parent->_right = nullptr :	parent->_left = nullptr;
 				delete_node(node);
 				balance(parent);
 				return (nullptr);
@@ -266,12 +248,10 @@ namespace ft
 				std::cout << "Key: " << n.Key();
 				std::cout << ". Value: " << n.Value();
 				std::cout << ". Address: " << &n;
-				std::cout << ". Left: " << n._left;
-				std::cout << ". Right: " << n._right;
-				std::cout << ". Parent: " << n._parent;
-		//		std::cout << ". Height: " << n.height();
-		//		std::cout << ". Balanced: " << n.balanced() << std::endl;
-				std::cout << std::endl;
+				std::cout << ". Left: " << (n._left ? n._left->Key() : 0);
+				std::cout << ". Right: " << (n._right ? n._right->Key() : 0);
+				std::cout << ". Parent: " << (n._parent ? n._parent->Key() : 0);
+			std::cout << std::endl;
 			}
 
 			void	rotate_left(node_pointer x)
