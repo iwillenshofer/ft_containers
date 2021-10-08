@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/07 22:05:48 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/07 22:58:35 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,17 +121,51 @@ namespace ft
 			*/
 			node_pointer _erase_twochildren(node_pointer nd)
 			{
-				node_pointer pred = nd->_left->maximum();
-				
-				node pred_cp = *pred; // will do a full swap
-				node nd_cp = *nd; // will do a full swap
 
-				*pred = *nd;
-				*nd = pred_cp;
-				pred_cp._parent->_right == pred ? pred_cp._parent->_right = nd : pred_cp._parent->_left = nd;
-				nd_cp._parent->_right == nd ? nd_cp._parent->_right = pred : nd_cp._parent->_left = pred;
-				nd->swapValue(pred);				
+				
+				node_pointer pred = nd->_left->maximum();
+				std::cout << "Erasing: " << nd << std::endl;
+				std::cout << "Replacing by: " << pred << std::endl;
+
+				// MAKING A FULL SWAP, EXCEPT OF THE VALUE.
+				node tmp = *pred;
+				pred->_parent = nd->_parent;
+				pred->_left = nd->_left;
+				pred->_right = nd->_right;
+				pred->_parent->_right == nd ? pred->_parent->_right = pred :  pred->_parent->_left = pred;
+				// at this point, pred is full replaced.
+				nd->_right = tmp._right;
+				nd->_left = tmp._left;
+				nd->_parent = tmp._parent;
+				if (nd->_parent == nd)
+					nd->_parent = pred;
+				else
+				{
+					nd->_parent->_right == pred ? nd->_parent->_right = nd : nd->_parent->_left = nd;
+				}
+				if (pred->_left == pred)
+					pred->_left = nullptr;
+				if (pred->_right == pred)
+					pred->_right = nullptr;
+				
+
+
+
+
+				nd->_parent->_right == nd ? nd->_parent->_right = pred : nd->_parent->_left = pred;
+//				tmp._parent->_right == pred ? tmp._parent->_right = nd : tmp._parent->_left = nd;
+
+				nd->_parent = tmp._parent;
+				nd->_left = nd->_left;
+				nd->_right = nd->_right;
+
+				if (pred->_right == nd)
+					pred->_right = nullptr;
+				if (pred->_left == nd)
+					pred->_left = nullptr;
+
 				erase(nd);
+				return (nd);		
 				return(nd);
 			}
 			/* erases node if it has two children */
@@ -141,7 +175,7 @@ namespace ft
 
 				parent->_right == node ? parent->_right = nullptr :	parent->_left = nullptr;
 				delete_node(node);
-				balance(parent);
+			//	balance(parent);
 				return (nullptr);
 			}
 

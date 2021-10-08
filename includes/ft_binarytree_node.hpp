@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/07 22:10:47 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/07 22:16:26 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,6 @@ namespace ft
 			bool balanced(void) const { return (balanced(this)); }
 			bool balanced(const_node_pointer node) const
 			{
-				std::cout << "N:" << node << std::endl;
-				std::cout << "L:" << node->_left << std::endl;
 				size_type left = node->_left ? height(node->_left) : 0;
 				size_type right = height(node->_right);
 				size_type diff = left > right ? left - right : right - left;

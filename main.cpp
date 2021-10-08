@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 16:21:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/07 22:14:57 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/07 22:59:01 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void print_node(ft::BinaryTree<int, int>::node_reference n)
 	std::cout << ". Left: " << (n._left ? n._left->Key() : 0);
 	std::cout << ". Right: " << (n._right ? n._right->Key() : 0);
 	std::cout << ". Parent: " << (n._parent ? n._parent->Key() : 0);
-	std::cout << ". Height: " << n.height();
-	std::cout << ". Balanced: " << n.balanced() << std::endl;
+//	std::cout << ". Height: " << n.height();
+//	std::cout << ". Balanced: " << n.balanced() << std::endl;
 std::cout << std::endl;
 }
 
@@ -79,14 +79,41 @@ int main(void)
 	n[3] = tree.insert(ft::make_pair(16,3)).first;
 	n[4] = tree.insert(ft::make_pair(4,4)).first;
 	n[5] = tree.insert(ft::make_pair(9,4)).first;
-	n[6] = tree.insert(ft::make_pair(6,4)).first;
+	n[6] = tree.insert(ft::make_pair(7,4)).first;
 
 
-for (int i = 0; i < 5; i++)
+
+
+for (int i = 0; i < 7; i++)
 {
-	std::cout << "I: " << i << std::endl << std::flush;
-	tree.erase(n[i]);
+	print_node(*n[i]);
 }
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+	print_node(*n[2]);
+	std::cout << "erasing:" << std::endl;
+	print_node(*n[0]);
+	std::cout << "should be replaced by:" << std::endl;
+	print_node(*n[1]);
+	
+
+
+	tree.erase(n[0]);
+	
+	std::cout << std::endl;
+	print_node(*n[2]);
+	std::cout << "after erase:" << std::endl;
+//	print_node(*n[0]);
+	print_node(*n[1]);
+
+	std::cout << std::flush;
+
+//for (int i = 0; i < 7; i++)
+//{
+//	std::cout << "I: " << i << std::endl << std::flush;
+//	tree.erase(n[i]);
+//}
 //print_node(*(n[1]));
 std::cout << tree._root << std::endl;
 
