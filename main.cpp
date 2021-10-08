@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 16:21:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/07 22:14:10 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/07 22:14:57 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ int main(void)
 	n[2] = tree.insert(ft::make_pair(6,2)).first;
 	n[3] = tree.insert(ft::make_pair(16,3)).first;
 	n[4] = tree.insert(ft::make_pair(4,4)).first;
-	n[4] = tree.insert(ft::make_pair(9,4)).first;
-	n[4] = tree.insert(ft::make_pair(6,4)).first;
+	n[5] = tree.insert(ft::make_pair(9,4)).first;
+	n[6] = tree.insert(ft::make_pair(6,4)).first;
 
 
 for (int i = 0; i < 5; i++)
