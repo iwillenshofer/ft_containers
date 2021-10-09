@@ -16,6 +16,10 @@
 #include <ctime>
 #include <cstdlib>
 #include <vector>
+#include <map>
+
+#include "map.hpp"
+
 
 
 void print_node(ft::BinaryTree<int, int>::node_reference n)
@@ -80,6 +84,7 @@ int main(void)
 	n[4] = tree.insert(ft::make_pair(4,4)).first;
 	n[5] = tree.insert(ft::make_pair(9,4)).first;
 	n[6] = tree.insert(ft::make_pair(7,4)).first;
+	n[6] = tree.insert(ft::make_pair(16,4)).first;
 
 
 
@@ -88,26 +93,14 @@ for (int i = 0; i < 7; i++)
 {
 	print_node(*n[i]);
 }
-	std::cout << std::endl;
-	std::cout << std::endl;
 
-	print_node(*n[2]);
-	std::cout << "erasing:" << std::endl;
-	print_node(*n[0]);
-	std::cout << "should be replaced by:" << std::endl;
-	print_node(*n[1]);
 	
 
 
-	tree.erase(n[0]);
-	
-	std::cout << std::endl;
-	print_node(*n[2]);
-	std::cout << "after erase:" << std::endl;
-//	print_node(*n[0]);
-	print_node(*n[1]);
 
-	std::cout << std::flush;
+
+	std::cout << std::endl;
+
 
 //for (int i = 0; i < 7; i++)
 //{
@@ -120,11 +113,20 @@ std::cout << tree._root << std::endl;
 
 
 
+	ft::BinaryTree<int, int>::iterator it3 = tree.begin();
 
-//for (ft::BinaryTree<int, int>::iterator it = tree.begin(); it != tree.end(); ++it)
-//{
-//	print_node(*it);
-//}
+while ( it3 != tree.end())
+{
+//	ft::BinaryTree<int, int>::iterator it2 = it3 + 1;
+//	print_node((*it3));
+//	tree.erase(&(*it3));
+//	it3 = it2;
+	print_node((*it3));
+//	tree.erase(&(*it3));
+
+	it3++;
+
+}
 
 
 //n[2]=	tree.insert(ft::make_pair(31, 3)).first;
@@ -185,5 +187,45 @@ std::cout << tree._root << std::endl;
 //	print_node(*n[3]);
 
 	tree.clear(tree._root);
+
+
+
+	std::map<int, int> m;
+	m.insert(std::pair<int,int>(3,3));
+	m.insert(std::pair<int,int>(4,4));
+	m.insert(std::pair<int,int>(5,5));
+	m.insert(std::pair<int,int>(6,6));
+
+
+	for (std::map<int,int>::iterator it9 = m.begin(); it9 != m.end(); ++it9)
+	{
+		m.erase(it9);
+		break;
+	}
+	for (std::map<int,int>::iterator it9 = m.begin(); it9 != m.end(); ++it9)
+	{
+		std::cout << it9->first << std::endl;
+	}
+
+	ft::map<int, int> ft_m;
+	ft_m.insert(ft::pair<int,int>(3,3));
+	ft_m.insert(ft::pair<int,int>(4,4));
+	ft_m.insert(ft::pair<int,int>(5,5));
+	ft_m.insert(ft::pair<int,int>(6,6));
+
+
+	for (ft::map<int,int>::iterator it9 = ft_m.begin(); it9 != ft_m.end(); ++it9)
+	{
+		ft_m.erase(it9);
+		break;
+	}
+	for (ft::map<int,int>::iterator it9 = ft_m.begin(); it9 != ft_m.end(); ++it9)
+	{
+		std::cout << it9->first << std::endl;
+	}
+
+
+
+
 
 }

@@ -109,6 +109,8 @@ namespace ft
 				parent->_right == node ? parent->_right = child :parent->_left = child;
 				child->_parent = parent;
 				delete_node(node);
+				if (node == this->_root)
+						setRoot(child);
 				balance(child->_parent);
 				return(child);
 			}
@@ -120,52 +122,19 @@ namespace ft
 
 			*/
 			node_pointer _erase_twochildren(node_pointer nd)
-			{
-
-				
+			{	
 				node_pointer pred = nd->_left->maximum();
-				std::cout << "Erasing: " << nd << std::endl;
-				std::cout << "Replacing by: " << pred << std::endl;
 
-				// MAKING A FULL SWAP, EXCEPT OF THE VALUE.
-				node tmp = *pred;
-				pred->_parent = nd->_parent;
-				pred->_left = nd->_left;
-				pred->_right = nd->_right;
-				pred->_parent->_right == nd ? pred->_parent->_right = pred :  pred->_parent->_left = pred;
-				// at this point, pred is full replaced.
-				nd->_right = tmp._right;
-				nd->_left = tmp._left;
-				nd->_parent = tmp._parent;
-				if (nd->_parent == nd)
-					nd->_parent = pred;
-				else
-				{
-					nd->_parent->_right == pred ? nd->_parent->_right = nd : nd->_parent->_left = nd;
-				}
-				if (pred->_left == pred)
-					pred->_left = nullptr;
-				if (pred->_right == pred)
-					pred->_right = nullptr;
-				
-
-
-
-
-				nd->_parent->_right == nd ? nd->_parent->_right = pred : nd->_parent->_left = pred;
-//				tmp._parent->_right == pred ? tmp._parent->_right = nd : tmp._parent->_left = nd;
-
-				nd->_parent = tmp._parent;
-				nd->_left = nd->_left;
-				nd->_right = nd->_right;
-
-				if (pred->_right == nd)
-					pred->_right = nullptr;
-				if (pred->_left == nd)
-					pred->_left = nullptr;
-
+				nd->swapLinks(pred);
+				if(pred->_left ==  pred) pred->_left = nd;
+				if(pred->_right ==  pred) pred->_right = nd;
+				if(pred->_parent->_right == nd ) pred->_parent->_right = pred;
+				if(pred->_parent->_left == nd ) pred->_parent->_left = pred;
+				if(nd->_parent->_right == pred)  nd->_parent->_right = nd;
+				if(nd->_parent->_left == pred)  nd->_parent->_left = nd;
+				if(pred->_right) pred->_right->_parent = pred;
+				if(pred->_left) pred->_left->_parent = pred;
 				erase(nd);
-				return (nd);		
 				return(nd);
 			}
 			/* erases node if it has two children */
@@ -175,7 +144,9 @@ namespace ft
 
 				parent->_right == node ? parent->_right = nullptr :	parent->_left = nullptr;
 				delete_node(node);
-			//	balance(parent);
+				if (node == this->_root)
+						setRoot(nullptr);
+				balance(parent);
 				return (nullptr);
 			}
 
@@ -189,8 +160,6 @@ namespace ft
 					new_node = _erase_twochildren(node);
 				else
 					new_node = _erase_singlechild(node);
-				if (node == this->_root)
-					setRoot(new_node);
 			}
 
 			node_pointer create_node(value_type const &val)
@@ -231,11 +200,11 @@ namespace ft
 				(*lhs).swapValue(rhs);
 			}
 
-			iterator begin() { return(iterator(this->_root->minimum())); }
+			iterator begin() { return(iterator(this->_header.minimum())); }
 			iterator end() { return(iterator(&this->_header)); }
 			reverse_iterator rbegin() { return(reverse_iterator(this->end())); }
 			reverse_iterator rend() { return(reverse_iterator(this->begin())); }
-			const_iterator begin() const { return(const_iterator(this->_root->minimum())); }
+			const_iterator begin() const { return(const_iterator(this->_header->minimum())); }
 			const_iterator end() const { return(const_iterator(&this->_header)); }
 			const_reverse_iterator rbegin() const { return(const_reverse_iterator(this->end())); }
 			const_reverse_iterator rend() const { return(const_reverse_iterator(this->begin())); }

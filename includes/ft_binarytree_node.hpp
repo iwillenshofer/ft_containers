@@ -70,6 +70,20 @@ namespace ft
 				this->_value = tmp;
 			}
 
+			void swapLinks(node_pointer nd)
+			{
+				_Self tmp;
+				tmp._parent = nd->_parent;
+				tmp._left = nd->_left;
+				tmp._right = nd->_right;
+				nd->_parent = this->_parent;
+				nd->_left = this->_left;
+				nd->_right = this->_right;
+				this->_parent = tmp._parent;
+				this->_left = tmp._left;
+				this->_right = tmp._right;
+			}
+
 			node_pointer minimum(void) { return const_cast<node_pointer>(minimum(this)); }
 			const_node_pointer minimum(void) const { return (minimum(this)); }
 			const_node_pointer minimum(const_node_pointer node) const

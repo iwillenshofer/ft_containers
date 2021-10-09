@@ -14,7 +14,7 @@
 # define MAP_HPP
 
 # include <memory>
-#include "./includes/ft_utilities.hpp"
+# include "includes/ft_utilities.hpp"
 
 namespace ft
 {
@@ -31,17 +31,17 @@ namespace ft
 		typedef typename allocator_type::const_reference				const_reference;
 		typedef typename allocator_type::pointer						pointer;
 		typedef typename allocator_type::const_pointer					const_pointer;
-		typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
-		typedef typename size_t											size_type;
 
 	private:
-		typedef typename ft::BinaryTree<key_type, value_type, ft::Select1st<value_type>, key_compare, allocator_type> binary_tree;
+		typedef typename ft::BinaryTree<key_type, value_type, key_compare, allocator_type> binary_tree;
 
 	public:
 		typedef typename binary_tree::iterator							iterator;
 		typedef typename binary_tree::const_iterator					const_iterator;
 		typedef typename binary_tree::reverse_iterator	 				reverse_iterator;
 		typedef typename binary_tree::const_reverse_iterator			const_reverse_iterator;
+		typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
+		typedef size_t											size_type;
 
 		class value_compare : public std::binary_function<value_type, value_type, bool>
 		{
@@ -65,21 +65,21 @@ namespace ft
 		** Constructors and destructor
 		*/
 
-		explicit map(const Compare& comp, const allocator_type& a = allocator_type())
-		: this->_btree(comp, allocator_type(a)) { }
+		explicit map(const Compare& comp = key_compare(), const allocator_type& a = allocator_type())
+		: _btree(comp, allocator_type(a)) { }
 
 		template<typename InputIterator>
 		map(InputIterator first, InputIterator last, const Compare& comp, const allocator_type& a = allocator_type())
-		: this->_btree(comp, allocator_type(a))
-		{ this->_btree.insertUnique(first, last); }
+		: _btree(comp, allocator_type(a))
+		{ this->_btree.insert(first, last); }
 
-		map(const map& x): this->_btree(x.this->_btree) { }
+		map(const map& x): _btree(x._btree) { }
 
-		~map() {}
+		~map() { this->clear(); }
 
 		map	&operator=(const map& x)
 		{
-			this->_btree = x.this->_btree;
+			this->_btree = x._btree;
 			return (*this);
 		}
 
@@ -116,17 +116,17 @@ namespace ft
 		/*
 		** modifiers
 		*/
-		ft::pair<iterator, bool> insert(const value_type& val) { return (this->_btree.insertUnique(val)); }
-		iterator insert(iterator position, const value_type& val) { return (this->_btree.insertUnique(position, val)); }
+		ft::pair<iterator, bool> insert(const value_type& val) { return (this->_btree.insert(val)); }
+		iterator insert(iterator position, const value_type& val) { return (this->_btree.insert(position, val)); }
 
 		template<typename InputIterator>
-		void insert(InputIterator first, InputIterator last) { this->_btree.insertUnique(first, last); }
+		void insert(InputIterator first, InputIterator last) { this->_btree.insert(first, last); }
 
 		void erase(iterator position) { this->_btree.erase(position); }
 		size_type erase(const key_type& k) { return (this->_btree.erase(k)); }
 		void erase(iterator first, iterator last) { this->_btree.erase(first, last); }
 		
-		void swap(map& x) { this->_btree.swap(x.this->_btree); }
+		void swap(map& x) { this->_btree.swap(x._btree); }
 		void clear() { this->_btree.clear(); }
 
 		/*
@@ -166,11 +166,11 @@ namespace ft
 
 	template<typename Key, typename T, typename Compare, typename Alloc>
 	bool operator==(const map<Key, T, Compare, Alloc>& x, const map<Key, T, Compare, Alloc>& y)
-	{ return (x.this->_btree == y.this->_btree); }
+	{ return (x._btree == y.t_btree); }
 
 	template<typename Key, typename T, typename Compare, typename Alloc>
 	bool operator<(const map<Key, T, Compare, Alloc>& x, const map<Key, T, Compare, Alloc>& y)
-	{ return (x.this->_btree < y.this->_btree); }
+	{ return (x._btree < y._btree); }
 
 	template<typename Key, typename T, typename Compare, typename Alloc>
 	bool operator!=(const map<Key, T, Compare, Alloc>& x, const map<Key, T, Compare, Alloc>& y)
