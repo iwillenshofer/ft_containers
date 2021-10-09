@@ -60,6 +60,24 @@ void print_tree(ft::BinaryTree<int, int>::node_pointer root)
 
 int main(void)
 {
+	  ft::map<char,int> mymap;
+
+  // first insert function version (single parameter):
+  mymap.insert ( ft::pair<char,int>('a',100) );
+  mymap.insert ( ft::pair<char,int>('z',200) );
+
+  ft::pair<ft::map<char,int>::iterator,bool> ret;
+  ret = mymap.insert ( ft::pair<char,int>('b',500) );
+  if (ret.second==false) {
+    std::cout << "element 'z' already existed";
+    std::cout << " with a value of " << ret.first->second << '\n';
+  }
+  
+}
+
+/*
+int main(void)
+{
 //	ft::Node<int, char> n*(ft::make_pair(10, 'c'));
 	ft::BinaryTree<int, int>::node_pointer n[10000];
 	ft::BinaryTree<int, int> tree;
@@ -100,7 +118,7 @@ for (int i = 0; i < 7; i++)
 
 
 	std::cout << std::endl;
-
+*/
 
 //for (int i = 0; i < 7; i++)
 //{
@@ -108,10 +126,10 @@ for (int i = 0; i < 7; i++)
 //	tree.erase(n[i]);
 //}
 //print_node(*(n[1]));
-std::cout << tree._root << std::endl;
+//std::cout << tree._root << std::endl;
 
 
-
+/*
 
 	ft::BinaryTree<int, int>::iterator it3 = tree.begin();
 
@@ -127,7 +145,7 @@ while ( it3 != tree.end())
 	it3++;
 
 }
-
+*/
 
 //n[2]=	tree.insert(ft::make_pair(31, 3)).first;
 //n[3]=	tree.insert(ft::make_pair(19, 3)).first;
@@ -185,7 +203,7 @@ while ( it3 != tree.end())
 //std::cout << "ROOT:" << std::endl;
 //	print_node(*n[0]);
 //	print_node(*n[3]);
-
+/*
 	tree.clear(tree._root);
 
 
@@ -227,5 +245,5 @@ while ( it3 != tree.end())
 
 
 
-
 }
+*/

@@ -56,8 +56,8 @@ namespace ft
 				return (*this);
 			}
 
-			reference operator*() { return (*(this->_p)); }
-			pointer operator->() { return (&(this->_p)); }
+			typename T::value_type &operator*() { return (this->_p->Pair()); }
+			typename T::value_type *operator->() { return (&(this->_p->Pair())); }
 
 			BinaryTreeIterator	operator+(difference_type const &n) const { return (_self(this->_p + n)); }
 			BinaryTreeIterator	operator-(difference_type const &n) const

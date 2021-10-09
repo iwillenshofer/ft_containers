@@ -33,7 +33,7 @@ namespace ft
 		typedef typename allocator_type::const_pointer					const_pointer;
 
 	private:
-		typedef typename ft::BinaryTree<key_type, value_type, key_compare, allocator_type> binary_tree;
+		typedef typename ft::BinaryTree<Key, T, key_compare, allocator_type> binary_tree;
 
 	public:
 		typedef typename binary_tree::iterator							iterator;
@@ -117,6 +117,7 @@ namespace ft
 		** modifiers
 		*/
 		ft::pair<iterator, bool> insert(const value_type& val) { return (this->_btree.insert(val)); }
+
 		iterator insert(iterator position, const value_type& val) { return (this->_btree.insert(position, val)); }
 
 		template<typename InputIterator>

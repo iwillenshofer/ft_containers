@@ -40,10 +40,12 @@ namespace ft
 			typedef const node&														const_node_reference;
 			typedef ft::pair<const Key, T>											value_type;
 			typedef typename Alloc::template rebind<ft::Node<Key, T> >::other		allocator;
-			typedef ft::pair<node_pointer, bool>									node_pointer_pair;
+			typedef Compare															key_compare;
 
-			BinaryTree(): _root(nullptr), _allocator(allocator()) { }
-			BinaryTree(BinaryTree const &cp): _root(cp._root) { *this = cp; }
+			explicit BinaryTree(const key_compare& comp = key_compare(), const allocator& alloc = allocator())
+			: _root(nullptr), _allocator(alloc), _compare(comp) { }
+			BinaryTree(BinaryTree const &cp): _root(cp._root), _compare(cp._compare), _allocator(cp._allocator) { *this = cp; }
+
 			BinaryTree &operator=(BinaryTree const &cp)
 			{
 				this->_allocator = cp._allocator;
@@ -54,10 +56,11 @@ namespace ft
 			node			_header; /* element before first element */
 			node_pointer	_root; /* first element */
 			allocator		_allocator;
+			Compare			_compare;
 
-			node_pointer_pair insert(value_type const &val) { return(this->insert(this->_root, val)); }
+			ft::pair<iterator, bool> insert(value_type const &val) { return(this->insert(this->_root, val)); }
 
-			node_pointer_pair insert(node_pointer node, value_type const &val)
+			ft::pair<iterator, bool> insert(node_pointer node, value_type const &val)
 			{
 				node_pointer	parent = nullptr;
 				bool			left_side = false;
@@ -66,8 +69,8 @@ namespace ft
 				while (node)
 				{
 					parent = node;
-					compare = Compare()(val.first, node->_value.first);
-					if (compare == Compare()(node->_value.first, val.first))
+					compare = _compare(val.first, node->_value.first);
+					if (compare == _compare(node->_value.first, val.first))
 						return(ft::make_pair(node, false));
 					if (compare)
 					{
