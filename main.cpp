@@ -22,7 +22,7 @@
 
 
 
-void print_node(ft::BinaryTree<int, int>::node_reference n)
+void print_node(ft::Node<int, int>& n)
 {
 	std::cout << "Key: " << n.Key();
 	std::cout << ". Value: " << n.Value();
@@ -57,24 +57,40 @@ void print_tree(ft::BinaryTree<int, int>::node_pointer root)
 
 }
 
-
-int main(void)
+template <typename T>
+void test()
 {
-	  ft::map<char,int> mymap;
+	T v;
+	v.insert(typename T::value_type(3, "hello coco"));
+	v.insert(typename T::value_type(5, "j'arrive"));
+
+	T tmp = v;
+	typename T::value_type pa(tmp.begin()->first, tmp.begin()->second);
+	tmp.erase(tmp.begin());
+
+	typename T::value_type* x = new typename T::value_type();
+	std::cout << tmp.begin()->first;
+//	tmp.insert(pa);
+//	tmp.insert(*x);
+
+
+	std::cout << "size of tmp = " << tmp.size();
 
   // first insert function version (single parameter):
-  mymap.insert ( ft::pair<char,int>('a',100) );
-  mymap.insert ( ft::pair<char,int>('z',200) );
+	for (typename T::const_iterator it = tmp.begin(); it != tmp.end(); it++)
+		std::cout << "[" << it->first << "][" << it->second << "] | ";
 
-  ft::pair<ft::map<char,int>::iterator,bool> ret;
-  ret = mymap.insert ( ft::pair<char,int>('b',500) );
-  if (ret.second==false) {
-    std::cout << "element 'z' already existed";
-    std::cout << " with a value of " << ret.first->second << '\n';
-  }
-  
+
+	delete x;
 }
 
+	int main(void)
+	{
+		test<ft::map<int, std::string> >();
+		std::cout << std::endl;
+		test<std::map<int, std::string> >();
+
+	}
 /*
 int main(void)
 {

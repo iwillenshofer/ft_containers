@@ -15,6 +15,8 @@
 
 # include <memory>
 # include "includes/ft_utilities.hpp"
+# include "includes/ft_binarytree.hpp"
+# include "includes/ft_binarytree_iterator.hpp"
 
 namespace ft
 {
@@ -69,7 +71,7 @@ namespace ft
 		: _btree(comp, allocator_type(a)) { }
 
 		template<typename InputIterator>
-		map(InputIterator first, InputIterator last, const Compare& comp, const allocator_type& a = allocator_type())
+		map(InputIterator first, InputIterator last, const Compare& comp = key_compare(), const allocator_type& a = allocator_type())
 		: _btree(comp, allocator_type(a))
 		{ this->_btree.insert(first, last); }
 
@@ -107,10 +109,7 @@ namespace ft
 		*/
 		mapped_type &operator[](const key_type& k)
 		{
-			iterator i = lower_bound(k);
-			if (i == end() || key_comp()(k, (*i).first))
-				i = insert(i, value_type(k, mapped_type()));
-			return ((*i).second);
+			return (this->_btree[k]);
 		}
 	
 		/*

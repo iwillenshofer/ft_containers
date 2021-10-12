@@ -23,22 +23,23 @@ namespace ft
 	class BinaryTreeIterator : public iterator<ft::bidirectional_iterator_tag, T>
 	{
 		public:
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category	iterator_category;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::value_type		value_type;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type	difference_type;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::pointer			pointer;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::reference			reference;
+		
+			typedef typename ft::bidirectional_iterator_tag	iterator_category;
+			typedef typename T::value_type					value_type;
+			typedef typename T::difference_type				difference_type;
+			typedef typename T::pointer						pointer;
+			typedef typename T::reference					reference;
 		
 		private:
 			typedef typename ft::BinaryTreeIterator<T>									_self;
 			typedef typename ft::BinaryTreeIterator<const T>							const_self;
-
+			typedef	T*																	node_pointer;
 		protected:
-			pointer	_p;
+			node_pointer	_p;
 	
 		public:
 			BinaryTreeIterator(): _p() { };
-			explicit BinaryTreeIterator(pointer p): _p(p) { };
+			explicit BinaryTreeIterator(node_pointer p): _p(p) { };
 			BinaryTreeIterator(BinaryTreeIterator const &b): _p(b._p) { };
 			virtual ~BinaryTreeIterator() {}
 
@@ -48,21 +49,22 @@ namespace ft
 			*/
 
 			operator const_self() const { return const_self(this->_p); }
-			pointer	base() const { return this->_p; }
-	
+			node_pointer	base() const { return this->_p; }
+
 			BinaryTreeIterator &operator=(BinaryTreeIterator const &b)
 			{
 				this->_p = b._p;
 				return (*this);
 			}
 
-			typename T::value_type &operator*() { return (this->_p->Pair()); }
-			typename T::value_type *operator->() { return (&(this->_p->Pair())); }
+			typename T::value_type &operator*() { return (const_cast<typename T::value_type &>(this->_p->Pair())); }
+			typename T::value_type *operator->() { return (const_cast<typename T::value_type*>(&(this->_p->Pair()))); }
+
 
 			BinaryTreeIterator	operator+(difference_type const &n) const { return (_self(this->_p + n)); }
 			BinaryTreeIterator	operator-(difference_type const &n) const
 			{
-				pointer tmp = this->_p;
+				node_pointer tmp = this->_p;
 				difference_type steps = n;
 				if (steps > 0)
 				{
@@ -85,7 +87,7 @@ namespace ft
 
 
 			BinaryTreeIterator &operator++() { this->_p = this->_p->successor(); return (*this); }
-			BinaryTreeIterator &operator--() {	 this->_p->predecessor(); return (*this);}
+			BinaryTreeIterator &operator--() { this->_p = this->_p->predecessor(); return (*this);}
 
 			BinaryTreeIterator operator++(int)
 			{

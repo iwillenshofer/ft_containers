@@ -23,11 +23,17 @@ namespace ft
 	{
 		public:
 			typedef ft::pair<K, T>					value_type;
+			typedef value_type&						reference;
+			typedef value_type*						pointer;
+			typedef ptrdiff_t						difference_type;
+
+			typedef const ft::pair<K, T>			const_value_type;
 			typedef Node<K, T>*						node_pointer;
 			typedef Node<K, T>&						node_reference;
 			typedef const Node<K, T>*				const_node_pointer;
 			typedef const K&						key_reference;
 			typedef T&								value_reference;
+			typedef const T&						const_value_reference;
 			typedef T*								value_pointer;
 			typedef Node<K, T>						_Self;
 			typedef const Node<K, T>				const_self;
@@ -51,9 +57,15 @@ namespace ft
 				return (*this);
 			}
 			virtual ~Node() {}
+
 			value_type &Pair(void) { return (this->_value); }
-			key_reference Key(void) { return (this->_value.first); }
+			const_value_type &Pair(void) const { return (this->_value); }
+
+			key_reference Key(void) const { return (this->_value.first); }
+
 			value_reference Value(void) { return (this->_value.second); }
+			const_value_reference Value(void) const { return (this->_value.second); }
+
 			void swap(node_pointer node)
 			{
 				_Self tmp;
@@ -102,9 +114,9 @@ namespace ft
 				return (node);
 			}
 
-			node_pointer successor(void)  { return const_cast<node_pointer>(successor(this)); }
+			node_pointer successor(void) { return const_cast<node_pointer>(successor(this)); }
 			const_node_pointer successor(void) const { return (successor(this)); }
-			const_node_pointer successor(node_pointer node) const
+			const_node_pointer successor(const_node_pointer node) const
 			{
 				node_pointer parent = NULL;
 
@@ -150,7 +162,7 @@ namespace ft
 			bool balanced(const_node_pointer node) const
 			{
 				size_type left = node->_left ? height(node->_left) : 0;
-				size_type right = height(node->_right);
+				size_type right = node->_right ? height(node->_right) : 0;
 				size_type diff = left > right ? left - right : right - left;
 
 				return (diff <= 1);
