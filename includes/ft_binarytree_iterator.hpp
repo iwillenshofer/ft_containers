@@ -57,9 +57,8 @@ namespace ft
 				return (*this);
 			}
 
-			typename T::value_type &operator*() { return (const_cast<typename T::value_type &>(this->_p->Pair())); }
+			typename T::value_type &operator*() { return (const_cast<typename T::value_type&>(this->_p->Pair())); }
 			typename T::value_type *operator->() { return (const_cast<typename T::value_type*>(&(this->_p->Pair()))); }
-
 
 			BinaryTreeIterator	operator+(difference_type const &n) const { return (_self(this->_p + n)); }
 			BinaryTreeIterator	operator-(difference_type const &n) const
