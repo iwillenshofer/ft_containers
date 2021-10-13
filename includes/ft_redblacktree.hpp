@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_binarytree.hpp                                  :+:      :+:    :+:   */
+/*   ft_redblacktree.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/07 22:58:35 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/13 18:19:50 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ namespace ft
 
 		public:
 			Node(value_type const &val): _value(value_type(val)), _left(0x0), _right(0x0), _color(RBT_RED) {}
-			Node(Node &cp) { *this = cp; }
+			Node(Node const &cp) { *this = cp; }
 			Node& operator=(const Node& cp)
 			{
 				this->_left = cp._left;
@@ -88,6 +88,7 @@ namespace ft
 				*node = *this;
 				*this = tmp;
 			}
+
 			void swapValue(node_pointer node)
 			{
 				value_type tmp = node->_value;
@@ -96,7 +97,29 @@ namespace ft
 				this->_value = tmp;
 			}
 
+			void swapColor(node_pointer node)
+			{
+				char tmp = node->_color;
+
+				node->_color = this->_color;
+				this->_color = tmp;
+			}
+
 			void swapLinks(node_pointer nd)
+			{
+				_Self tmp;
+				tmp._parent = nd->_parent;
+				tmp._left = nd->_left;
+				tmp._right = nd->_right;
+				nd->_parent = this->_parent;
+				nd->_left = this->_left;
+				nd->_right = this->_right;
+				this->_parent = tmp._parent;
+				this->_left = tmp._left;
+				this->_right = tmp._right;
+			}
+			
+			void swapAdjacent(node_pointer nd)
 			{
 				_Self tmp;
 				tmp._parent = nd->_parent;
@@ -199,6 +222,9 @@ namespace ft
 					return(Parent()->_left);
 				return(Parent()->_right);
 			}
+
+			//Useful link: https://www.youtube.com/watch?v=_XDNJ67NQ6U
+
 
 	};
 
@@ -305,11 +331,6 @@ namespace ft
 
 
 
-
-
-
-
-
 	template <typename Key, typename T, typename Compare = ft::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
 	class RedBlackTree
 	{
@@ -339,9 +360,9 @@ namespace ft
 			*/
 
 			explicit RedBlackTree(const key_compare& comp = key_compare(), const allocator& alloc = allocator())
-			: _root(nullptr), _allocator(alloc), _compare(comp), _size(0) { }
+			: _root(NULL), _allocator(alloc), _compare(comp), _size(0) { }
 			
-			RedBlackTree(RedBlackTree const &cp): _root(nullptr), _allocator(cp._allocator), _compare(cp._compare), _size(0) { *this = cp; }
+			RedBlackTree(RedBlackTree const &cp): _root(NULL), _allocator(cp._allocator), _compare(cp._compare), _size(0) { *this = cp; }
 
 			RedBlackTree &operator=(RedBlackTree const &cp)
 			{
@@ -360,7 +381,7 @@ namespace ft
 			** Helper internal methods and variables.
 			** _header: element before first element. It's address is end()
 			** _root: first element of the tree
-			** The tree structure is as follows (n = nullptr):
+			** The tree structure is as follows (n = NULL):
 			**                        _header
 			**                        /    \
 			**              _root  [10]      n
@@ -398,7 +419,7 @@ namespace ft
 			*/
 			ft::pair<iterator, bool> _insert(node_pointer node, value_type const &val)
 			{
-				node_pointer	parent = nullptr;
+				node_pointer	parent = NULL;
 				bool			left_side = false;
 				bool			compare = true;
 
@@ -428,8 +449,7 @@ namespace ft
 				_redblack_insertionbalance(node);
 				return (ft::make_pair(node, true));
 			}
-
-
+			
 			/*
 			** erases node if it has two children
 			** 1. finds the sucessor
@@ -437,22 +457,25 @@ namespace ft
 			** 3. call erase function again to erase it as leaf or
 			** single child node.
 			*/
-			void _erase_twochildren(node_pointer nd)
-			{	
-				node_pointer pred = nd->_left->maximum();
 
-				nd->swapLinks(pred);
-				if(pred->_left ==  pred) pred->_left = nd;
-				if(pred->_right ==  pred) pred->_right = nd;
-				if(pred->_parent->_right == nd ) pred->_parent->_right = pred;
-				if(pred->_parent->_left == nd ) pred->_parent->_left = pred;
-				if(nd->_parent->_right == pred)  nd->_parent->_right = nd;
-				if(nd->_parent->_left == pred)  nd->_parent->_left = nd;
+
+			void _erase_twochildren(node_pointer node)
+			{	
+				node_pointer pred = node->_left->maximum();
+
+				node->swapLinks(pred);
+				node->swapColor(pred);
+				if(pred->_left ==  pred) pred->_left = node;
+				if(pred->_right ==  pred) pred->_right = node;
+				if(pred->_parent->_right == node ) pred->_parent->_right = pred;
+				if(pred->_parent->_left == node ) pred->_parent->_left = pred;
+				if(node->_parent->_right == pred)  node->_parent->_right = node;
+				if(node->_parent->_left == pred)  node->_parent->_left = node;
 				if(pred->_right) pred->_right->_parent = pred;
 				if(pred->_left) pred->_left->_parent = pred;
-				if (nd == this->_root)
+				if (node == this->_root)
 					_setRoot(pred);
-				_erase(nd);
+				_erase(node);
 			}
 
 			/*
@@ -464,14 +487,14 @@ namespace ft
 			{
 				node_pointer child = node->_right ? node->_right : node->_left;
 				node_pointer parent = node->_parent;
-				char c = _getColor(node);
 
 				parent->_right == node ? parent->_right = child : parent->_left = child;
 				child->_parent = parent;
+				_setColor(child, RBT_BLACK);
 				if (node == this->_root)
 					_setRoot(child);
 				_delete_node(node);
-				_redblack_deletionbalance(ft::pair<node_pointer, char>(child, c));
+				//_redblack_deletionbalance(ft::pair<node_pointer, char>(child, c));
 			}
 
 			/*
@@ -481,13 +504,22 @@ namespace ft
 			void _erase_leaf(node_pointer node)
 			{
 				node_pointer parent = node->_parent;
+				char node_color = _getColor(node);
 
-				parent->_right == node ? parent->_right = nullptr :	parent->_left = nullptr;
+				parent->_right == node ? parent->_right = NULL :	parent->_left = NULL;
 				_delete_node(node);
 				if (node == this->_root)
-					_setRoot(nullptr);
-				_redblack_deletionbalance(ft::pair<node_pointer, char>(nullptr, c));
+					_setRoot(NULL);
+				else if (node_color == RBT_BLACK)
+					_redblack_balance(parent);
 			}
+
+			void _redblack_balance(node_pointer node)
+			{
+				(void)node;
+			}
+
+
 
 			void _erase(node_pointer node)
 			{
@@ -526,7 +558,7 @@ namespace ft
 			node_pointer _create_node(value_type const &val)
 			{
 				node_pointer tmp = this->_allocator.allocate(1);
-				this->_allocator.construct(tmp, value_type(val));
+				this->_allocator.construct(tmp, node(value_type(val)));
 				this->_size++;
 				return (tmp);
 			}
@@ -537,7 +569,7 @@ namespace ft
 				this->_allocator.deallocate(p, 1);
 				this->_size--;
 				if (p == this->_root)
-					_setRoot(nullptr);
+					_setRoot(NULL);
 			}
 
 			void _clear(node_pointer node)
@@ -549,12 +581,12 @@ namespace ft
 				if (node->_parent)
 				{
 					if (node->_parent->_left == node)
-						node->_parent->_left = nullptr;
+						node->_parent->_left = NULL;
 					if (node->_parent->_right == node)
-						node->_parent->_right = nullptr;
+						node->_parent->_right = NULL;
 				}
 				_delete_node(node);
-				_setRoot(nullptr);
+				_setRoot(NULL);
 			}
 
 			/*
@@ -652,10 +684,7 @@ namespace ft
 			** first item is node that replaced the deleted child.
 			** second item is the color of the deleted child.
 			*/
-			void _redblack_deletionbalance(ft::pair<node_pointer, char> del)
-			{
-				
-			}
+
 
 			void _redblack_insertionbalance(node_pointer node)
 			{
@@ -871,6 +900,7 @@ namespace ft
 						return ite;
 				return end();
 			}
+
 	};
 }
 

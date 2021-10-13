@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_type_traits.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:14:55 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/03 16:09:28 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/13 15:47:10 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ namespace ft
 	** can be used to overload a function only when a specific requirement is true,
 	** passed as a specialization parameter.
 	** Example: template <class T, 
-	**	typename ft::enable_if<std::is_integral<T>::value, T>::type* = nullptr>.
+	**	typename ft::enable_if<std::is_integral<T>::value, T>::type* = NULL>.
 	** If the result of is_integral is false, enable_if won't have 'type', which
 	** causes the overload to fail (as expected).
 	*/	

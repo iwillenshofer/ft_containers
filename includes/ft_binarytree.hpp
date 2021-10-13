@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_binarytree.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/07 22:58:35 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/13 15:47:10 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ namespace ft
 			*/
 
 			explicit BinaryTree(const key_compare& comp = key_compare(), const allocator& alloc = allocator())
-			: _root(nullptr), _allocator(alloc), _compare(comp), _size(0) { }
+			: _root(NULL), _allocator(alloc), _compare(comp), _size(0) { }
 			
-			BinaryTree(BinaryTree const &cp): _root(nullptr), _allocator(cp._allocator), _compare(cp._compare), _size(0) { *this = cp; }
+			BinaryTree(BinaryTree const &cp): _root(NULL), _allocator(cp._allocator), _compare(cp._compare), _size(0) { *this = cp; }
 
 			BinaryTree &operator=(BinaryTree const &cp)
 			{
@@ -72,7 +72,7 @@ namespace ft
 			** Helper internal methods and variables.
 			** _header: element before first element. It's address is end()
 			** _root: first element of the tree
-			** The tree structure is as follows (n = nullptr):
+			** The tree structure is as follows (n = NULL):
 			**                        _header
 			**                        /    \
 			**              _root  [10]      n
@@ -107,7 +107,7 @@ namespace ft
 			*/
 			ft::pair<iterator, bool> _insert(node_pointer node, value_type const &val)
 			{
-				node_pointer	parent = nullptr;
+				node_pointer	parent = NULL;
 				bool			left_side = false;
 				bool			compare = true;
 
@@ -189,10 +189,10 @@ namespace ft
 			{
 				node_pointer parent = node->_parent;
 
-				parent->_right == node ? parent->_right = nullptr :	parent->_left = nullptr;
+				parent->_right == node ? parent->_right = NULL :	parent->_left = NULL;
 				_delete_node(node);
 				if (node == this->_root)
-					_setRoot(nullptr);
+					_setRoot(NULL);
 				_balance(parent);
 			}
 
@@ -244,7 +244,7 @@ namespace ft
 				this->_allocator.deallocate(p, 1);
 				this->_size--;
 				if (p == this->_root)
-					_setRoot(nullptr);
+					_setRoot(NULL);
 			}
 
 			void _clear(node_pointer node)
@@ -256,12 +256,12 @@ namespace ft
 				if (node->_parent)
 				{
 					if (node->_parent->_left == node)
-						node->_parent->_left = nullptr;
+						node->_parent->_left = NULL;
 					if (node->_parent->_right == node)
-						node->_parent->_right = nullptr;
+						node->_parent->_right = NULL;
 				}
 				_delete_node(node);
-				_setRoot(nullptr);
+				_setRoot(NULL);
 			}
 
 			/*
