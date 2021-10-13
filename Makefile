@@ -42,7 +42,13 @@ SRCS = ${SRC_DIR}/main.cpp \
 			${SRC_DIR}/vector/vector_elementaccess.cpp \
 			${SRC_DIR}/vector/vector_modifiers.cpp \
 			${SRC_DIR}/vector/vector_overloads.cpp \
-			${SRC_DIR}/vector/vector_tests.cpp	
+			${SRC_DIR}/vector/vector_tests.cpp \
+			${SRC_DIR}/map/map_tests.cpp \
+			${SRC_DIR}/map/map_constructors.cpp \
+			${SRC_DIR}/map/map_largetests.cpp
+
+	
+
 				
 
 FT_OBJS = $(patsubst ${SRC_DIR}/%.cpp, ${FT_OBJ_DIR}/%.o, ${SRCS})

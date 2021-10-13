@@ -19,6 +19,7 @@
 ** std:: includes
 */
 # include <vector>
+# include <map>
 # include <iostream>
 # include <limits>
 # include <algorithm>
@@ -41,7 +42,7 @@
 */
 
 # include "./vector/vector_tests.hpp"
-
+# include "./map/map_tests.hpp"
 
 # ifndef ORIGINAL_STD
 #  define ORIGINAL_STD	0

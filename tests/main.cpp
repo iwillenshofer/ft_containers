@@ -4,7 +4,7 @@
 #include "tests.hpp"
 
 
-int main2 (int argc, char **argv)
+int main (int argc, char **argv)
 {
 	ft::Tester tester;
 	if (argc == 1)
@@ -24,22 +24,12 @@ int main2 (int argc, char **argv)
 		ft::Tester::kind = KIND_COMPARE;
 	
 
-	tester.printTitle("Iterators");
-	test_reverseiterator();
-	test_utilities();
-	test_vector();
+//	tester.printTitle("Iterators");
+//	test_reverseiterator();
+//	test_utilities();
+//	test_vector();
+	test_map();
 
 	(void)argv;
-	return (0);
-}
-
-int main(void)
-{
-	ft::map<char, int> m;
-	m.insert(ft::make_pair('a', 3));
-	//ft::pair<char, int> p = 
-	
-//	ft::map<char, int>::node_pointer n = m._create_node(ft::make_pair('a', 100));
-//	m._delete_node(n);
 	return (0);
 }

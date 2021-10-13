@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/ft_binarytree.hpp"
-#include "./includes/ft_binarytree_iterator.hpp"
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
@@ -30,12 +28,14 @@ void print_node(ft::Node<int, int>& n)
 	std::cout << ". Left: " << (n._left ? n._left->Key() : 0);
 	std::cout << ". Right: " << (n._right ? n._right->Key() : 0);
 	std::cout << ". Parent: " << (n._parent ? n._parent->Key() : 0);
+	std::cout << ". Color: " << (n._color == 1 ? "RED" : "BLACK");
+
 //	std::cout << ". Height: " << n.height();
 //	std::cout << ". Balanced: " << n.balanced() << std::endl;
 std::cout << std::endl;
 }
 
-void display(ft::BinaryTree<int, int>::node_pointer root)
+void display(ft::RedBlackTree<int, int>::node_pointer root)
 {
     if (!root )
    		return;
@@ -46,7 +46,7 @@ void display(ft::BinaryTree<int, int>::node_pointer root)
 }
 
 
-void print_tree(ft::BinaryTree<int, int>::node_pointer root)
+void print_tree(ft::RedBlackTree<int, int>::node_pointer root)
 {
     if (!root )
    		return;
@@ -57,47 +57,37 @@ void print_tree(ft::BinaryTree<int, int>::node_pointer root)
 
 }
 
-template <typename T>
-void test()
+
+
+int main(void)
 {
-	T v;
-	v.insert(typename T::value_type(3, "hello coco"));
-	v.insert(typename T::value_type(5, "j'arrive"));
+	ft::map<int, int> v;
 
-	T tmp = v;
-	typename T::value_type pa(tmp.begin()->first, tmp.begin()->second);
-	tmp.erase(tmp.begin());
-
-	typename T::value_type* x = new typename T::value_type();
-	std::cout << tmp.begin()->first;
-//	tmp.insert(pa);
-//	tmp.insert(*x);
-
-
-	std::cout << "size of tmp = " << tmp.size();
-
-  // first insert function version (single parameter):
-	for (typename T::const_iterator it = tmp.begin(); it != tmp.end(); it++)
-		std::cout << "[" << it->first << "][" << it->second << "] | ";
+	v.insert(ft::make_pair(11, 11));
+	v.insert(ft::make_pair(2, 2));
+	v.insert(ft::make_pair(14, 14));
+	v.insert(ft::make_pair(1, 1));
+	v.insert(ft::make_pair(7, 7));
+	v.insert(ft::make_pair(15, 15));
+	v.insert(ft::make_pair(5, 5));
+	v.insert(ft::make_pair(8, 8));
+	v.insert(ft::make_pair(16, 16));
 
 
-	delete x;
+	for (ft::map<int,int>::iterator it = v.begin(); it != v.end(); it++)
+		print_node(*(it.base()));
+
+
+
+
 }
-
-	int main(void)
-	{
-		test<ft::map<int, std::string> >();
-		std::cout << std::endl;
-		test<std::map<int, std::string> >();
-
-	}
 /*
 int main(void)
 {
 //	ft::Node<int, char> n*(ft::make_pair(10, 'c'));
-	ft::BinaryTree<int, int>::node_pointer n[10000];
-	ft::BinaryTree<int, int> tree;
-	ft::BinaryTreeIterator<ft::Node<int, int> > it;
+	ft::RedBlackTree<int, int>::node_pointer n[10000];
+	ft::RedBlackTree<int, int> tree;
+	ft::RedBlackTreeIterator<ft::Node<int, int> > it;
 	std::vector<int> v;
 //	tree.insert(ft::make_pair(35, 3));
 
@@ -147,11 +137,11 @@ for (int i = 0; i < 7; i++)
 
 /*
 
-	ft::BinaryTree<int, int>::iterator it3 = tree.begin();
+	ft::RedBlackTree<int, int>::iterator it3 = tree.begin();
 
 while ( it3 != tree.end())
 {
-//	ft::BinaryTree<int, int>::iterator it2 = it3 + 1;
+//	ft::RedBlackTree<int, int>::iterator it2 = it3 + 1;
 //	print_node((*it3));
 //	tree.erase(&(*it3));
 //	it3 = it2;
@@ -196,8 +186,8 @@ while ( it3 != tree.end())
 ////	display(tree._root);
 ////	std::cout << "after erase: " << std::endl;
 ////	n =  tree.insert(ft::make_pair('g', 7)).first;
-////	it = ft::BinaryTreeIterator<ft::Node<char, int> >(tree._root->minimum());
-////	ft::BinaryTree<char, int>::iterator ite = tree.end();
+////	it = ft::RedBlackTreeIterator<ft::Node<char, int> >(tree._root->minimum());
+////	ft::RedBlackTree<char, int>::iterator ite = tree.end();
 //	tree.erase(n);
 
 
@@ -210,7 +200,7 @@ while ( it3 != tree.end())
 //		print_node(*n[i]);
 
 
-//ft::BinaryTree<int, int>::const_iterator it2 = tree.end();
+//ft::RedBlackTree<int, int>::const_iterator it2 = tree.end();
 //it2--;
 
 //	print_tree(tree._root);

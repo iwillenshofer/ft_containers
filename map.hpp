@@ -14,9 +14,7 @@
 # define MAP_HPP
 
 # include <memory>
-# include "includes/ft_utilities.hpp"
-# include "includes/ft_binarytree.hpp"
-# include "includes/ft_binarytree_iterator.hpp"
+# include "includes/ft_redblacktree.hpp"
 
 namespace ft
 {
@@ -35,7 +33,7 @@ namespace ft
 		typedef typename allocator_type::const_pointer					const_pointer;
 
 	private:
-		typedef typename ft::BinaryTree<Key, T, key_compare, allocator_type> binary_tree;
+		typedef typename ft::RedBlackTree<Key, T, key_compare, allocator_type> binary_tree;
 
 	public:
 		typedef typename binary_tree::iterator							iterator;
@@ -43,7 +41,7 @@ namespace ft
 		typedef typename binary_tree::reverse_iterator	 				reverse_iterator;
 		typedef typename binary_tree::const_reverse_iterator			const_reverse_iterator;
 		typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
-		typedef size_t											size_type;
+		typedef size_t													size_type;
 
 		class value_compare : public std::binary_function<value_type, value_type, bool>
 		{
