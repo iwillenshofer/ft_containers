@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/13 18:19:50 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/14 14:44:44 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -458,6 +458,11 @@ namespace ft
 				return (ft::make_pair(node, true));
 			}
 			
+
+
+
+
+
 			/*
 			** erases node if it has two children
 			** 1. finds the sucessor
@@ -469,7 +474,7 @@ namespace ft
 
 			void _erase_twochildren(node_pointer node)
 			{	
-				node_pointer pred = node->_left->maximum();
+				node_pointer pred = node->_right->minimum();
 
 				_swapNode(node, pred);
 				if (node == this->_root)
@@ -485,15 +490,17 @@ namespace ft
 			void _erase_singlechild(node_pointer node)
 			{
 				node_pointer child = node->_right ? node->_right : node->_left;
-//				node_pointer parent = node->_parent;
+				node_pointer parent = node->_parent;
+				char original_color = _getColor(node);
 
-//				parent->_right == node ? parent->_right = child : parent->_left = child;
-//				child->_parent = parent;
-//				_setColor(child, RBT_BLACK);
-				_swapNode(node, child);
+				parent->_right == node ? parent->_right = child : parent->_left = child;
+				child->_parent = parent;
+//				_swapNode(node, child);
 				if (node == this->_root)
 					_setRoot(child);
-				_erase(node);
+				_delete_node(node);
+				_redblack_balance(child->_parent, child, original_color);
+				//_erase(node);
 				//_redblack_deletionbalance(ft::pair<node_pointer, char>(child, c));
 			}
 
@@ -504,63 +511,129 @@ namespace ft
 			void _erase_leaf(node_pointer node)
 			{
 				node_pointer parent = node->_parent;
-				char node_color = _getColor(node);
+				char original_color = _getColor(node);
 
 				parent->_right == node ? parent->_right = NULL :	parent->_left = NULL;
 				if (node == this->_root)
 					_setRoot(NULL);
-				else if (node_color == RBT_BLACK)
-					_redblack_balance(node->_parent);
+				_redblack_balance(node->_parent, NULL, original_color);
 				_delete_node(node);
 			}
 
-			void _redblack_balance(node_pointer node)
+			/*
+			** 1. if the node we deleted is red and its replacement is red or null, do nothing.
+			** 2. if the node we deleted is red and its replacement is black, color the replacement red and treat special case.
+			** 3. if the node we deleted is black and its replacement is red, color the replacement black, do nothing.
+			** 4. if the node we deleted is black and its replacement is null or black, treat special case.
+			*/
+
+			void _redblack_balance(node_pointer parent, node_pointer replacement, char deleted_color)
 			{
-				return ;
-				if (_getColor(node->Parent()) == RBT_RED)
+				if (deleted_color == RBT_RED && (!replacement || _getColor(replacement) == RBT_RED)) // case 1.
+					return ;
+				else if (deleted_color == RBT_BLACK && (replacement && _getColor(replacement) == RBT_RED)) // case 3;
 				{
-					if (node->Parent()->_left == node)
-						_rotate_left(node);
-					else
-						_rotate_right(node);
+					_setColor(replacement, RBT_BLACK);
+					return ;
 				}
-				else if (_getColor(node->Sibling()) == RBT_RED)
+				else if (deleted_color == RBT_RED && (replacement && _getColor(replacement) == RBT_BLACK)) // case 2
 				{
-					if (node->Parent()->_left == node)
+					_setColor(replacement, RBT_RED);
+					special_cases(parent, replacement);
+					//proceed to appopriate case 2
+				}
+				else if (deleted_color == RBT_BLACK && _getColor(replacement) == RBT_BLACK) // case 4 (worst case)
+				{
+					special_cases(parent, replacement);
+					//proceed to appopriate case 4.
+				}
+			}
+
+			/*
+			** Special Cases (x = replacement):
+			** 0. Node x is red.
+			** 1. Node x is black & its sibling is red.
+			** 2. Node x is black & its sibling is black & both siblings children are black.
+			** 3. Node x is black & its sibling w is black && 
+			**   3.1 x = left child, w->_left is red, w->_right is black.
+			**   3.2 x = right child, w->_right is red, w->_left is black.
+			** 4. Node x is black & its sibling w is black && 
+			**   4.1 x = left child, w->_right is red.
+			**   4.2 x = right child, w->_left is red.
+			*/
+			void special_cases(node_pointer parent, node_pointer x)
+			{
+				node_pointer w = parent->_left == x? parent->_right : parent->_left;
+				std::cerr << "x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
+
+				if (x == _root || !x || (parent == _root && _getColor(x)== RBT_BLACK))
+				{
+					_setColor(x, RBT_BLACK);
+					return;
+				}
+				if (_getColor(x) == RBT_RED)									//case 0
+				{
+					_setColor(x, RBT_BLACK);
+					return;
+				}
+				if (_getColor(x) == RBT_BLACK && _getColor(w) == RBT_RED)		// case 1
+				{
+					std::cerr << "CASE1: x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
+					_setColor(w, RBT_BLACK);
+					_setColor(parent, RBT_RED);
+					if (x == parent->_left)
 					{
-						_rotate_right(node->Sibling());
-						_rotate_left(node);
+						_rotate_left(x);
+						w = parent->_right;
 					}
 					else
 					{
-						_rotate_left(node);
-						_rotate_right(node->Sibling());
+						_rotate_right(x);
+						w = parent->_left;
 					}
 				}
-				else if (_getColor(node->Nephew()) == RBT_RED)
+				if (_getColor(x) == RBT_BLACK && _getColor(w) == RBT_BLACK && _getColor(w->_left) == RBT_BLACK && _getColor(w->_right) == RBT_BLACK) //case 2
 				{
-					if (node->Parent()->_left == node)
-						_rotate_left(node);
-					else
-						_rotate_right(node);
-					_setColor(node->Nephew(), RBT_BLACK);
-				}
-				else if (_getColor(node->Niece()) == RBT_RED)
-				{
-					if (node->Parent()->_left == node)
+					std::cerr << "CASE2: x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
+					_setColor(w, RBT_RED);
+					x = parent;
+					if (_getColor(x) == RBT_RED)
 					{
-						_rotate_right(node->Sibling());
-						_rotate_left(node);
+						_setColor(x, RBT_BLACK);
+						return ;
 					}
 					else
 					{
-						_rotate_left(node->Parent());
-						_rotate_right(node->Sibling());
+						special_cases(x, x->_parent);
+						return ;
 					}
-					_setColor(node->Niece(), RBT_BLACK);
 				}
-				else
-					_setColor(node->Sibling(), RBT_RED);
+				if ((_getColor(x) == RBT_BLACK && _getColor(w) == RBT_BLACK)
+				&& ((x == parent->_left && _getColor(w->_left) == RBT_RED && _getColor(w->_right) == RBT_BLACK)
+				|| (x == parent->_right && _getColor(w->_right) == RBT_RED && _getColor(w->_left) == RBT_BLACK)))			//case 3
+				{
+					std::cerr << "CASE3: x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
+					if (x == parent->_left) _setColor(w->_left, RBT_BLACK);
+					if (x == parent->_right) _setColor(w->_right, RBT_BLACK);
+					_setColor(w, RBT_RED);
+					if (x == parent->_left) _rotate_right(w);
+					if (x == parent->_right) _rotate_left(w);
+					if (x == parent->_left) w = parent->_right;
+					if (x == parent->_right) w = parent->_left;
+				}
+				if ((_getColor(x) == RBT_BLACK && _getColor(w) == RBT_BLACK)
+				&& ((x == parent->_left && _getColor(w->_right) == RBT_RED)
+				|| (x == parent->_right && _getColor(w->_left) == RBT_RED)))			//case 4
+				{
+					std::cerr << "CASE4: x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
+					_setColor(w, _getColor(parent));
+					_setColor(parent, RBT_BLACK);
+					if (x == parent->_left) _setColor(w->_right, RBT_BLACK);
+					if (x == parent->_right) _setColor(w->_left, RBT_BLACK);
+					if (x == parent->_left) _rotate_left(parent);
+					if (x == parent->_right) _rotate_right(parent);
+					return;
+				}
 			}
 
 			void _erase(node_pointer node)
@@ -736,11 +809,11 @@ namespace ft
 				node_pointer new_node1_parent = node2->_parent;
 				node_pointer new_node1_left = node2->_left;
 				node_pointer new_node1_right = node2->_right;
-				node_pointer* new_node1_link = nullptr;
+				node_pointer* new_node1_link = NULL;
 				node_pointer new_node2_parent = node1->_parent;
 				node_pointer new_node2_left = node1->_left;
 				node_pointer new_node2_right = node1->_right;
-				node_pointer* new_node2_link = nullptr;
+				node_pointer* new_node2_link = NULL;
 				
 				if (node2->_parent)
 					new_node1_link = node2->_parent->_left == node2 ? &node2->_parent->_left : &node2->_parent->_right;
@@ -749,7 +822,7 @@ namespace ft
 				if (node2->_parent == node1)
 				{
 					new_node1_parent = node2;
-					new_node1_link = nullptr;
+					new_node1_link = NULL;
 					if (node1->_left == node2)
 						new_node2_left = node1;
 					else
@@ -758,7 +831,7 @@ namespace ft
 				else if (node1->_parent == node2)
 				{
 					new_node2_parent = node1;
-					new_node2_link = nullptr;
+					new_node2_link = NULL;
 					if (node2->_left == node1)
 						new_node1_left = node2;
 					else
@@ -778,16 +851,10 @@ namespace ft
 				if (new_node2_link) *new_node2_link = node2;
 			}
 
-
-
-			
-
 			/*
 			** first item is node that replaced the deleted child.
 			** second item is the color of the deleted child.
 			*/
-
-
 			void _redblack_insertionbalance(node_pointer node)
 			{
 				node_pointer p;
@@ -824,6 +891,8 @@ namespace ft
 						node = p;
 					}
 				}
+				if (node == _root)
+					_setColor(_root, RBT_BLACK);
 			}
 
 		public:
