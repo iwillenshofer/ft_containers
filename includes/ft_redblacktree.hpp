@@ -118,20 +118,6 @@ namespace ft
 				this->_left = tmp._left;
 				this->_right = tmp._right;
 			}
-			
-			void swapAdjacent(node_pointer nd)
-			{
-				_Self tmp;
-				tmp._parent = nd->_parent;
-				tmp._left = nd->_left;
-				tmp._right = nd->_right;
-				nd->_parent = this->_parent;
-				nd->_left = this->_left;
-				nd->_right = this->_right;
-				this->_parent = tmp._parent;
-				this->_left = tmp._left;
-				this->_right = tmp._right;
-			}
 
 			node_pointer minimum(void) { return const_cast<node_pointer>(minimum(this)); }
 			const_node_pointer minimum(void) const { return (minimum(this)); }
@@ -218,10 +204,32 @@ namespace ft
 			}
 			node_pointer Sibling(void)
 			{
+				if (!(Parent()))
+					return (NULL);
 				if (Parent()->_right == this)
 					return(Parent()->_left);
 				return(Parent()->_right);
 			}
+
+			node_pointer Nephew(void)
+			{
+				if (!(Sibling()))
+					return (NULL);
+				if (Sibling() == Parent()->_left)
+					return(Sibling()->_left);
+				return(Sibling()->_right);
+			}
+		
+			node_pointer Niece(void)
+			{
+				if (!(Sibling()))
+					return (NULL);
+				if (Sibling() == Parent()->_right)
+					return(Sibling()->_left);
+				return(Sibling()->_right);
+			}
+
+
 
 			//Useful link: https://www.youtube.com/watch?v=_XDNJ67NQ6U
 
@@ -463,16 +471,7 @@ namespace ft
 			{	
 				node_pointer pred = node->_left->maximum();
 
-				node->swapLinks(pred);
-				node->swapColor(pred);
-				if(pred->_left ==  pred) pred->_left = node;
-				if(pred->_right ==  pred) pred->_right = node;
-				if(pred->_parent->_right == node ) pred->_parent->_right = pred;
-				if(pred->_parent->_left == node ) pred->_parent->_left = pred;
-				if(node->_parent->_right == pred)  node->_parent->_right = node;
-				if(node->_parent->_left == pred)  node->_parent->_left = node;
-				if(pred->_right) pred->_right->_parent = pred;
-				if(pred->_left) pred->_left->_parent = pred;
+				_swapNode(node, pred);
 				if (node == this->_root)
 					_setRoot(pred);
 				_erase(node);
@@ -486,14 +485,15 @@ namespace ft
 			void _erase_singlechild(node_pointer node)
 			{
 				node_pointer child = node->_right ? node->_right : node->_left;
-				node_pointer parent = node->_parent;
+//				node_pointer parent = node->_parent;
 
-				parent->_right == node ? parent->_right = child : parent->_left = child;
-				child->_parent = parent;
-				_setColor(child, RBT_BLACK);
+//				parent->_right == node ? parent->_right = child : parent->_left = child;
+//				child->_parent = parent;
+//				_setColor(child, RBT_BLACK);
+				_swapNode(node, child);
 				if (node == this->_root)
 					_setRoot(child);
-				_delete_node(node);
+				_erase(node);
 				//_redblack_deletionbalance(ft::pair<node_pointer, char>(child, c));
 			}
 
@@ -507,19 +507,61 @@ namespace ft
 				char node_color = _getColor(node);
 
 				parent->_right == node ? parent->_right = NULL :	parent->_left = NULL;
-				_delete_node(node);
 				if (node == this->_root)
 					_setRoot(NULL);
 				else if (node_color == RBT_BLACK)
-					_redblack_balance(parent);
+					_redblack_balance(node->_parent);
+				_delete_node(node);
 			}
 
 			void _redblack_balance(node_pointer node)
 			{
-				(void)node;
+				return ;
+				if (_getColor(node->Parent()) == RBT_RED)
+				{
+					if (node->Parent()->_left == node)
+						_rotate_left(node);
+					else
+						_rotate_right(node);
+				}
+				else if (_getColor(node->Sibling()) == RBT_RED)
+				{
+					if (node->Parent()->_left == node)
+					{
+						_rotate_right(node->Sibling());
+						_rotate_left(node);
+					}
+					else
+					{
+						_rotate_left(node);
+						_rotate_right(node->Sibling());
+					}
+				}
+				else if (_getColor(node->Nephew()) == RBT_RED)
+				{
+					if (node->Parent()->_left == node)
+						_rotate_left(node);
+					else
+						_rotate_right(node);
+					_setColor(node->Nephew(), RBT_BLACK);
+				}
+				else if (_getColor(node->Niece()) == RBT_RED)
+				{
+					if (node->Parent()->_left == node)
+					{
+						_rotate_right(node->Sibling());
+						_rotate_left(node);
+					}
+					else
+					{
+						_rotate_left(node->Parent());
+						_rotate_right(node->Sibling());
+					}
+					_setColor(node->Niece(), RBT_BLACK);
+				}
+				else
+					_setColor(node->Sibling(), RBT_RED);
 			}
-
-
 
 			void _erase(node_pointer node)
 			{
@@ -668,8 +710,9 @@ namespace ft
 
 			void _setColor(node_pointer node, char color)
 			{
-				if (node)
-					node->_color = color;
+				if (!node)
+					return ;
+				node->_color = color;
 			}
 
 			void _swapColor(node_pointer node1, node_pointer node2)
@@ -679,6 +722,65 @@ namespace ft
 				_setColor(node1, _getColor(node2));
 				_setColor(node2, tmp);
 			}
+
+			/*
+			** node 1 is replaced by node 2 and vice versa,
+			** value is not changed (as it is being taken along with the node)
+			** color is swap, so the color on a specific position should remain
+			** unchanged.
+			** all links are updated, including parent's and children's
+			*/
+
+			void _swapNode(node_pointer node1, node_pointer node2)
+			{
+				node_pointer new_node1_parent = node2->_parent;
+				node_pointer new_node1_left = node2->_left;
+				node_pointer new_node1_right = node2->_right;
+				node_pointer* new_node1_link = nullptr;
+				node_pointer new_node2_parent = node1->_parent;
+				node_pointer new_node2_left = node1->_left;
+				node_pointer new_node2_right = node1->_right;
+				node_pointer* new_node2_link = nullptr;
+				
+				if (node2->_parent)
+					new_node1_link = node2->_parent->_left == node2 ? &node2->_parent->_left : &node2->_parent->_right;
+				if (node1->_parent)
+					new_node2_link = node1->_parent->_left == node1 ? &node1->_parent->_left : &node1->_parent->_right;
+				if (node2->_parent == node1)
+				{
+					new_node1_parent = node2;
+					new_node1_link = nullptr;
+					if (node1->_left == node2)
+						new_node2_left = node1;
+					else
+						new_node2_right = node1;
+				}
+				else if (node1->_parent == node2)
+				{
+					new_node2_parent = node1;
+					new_node2_link = nullptr;
+					if (node2->_left == node1)
+						new_node1_left = node2;
+					else
+						new_node1_right = node2;
+				}
+				node1->_parent = new_node1_parent;
+				node1->_left = new_node1_left;
+				if (node1->_left) node1->_left->_parent = node1;
+				node1->_right = new_node1_right;
+				if (node1->_right) node1->_right->_parent = node1;
+				if (new_node1_link) *new_node1_link = node1;
+				node2->_parent = new_node2_parent;
+				node2->_left = new_node2_left;
+				if (node2->_left) node2->_left->_parent = node2;
+				node2->_right = new_node2_right;
+				if (node2->_right) node2->_right->_parent = node2;
+				if (new_node2_link) *new_node2_link = node2;
+			}
+
+
+
+			
 
 			/*
 			** first item is node that replaced the deleted child.

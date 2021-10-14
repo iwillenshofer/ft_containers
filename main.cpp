@@ -74,6 +74,16 @@ int main(void)
 	v.insert(ft::make_pair(16, 16));
 
 
+
+	v.erase(16);
+	v.erase(11);
+	v.erase(2);
+	v.erase(1);
+	v.erase(5);
+	//v.erase(7);
+
+
+
 	for (ft::map<int,int>::iterator it = v.begin(); it != v.end(); it++)
 		print_node(*(it.base()));
 
