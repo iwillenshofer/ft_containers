@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/03 21:27:01 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/15 13:40:22 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ namespace ft
 
 	template<typename Key, typename T, typename Compare, typename Alloc>
 	bool operator==(const map<Key, T, Compare, Alloc>& x, const map<Key, T, Compare, Alloc>& y)
-	{ return (x._btree == y.t_btree); }
+	{ return (x._btree == y._btree); }
 
 	template<typename Key, typename T, typename Compare, typename Alloc>
 	bool operator<(const map<Key, T, Compare, Alloc>& x, const map<Key, T, Compare, Alloc>& y)
