@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/14 23:09:27 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/14 23:18:15 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -614,8 +614,8 @@ namespace ft
 					}
 					else
 					{
-		//				special_cases(x, x->_parent);
-		//				return ;
+						special_cases(x->_parent, x);
+						return ;
 					}
 				}
 				if ((_getColor(x) == RBT_BLACK && _getColor(w) == RBT_BLACK)
