@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/14 22:47:07 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/14 22:55:30 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -457,7 +457,7 @@ namespace ft
 				else
 					_setRoot(node);
 				if (node != _root && node->GrandParent() != &(this->_header)) 
-					fixInsert(node);
+					_redblack_insertionbalance(node);
 				return (ft::make_pair(node, true));
 			}
 			
@@ -511,7 +511,7 @@ namespace ft
 				if (node == this->_root)
 					_setRoot(child, false);
 				_delete_node(node);
-				_redblack_balance(child->_parent, child, original_color);
+				_redblack_deletionbalance(child->_parent, child, original_color);
 				//_erase(node);
 				//_redblack_deletionbalance(ft::pair<node_pointer, char>(child, c));
 			}
@@ -527,7 +527,7 @@ namespace ft
 				parent->_right == node ? parent->_right = NULL : parent->_left = NULL;
 				if (node == this->_root)
 					_setRoot(NULL, false);
-				_redblack_balance(node->_parent, NULL, original_color);
+				_redblack_deletionbalance(node->_parent, NULL, original_color);
 				_delete_node(node);
 			}
 
@@ -538,7 +538,7 @@ namespace ft
 			** 4. if the node we deleted is black and its replacement is null or black, treat special case.
 			*/
 
-			void _redblack_balance(node_pointer parent, node_pointer replacement, char deleted_color)
+			void _redblack_deletionbalance(node_pointer parent, node_pointer replacement, char deleted_color)
 			{
 				if (deleted_color == RBT_RED && (!replacement || _getColor(replacement) == RBT_RED)) // case 1.
 					return ;
@@ -819,7 +819,7 @@ namespace ft
 			** unchanged.
 			** all links are updated, including parent's and children's
 			*/
-
+			/*
 			void _swapNode(node_pointer node1, node_pointer node2)
 			{
 				node_pointer new_node1_parent = node2->_parent;
@@ -867,15 +867,16 @@ namespace ft
 				if (new_node2_link) *new_node2_link = node2;
 			}
 
-			void fixInsert(node_pointer node)
+			*/
+			void _redblack_insertionbalance(node_pointer node)
 			{
 				node_pointer u;
 
 				while (node->_parent->_color== RBT_RED)
 				{
-
 					u = node->Uncle();
-					if (_getColor(u) == RBT_RED) {
+					if (_getColor(u) == RBT_RED)
+					{
 						_setColor(u, RBT_BLACK);
 						_setColor(node->_parent, RBT_BLACK);
 						_setColor(node->_parent->_parent, RBT_RED);
@@ -906,12 +907,11 @@ namespace ft
 				_setColor(_root, RBT_BLACK);
 			}
 
-
 			/*
 			** first item is node that replaced the deleted child.
 			** second item is the color of the deleted child.
 			*/
-			void _redblack_insertionbalance(node_pointer node)
+			void _redblack_insertionbalance2(node_pointer node)
 			{
 				node_pointer p;
 				node_pointer g;
