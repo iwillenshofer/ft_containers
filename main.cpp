@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 16:21:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/14 22:00:09 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/15 09:45:18 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ int main(void)
 
 
 	v.erase(1);
-//	v.erase(5);
-//	v.erase(7);
-//	v.erase(8);
-//	v.erase(14);
-//	v.erase(15);
+	v.erase(5);
+	v.erase(7);
+	v.erase(8);
+	v.erase(14);
+	v.erase(15);
 
 
 	std::cout << "AFTER ERASE" << std::endl;
