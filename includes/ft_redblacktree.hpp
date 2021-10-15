@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/14 22:55:30 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/14 23:09:27 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -574,7 +574,7 @@ namespace ft
 			void special_cases(node_pointer parent, node_pointer x)
 			{
 				node_pointer w = parent->_left == x ? parent->_right : parent->_left;
-				std::cerr << "x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
+			//	std::cerr << "x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
 
 				if (x == _root)// || (parent == _root && _getColor(x)== RBT_BLACK))
 				{
@@ -588,7 +588,7 @@ namespace ft
 				}
 				if (_getColor(x) == RBT_BLACK && _getColor(w) == RBT_RED)		// case 1
 				{
-					std::cerr << "CASE1: x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
+			//		std::cerr << "CASE1: x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
 					_setColor(w, RBT_BLACK);
 					_setColor(parent, RBT_RED);
 					if (x == parent->_left)
@@ -604,7 +604,7 @@ namespace ft
 				}
 				if (_getColor(x) == RBT_BLACK && _getColor(w) == RBT_BLACK && _getColor(w->_left) == RBT_BLACK && _getColor(w->_right) == RBT_BLACK) //case 2
 				{
-					std::cerr << "CASE2: x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
+		//			std::cerr << "CASE2: x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
 					_setColor(w, RBT_RED);
 					x = parent;
 					if (_getColor(x) == RBT_RED)
@@ -614,15 +614,15 @@ namespace ft
 					}
 					else
 					{
-						special_cases(x, x->_parent);
-						return ;
+		//				special_cases(x, x->_parent);
+		//				return ;
 					}
 				}
 				if ((_getColor(x) == RBT_BLACK && _getColor(w) == RBT_BLACK)
 				&& ((x == parent->_left && _getColor(w->_left) == RBT_RED && _getColor(w->_right) == RBT_BLACK)
 				|| (x == parent->_right && _getColor(w->_right) == RBT_RED && _getColor(w->_left) == RBT_BLACK)))			//case 3
 				{
-					std::cerr << "CASE3: x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
+		//			std::cerr << "CASE3: x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
 					if (x == parent->_left) _setColor(w->_left, RBT_BLACK);
 					else if (x == parent->_right) _setColor(w->_right, RBT_BLACK);
 					_setColor(w, RBT_RED);
@@ -635,8 +635,8 @@ namespace ft
 				&& ((x == parent->_left && _getColor(w->_right) == RBT_RED)
 				|| (x == parent->_right && _getColor(w->_left) == RBT_RED)))			//case 4
 				{
-					std::cerr << "CASE4: x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
-					std::cerr << "ParentL: " << parent->_left << "ParentR: " << parent->_right << std::endl << std::flush;
+			//		std::cerr << "CASE4: x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
+			//		std::cerr << "ParentL: " << parent->_left << "ParentR: " << parent->_right << std::endl << std::flush;
 
 					_setColor(w, _getColor(parent));
 					_setColor(parent, RBT_BLACK);
