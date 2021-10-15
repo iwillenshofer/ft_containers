@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redblacktree.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/14 14:44:44 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/14 22:47:07 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -410,14 +410,15 @@ namespace ft
 			** switches the root. Required as both _root and _header
 			** are changed when the root is changed.
 			*/
-			void _setRoot(node_pointer node)
+			void _setRoot(node_pointer node, bool set_color = true)
 			{
 				this->_root = node;
 				this->_header._left = this->_root;
 				if (this->_root)
 				{
 					this->_root->_parent = &(this->_header);
-					this->_root->_color = RBT_BLACK;
+					if (set_color)
+						this->_root->_color = RBT_BLACK;
 				}
 			}
 	
@@ -449,12 +450,14 @@ namespace ft
 					}
 				}
 				node = this->_create_node(val);
+				node->_color = RBT_RED;
 				node->_parent = parent;
 				if (parent)
 					left_side ? parent->_left = node : parent->_right = node;
-				if (!(this->_root))
+				else
 					_setRoot(node);
-				_redblack_insertionbalance(node);
+				if (node != _root && node->GrandParent() != &(this->_header)) 
+					fixInsert(node);
 				return (ft::make_pair(node, true));
 			}
 			
@@ -476,7 +479,16 @@ namespace ft
 			{	
 				node_pointer pred = node->_right->minimum();
 
-				_swapNode(node, pred);
+				node->swapLinks(pred);
+ 				if(pred->_left ==  pred) pred->_left = node;
+ 				if(pred->_right ==  pred) pred->_right = node;
+ 				if(pred->_parent->_right == node ) pred->_parent->_right = pred;
+ 				if(pred->_parent->_left == node ) pred->_parent->_left = pred;
+ 				if(node->_parent->_right == pred)  node->_parent->_right = node;
+ 				if(node->_parent->_left == pred)  node->_parent->_left = node;
+ 				if(pred->_right) pred->_right->_parent = pred;
+ 				if(pred->_left) pred->_left->_parent = pred;
+				_swapColor(node, pred);
 				if (node == this->_root)
 					_setRoot(pred);
 				_erase(node);
@@ -497,7 +509,7 @@ namespace ft
 				child->_parent = parent;
 //				_swapNode(node, child);
 				if (node == this->_root)
-					_setRoot(child);
+					_setRoot(child, false);
 				_delete_node(node);
 				_redblack_balance(child->_parent, child, original_color);
 				//_erase(node);
@@ -512,10 +524,9 @@ namespace ft
 			{
 				node_pointer parent = node->_parent;
 				char original_color = _getColor(node);
-
-				parent->_right == node ? parent->_right = NULL :	parent->_left = NULL;
+				parent->_right == node ? parent->_right = NULL : parent->_left = NULL;
 				if (node == this->_root)
-					_setRoot(NULL);
+					_setRoot(NULL, false);
 				_redblack_balance(node->_parent, NULL, original_color);
 				_delete_node(node);
 			}
@@ -531,16 +542,15 @@ namespace ft
 			{
 				if (deleted_color == RBT_RED && (!replacement || _getColor(replacement) == RBT_RED)) // case 1.
 					return ;
-				else if (deleted_color == RBT_BLACK && (replacement && _getColor(replacement) == RBT_RED)) // case 3;
-				{
-					_setColor(replacement, RBT_BLACK);
-					return ;
-				}
 				else if (deleted_color == RBT_RED && (replacement && _getColor(replacement) == RBT_BLACK)) // case 2
 				{
 					_setColor(replacement, RBT_RED);
 					special_cases(parent, replacement);
-					//proceed to appopriate case 2
+				}
+				else if (deleted_color == RBT_BLACK && (replacement && _getColor(replacement) == RBT_RED)) // case 3;
+				{
+					_setColor(replacement, RBT_BLACK);
+					return ;
 				}
 				else if (deleted_color == RBT_BLACK && _getColor(replacement) == RBT_BLACK) // case 4 (worst case)
 				{
@@ -563,10 +573,10 @@ namespace ft
 			*/
 			void special_cases(node_pointer parent, node_pointer x)
 			{
-				node_pointer w = parent->_left == x? parent->_right : parent->_left;
+				node_pointer w = parent->_left == x ? parent->_right : parent->_left;
 				std::cerr << "x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
 
-				if (x == _root || !x || (parent == _root && _getColor(x)== RBT_BLACK))
+				if (x == _root)// || (parent == _root && _getColor(x)== RBT_BLACK))
 				{
 					_setColor(x, RBT_BLACK);
 					return;
@@ -583,12 +593,12 @@ namespace ft
 					_setColor(parent, RBT_RED);
 					if (x == parent->_left)
 					{
-						_rotate_left(x);
+						_rotate_left(parent);
 						w = parent->_right;
 					}
 					else
 					{
-						_rotate_right(x);
+						_rotate_right(parent);
 						w = parent->_left;
 					}
 				}
@@ -614,24 +624,30 @@ namespace ft
 				{
 					std::cerr << "CASE3: x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
 					if (x == parent->_left) _setColor(w->_left, RBT_BLACK);
-					if (x == parent->_right) _setColor(w->_right, RBT_BLACK);
+					else if (x == parent->_right) _setColor(w->_right, RBT_BLACK);
 					_setColor(w, RBT_RED);
 					if (x == parent->_left) _rotate_right(w);
-					if (x == parent->_right) _rotate_left(w);
+					else if (x == parent->_right) _rotate_left(w);
 					if (x == parent->_left) w = parent->_right;
-					if (x == parent->_right) w = parent->_left;
+					else if (x == parent->_right) w = parent->_left;
 				}
 				if ((_getColor(x) == RBT_BLACK && _getColor(w) == RBT_BLACK)
 				&& ((x == parent->_left && _getColor(w->_right) == RBT_RED)
 				|| (x == parent->_right && _getColor(w->_left) == RBT_RED)))			//case 4
 				{
 					std::cerr << "CASE4: x: " << x << ". parent: " << parent << ". w: " << w <<  ". Root: " << _root << std::endl << std::flush;
+					std::cerr << "ParentL: " << parent->_left << "ParentR: " << parent->_right << std::endl << std::flush;
+
 					_setColor(w, _getColor(parent));
 					_setColor(parent, RBT_BLACK);
-					if (x == parent->_left) _setColor(w->_right, RBT_BLACK);
-					if (x == parent->_right) _setColor(w->_left, RBT_BLACK);
-					if (x == parent->_left) _rotate_left(parent);
-					if (x == parent->_right) _rotate_right(parent);
+					if (x == parent->_left)
+						_setColor(w->_right, RBT_BLACK);
+					else if (x == parent->_right)
+						_setColor(w->_left, RBT_BLACK);
+					if (x == parent->_left)
+						_rotate_left(parent);
+					else if (x == parent->_right)
+						_rotate_right(parent);
 					return;
 				}
 			}
@@ -851,6 +867,46 @@ namespace ft
 				if (new_node2_link) *new_node2_link = node2;
 			}
 
+			void fixInsert(node_pointer node)
+			{
+				node_pointer u;
+
+				while (node->_parent->_color== RBT_RED)
+				{
+
+					u = node->Uncle();
+					if (_getColor(u) == RBT_RED) {
+						_setColor(u, RBT_BLACK);
+						_setColor(node->_parent, RBT_BLACK);
+						_setColor(node->_parent->_parent, RBT_RED);
+						node = node->GrandParent();
+					}
+					else
+					{
+						if (node == node->_parent->_left)
+						{
+							node = node->_parent;
+							_rotate_right(node);
+						}
+						else if (node == node->_parent->_right)
+						{
+							node = node->_parent;
+							_rotate_left(node);
+						}
+						_setColor(node->Parent(), RBT_BLACK);
+						_setColor(node->GrandParent(), RBT_RED);
+						if (node->_parent == node->_parent->_parent->_right)
+							_rotate_left(node->_parent->_parent);
+						else
+							_rotate_right(node->_parent->_parent);
+					}
+					if (node == _root)
+						break ;
+				}
+				_setColor(_root, RBT_BLACK);
+			}
+
+
 			/*
 			** first item is node that replaced the deleted child.
 			** second item is the color of the deleted child.
@@ -866,7 +922,7 @@ namespace ft
 					p = node->Parent();
 					g = node->GrandParent();
 					u = node->Uncle();
-					if (_getColor(p) == RBT_RED && _getColor(u) == RBT_RED)
+					if (_getColor(p) == RBT_RED && u->_color == RBT_RED)
 					{
 						_setColor(u, RBT_BLACK);
 						_setColor(p, RBT_BLACK);

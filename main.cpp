@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 16:21:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/14 14:45:42 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/14 22:00:09 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,19 +75,26 @@ int main(void)
 
 
 
-	//v.erase(16);
-	//v.erase(11);
-	//v.erase(2);
-	//v.erase(1);
-	//v.erase(5);
-	//v.erase(7);
-
+	v.erase(16);
+	v.erase(11);
+	v.erase(2);
 
 
 	for (ft::map<int,int>::iterator it = v.begin(); it != v.end(); it++)
 		print_node(*(it.base()));
 
 
+	v.erase(1);
+//	v.erase(5);
+//	v.erase(7);
+//	v.erase(8);
+//	v.erase(14);
+//	v.erase(15);
+
+
+	std::cout << "AFTER ERASE" << std::endl;
+	for (ft::map<int,int>::iterator it = v.begin(); it != v.end(); it++)
+		print_node(*(it.base()));
 
 
 }
