@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/15 13:40:22 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/15 15:51:50 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MAP_HPP
 
 # include <memory>
+# include "includes/ft_algorithm.hpp"
 # include "includes/ft_redblacktree.hpp"
 
 namespace ft
@@ -155,27 +156,23 @@ namespace ft
 		*/
 		allocator_type getAllocator() const { return (allocator_type(this->_btree.getAllocator())); }
 
-		template<typename _K1, typename _T1, typename _C1, typename _A1>
-		friend bool operator==(const map<_K1, _T1, _C1, _A1>&, const map<_K1, _T1, _C1, _A1>&);
-
-		template<typename _K1, typename _T1, typename _C1, typename _A1>
-		friend bool operator<(const map<_K1, _T1, _C1, _A1>&, const map<_K1, _T1, _C1, _A1>&);
 	};
 
+	/* non member operator overloads */
 	template<typename Key, typename T, typename Compare, typename Alloc>
 	bool operator==(const map<Key, T, Compare, Alloc>& x, const map<Key, T, Compare, Alloc>& y)
-	{ return (x._btree == y._btree); }
+	{ return (x.size() == y.size() && ft::equal(x.begin(), x.end(), y.begin())); }
 
 	template<typename Key, typename T, typename Compare, typename Alloc>
 	bool operator<(const map<Key, T, Compare, Alloc>& x, const map<Key, T, Compare, Alloc>& y)
-	{ return (x._btree < y._btree); }
+	{ return (ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end())); }
 
 	template<typename Key, typename T, typename Compare, typename Alloc>
 	bool operator!=(const map<Key, T, Compare, Alloc>& x, const map<Key, T, Compare, Alloc>& y)
 	{ return (!(x == y)); }
 
 	template<typename Key, typename T, typename Compare, typename Alloc>
-	bool	operator>(const map<Key, T, Compare, Alloc>& x, const map<Key, T, Compare, Alloc>& y)
+	bool operator>(const map<Key, T, Compare, Alloc>& x, const map<Key, T, Compare, Alloc>& y)
 	{ return (y < x); }
 
 	template<typename Key, typename T, typename Compare, typename Alloc>
@@ -189,6 +186,7 @@ namespace ft
 	template<typename Key, typename T, typename Compare, typename Alloc>
 	void swap(map<Key, T, Compare, Alloc>& x, map<Key, T, Compare, Alloc>& y)
 	{ x.swap(y); }
+
 }
 
 #endif

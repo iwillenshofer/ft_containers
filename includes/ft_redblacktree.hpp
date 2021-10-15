@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/15 13:00:12 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/15 17:21:35 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@
 
 namespace ft
 {
+
+	/*
+	** Node for Red Black Tree.
+	*/
+
 	template <typename K, typename T>
 	class Node
 	{
@@ -35,7 +40,6 @@ namespace ft
 			typedef value_type&						reference;
 			typedef value_type*						pointer;
 			typedef ptrdiff_t						difference_type;
-
 			typedef const ft::pair<K, T>			const_value_type;
 			typedef Node<K, T>*						node_pointer;
 			typedef Node<K, T>&						node_reference;
@@ -43,7 +47,6 @@ namespace ft
 			typedef const K&						key_reference;
 			typedef T&								value_reference;
 			typedef const T&						const_value_reference;
-			typedef T*								value_pointer;
 			typedef Node<K, T>						_Self;
 			typedef const Node<K, T>				const_self;
 			typedef std::size_t						size_type;
@@ -238,6 +241,10 @@ namespace ft
 			}
 	};
 
+	/*
+	** Iterator for BlackRedTree and Map.
+	*/
+
 	template <typename T>
 	class RedBlackTreeIterator : public iterator<ft::bidirectional_iterator_tag, T>
 	{
@@ -258,7 +265,7 @@ namespace ft
 	
 		public:
 			RedBlackTreeIterator(): _p() { };
-			explicit RedBlackTreeIterator(node_pointer p): _p(p) { };
+			explicit RedBlackTreeIterator(node_pointer const p): _p(p) { };
 			RedBlackTreeIterator(RedBlackTreeIterator const &b): _p(b._p) { };
 			virtual ~RedBlackTreeIterator() {}
 
@@ -319,7 +326,6 @@ namespace ft
 
 			bool operator==(const _self &x) const { return (this->_p == x.base()); }
 			bool operator!=(const _self &x) const { return (this->_p != x.base()); }
-
 	};
 
 	template<typename Val>
@@ -330,9 +336,9 @@ namespace ft
 	inline bool	operator!=(const RedBlackTreeIterator<Val>& x,	const RedBlackTreeIterator<Val>& y)
 	{ return x._p != y._p; }
 
-
-
-
+	/*
+	** Blackred tree structure for ft::map.
+	*/
 
 	template <typename Key, typename T, typename Compare = ft::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
 	class RedBlackTree
@@ -413,7 +419,139 @@ namespace ft
 						this->_root->_color = RBT_BLACK;
 				}
 			}
+
+			/*
+			** color operations. Provide a safe way to get and set color, 
+			** since leaf nodes have null children and null colr is black.
+			*/
+			char _getColor(node_pointer node)
+			{
+				if (!node)
+					return (RBT_BLACK);
+				return(node->_color);
+			}
+
+			void _setColor(node_pointer node, char color)
+			{
+				if (!node)
+					return ;
+				node->_color = color;
+			}
+
+			void _swapColor(node_pointer node1, node_pointer node2)
+			{
+				char tmp = _getColor(node1);
+
+				_setColor(node1, _getColor(node2));
+				_setColor(node2, tmp);
+			}
 	
+			/*
+			** node helpers. Creates and deletes nodes.
+			*/
+			node_pointer _create_node(value_type const &val)
+			{
+				node_pointer tmp = this->_allocator.allocate(1);
+				this->_allocator.construct(tmp, node(value_type(val)));
+				this->_size++;
+				return (tmp);
+			}
+	
+			void _delete_node(node_pointer p)
+			{
+				this->_allocator.destroy(p);
+				this->_allocator.deallocate(p, 1);
+				this->_size--;
+				if (p == this->_root)
+					_setRoot(NULL);
+			}
+
+			void _clear(node_pointer node)
+			{
+				if (!node)
+					return;
+				_clear(node->_left);
+				_clear(node->_right);
+				if (node->_parent)
+				{
+					if (node->_parent->_left == node)
+						node->_parent->_left = NULL;
+					if (node->_parent->_right == node)
+						node->_parent->_right = NULL;
+				}
+				_delete_node(node);
+				_setRoot(NULL);
+			}
+
+			/*
+			** find helper function. 
+			*/
+			node_pointer _find (const key_type& k) const
+			{
+				node_pointer node = this->_root;
+				bool compare;
+
+				while (node)
+				{
+					compare = _compare(k, node->_value.first);
+					if (compare == _compare(node->_value.first, k))
+						return (node);
+					if (compare)
+						node = node->_left;
+					else
+						node = node->_right;
+				}
+				return (node_pointer(&(this->_header)));
+			}
+
+			/*
+			** RedBlack tree rotation mathods, used to help balancing
+			** the tree after insertion or deletion.
+			*/
+
+			void _rotate_left(node_pointer x)
+			{
+				node_pointer root = x->_parent;;
+				node_pointer y = x->_right;
+
+				y->_parent = x->_parent;
+				x->_right = y->_left;
+				x->_parent = y;
+				y->_left = x;
+				if(x->_right)
+					x->_right->_parent = x;
+				if(x->_left)
+					x->_left->_parent = x;
+				if (root->_left == x)
+					root->_left = y;
+				else
+					root->_right = y;
+				if (this->_root == x)
+					_setRoot(y);
+			}
+
+			void _rotate_right(node_pointer x)
+			{
+				node_pointer root = x->_parent;;
+				node_pointer y = x->_left;
+
+				y->_parent = x->_parent;
+				x->_left = y->_right;
+				x->_parent = y;
+				y->_right = x;
+				if(x->_right)
+						x->_right->_parent = x;
+				if(x->_left)
+						x->_left->_parent = x;
+				if (root->_left == x)
+					root->_left = y;
+				else
+					root->_right = y;
+				if (this->_root == x)
+					_setRoot(y);
+			}
+
+
 			/*
 			** Insert helper function.
 			** inserts an element if it does not exist.
@@ -453,16 +591,70 @@ namespace ft
 				return (ft::make_pair(node, true));
 			}
 			
+			/*
+			** Insertion balance function.
+			** Rotates and recolors nodes to keep RedBlackTree valid.
+			*/
+			void _redblack_insertionbalance(node_pointer node)
+			{
+				node_pointer u;
+
+				while (node->_parent->_color== RBT_RED)
+				{
+					u = node->Uncle();
+					if (_getColor(u) == RBT_RED)
+					{
+						_setColor(u, RBT_BLACK);
+						_setColor(node->Parent(), RBT_BLACK);
+						_setColor(node->GrandParent(), RBT_RED);
+						node = node->GrandParent();
+					}
+					else
+					{
+						if (node->isLeftChild())
+						{
+							node = node->Parent();
+							_rotate_right(node);
+						}
+						else if (node->isRightChild())
+						{
+							node = node->Parent();
+							_rotate_left(node);
+						}
+						_setColor(node->Parent(), RBT_BLACK);
+						_setColor(node->GrandParent(), RBT_RED);
+						if (node->_parent->isRightChild())
+							_rotate_left(node->GrandParent());
+						else
+							_rotate_right(node->GrandParent());
+					}
+					if (node == _root)
+						break ;
+				}
+				_setColor(_root, RBT_BLACK);
+			}
+
 
 			/*
-			** erases node if it has two children
+			** A node to be erased can have two children, one child or be a leaf node.
+			*/
+			void _erase(node_pointer node)
+			{
+				if (!(node->_left) && !(node->_right))
+					_erase_leaf(node);
+				else if (node->_left && node->_right)
+					_erase_twochildren(node);
+				else
+					_erase_singlechild(node);
+			}
+
+			/*
+			** Two children:
 			** 1. finds the sucessor
 			** 2. replaces itself with the successor.
 			** 3. call erase function again to erase it as leaf or
 			** single child node.
 			*/
-
-
 			void _erase_twochildren(node_pointer node)
 			{	
 				node_pointer pred = node->_right->minimum();
@@ -516,32 +708,30 @@ namespace ft
 				_delete_node(node);
 			}
 
+
 			/*
+			** Rebalance tree after deletion.
 			** 1. if the node we deleted is red and its replacement is red or null, do nothing.
 			** 2. if the node we deleted is red and its replacement is black, color the replacement red and treat special case.
 			** 3. if the node we deleted is black and its replacement is red, color the replacement black, do nothing.
 			** 4. if the node we deleted is black and its replacement is null or black, treat special case.
 			*/
-
 			void _redblack_deletionbalance(node_pointer parent, node_pointer replacement, char deleted_color)
 			{
-				if (deleted_color == RBT_RED && (!replacement || _getColor(replacement) == RBT_RED)) // case 1.
+				if (deleted_color == RBT_RED && (!replacement || _getColor(replacement) == RBT_RED))
 					return ;
-				else if (deleted_color == RBT_RED && (replacement && _getColor(replacement) == RBT_BLACK)) // case 2
+				else if (deleted_color == RBT_RED && (replacement && _getColor(replacement) == RBT_BLACK))
 				{
 					_setColor(replacement, RBT_RED);
-					special_cases(parent, replacement);
+					_redblack_deletion_specialcases(parent, replacement);
 				}
-				else if (deleted_color == RBT_BLACK && (replacement && _getColor(replacement) == RBT_RED)) // case 3;
+				else if (deleted_color == RBT_BLACK && (replacement && _getColor(replacement) == RBT_RED))
 				{
 					_setColor(replacement, RBT_BLACK);
 					return ;
 				}
-				else if (deleted_color == RBT_BLACK && _getColor(replacement) == RBT_BLACK) // case 4 (worst case)
-				{
-					special_cases(parent, replacement);
-					//proceed to appopriate case 4.
-				}
+				else if (deleted_color == RBT_BLACK && _getColor(replacement) == RBT_BLACK)
+					_redblack_deletion_specialcases(parent, replacement);
 			}
 
 			/*
@@ -556,7 +746,7 @@ namespace ft
 			**   4.1 x = left child, w->_right is red.
 			**   4.2 x = right child, w->_left is red.
 			*/
-			void special_cases(node_pointer parent, node_pointer x)
+			void _redblack_deletion_specialcases(node_pointer parent, node_pointer x)
 			{
 				node_pointer w = parent->_left == x ? parent->_right : parent->_left;
 
@@ -588,7 +778,7 @@ namespace ft
 					if (_getColor(x) == RBT_RED)
 						_setColor(x, RBT_BLACK);
 					else
-						special_cases(x->_parent, x);
+						_redblack_deletion_specialcases(x->_parent, x);
 					return ;
 
 				}
@@ -629,274 +819,20 @@ namespace ft
 				}
 			}
 
-			void _erase(node_pointer node)
-			{
-				if (!(node->_left) && !(node->_right))
-					_erase_leaf(node);
-				else if (node->_left && node->_right)
-					_erase_twochildren(node);
-				else
-					_erase_singlechild(node);
-			}
-
-			/*
-			** find helper function. 
-			*/
-			node_pointer _find (const key_type& k) const
-			{
-				node_pointer node = this->_root;
-				bool compare;
-
-				while (node)
-				{
-					compare = _compare(k, node->_value.first);
-					if (compare == _compare(node->_value.first, k))
-						return (node);
-					if (compare)
-						node = node->_left;
-					else
-						node = node->_right;
-				}
-				return (node_pointer(&(this->_header)));
-			}
-
-			/*
-			** node helpers. Creates and deletes nodes.
-			*/
-			node_pointer _create_node(value_type const &val)
-			{
-				node_pointer tmp = this->_allocator.allocate(1);
-				this->_allocator.construct(tmp, node(value_type(val)));
-				this->_size++;
-				return (tmp);
-			}
-	
-			void _delete_node(node_pointer p)
-			{
-				this->_allocator.destroy(p);
-				this->_allocator.deallocate(p, 1);
-				this->_size--;
-				if (p == this->_root)
-					_setRoot(NULL);
-			}
-
-			void _clear(node_pointer node)
-			{
-				if (!node)
-					return;
-				_clear(node->_left);
-				_clear(node->_right);
-				if (node->_parent)
-				{
-					if (node->_parent->_left == node)
-						node->_parent->_left = NULL;
-					if (node->_parent->_right == node)
-						node->_parent->_right = NULL;
-				}
-				_delete_node(node);
-				_setRoot(NULL);
-			}
-
-			/*
-			** RedBlack tree rotation mathods
-			*/
-
-			void _rotate_left(node_pointer x)
-			{
-				node_pointer root = x->_parent;;
-				node_pointer y = x->_right;
-
-				y->_parent = x->_parent;
-				x->_right = y->_left;
-				x->_parent = y;
-				y->_left = x;
-				if(x->_right)
-					x->_right->_parent = x;
-				if(x->_left)
-					x->_left->_parent = x;
-				if (root->_left == x)
-					root->_left = y;
-				else
-					root->_right = y;
-				if (this->_root == x)
-					_setRoot(y);
-			}
-
-			void _rotate_right(node_pointer x)
-			{
-				node_pointer root = x->_parent;;
-				node_pointer y = x->_left;
-
-				y->_parent = x->_parent;
-				x->_left = y->_right;
-				x->_parent = y;
-				y->_right = x;
-				if(x->_right)
-						x->_right->_parent = x;
-				if(x->_left)
-						x->_left->_parent = x;
-				if (root->_left == x)
-					root->_left = y;
-				else
-					root->_right = y;
-				if (this->_root == x)
-					_setRoot(y);
-			}
-			
-			void _balance(node_pointer node)
-			{
-				if (node == &this->_header || (node == this->_root && node->balanced()))
-					return ;
-				if (!(node->balanced()))
-				{
-					if (node->_right->height() > node->_left->height())
-					{
-						if (node->_right->_left && (!(node->_right->_right)
-							|| node->_right->_left->height() > node->_right->_right->height()))
-							_rotate_right(node->_right);
-						_rotate_left(node);
-					}
-					else
-					{
-						if (node->_left->_right && (!(node->_left->_left)
-							|| node->_left->_right->height() > node->_left->_left->height()))
-							_rotate_left(node->_left);
-						_rotate_right(node);
-					}
-				}
-				_balance(node->_parent);
-			}
-
-			char _getColor(node_pointer node)
-			{
-				if (!node)
-					return (RBT_BLACK);
-				return(node->_color);
-			}
-
-			void _setColor(node_pointer node, char color)
-			{
-				if (!node)
-					return ;
-				node->_color = color;
-			}
-
-			void _swapColor(node_pointer node1, node_pointer node2)
-			{
-				char tmp = _getColor(node1);
-
-				_setColor(node1, _getColor(node2));
-				_setColor(node2, tmp);
-			}
-
-			void _redblack_insertionbalance(node_pointer node)
-			{
-				node_pointer u;
-
-				while (node->_parent->_color== RBT_RED)
-				{
-					u = node->Uncle();
-					if (_getColor(u) == RBT_RED)
-					{
-						_setColor(u, RBT_BLACK);
-						_setColor(node->Parent(), RBT_BLACK);
-						_setColor(node->GrandParent(), RBT_RED);
-						node = node->GrandParent();
-					}
-					else
-					{
-						if (node->isLeftChild())
-						{
-							node = node->Parent();
-							_rotate_right(node);
-						}
-						else if (node->isRightChild())
-						{
-							node = node->Parent();
-							_rotate_left(node);
-						}
-						_setColor(node->Parent(), RBT_BLACK);
-						_setColor(node->GrandParent(), RBT_RED);
-						if (node->_parent->isRightChild())
-							_rotate_left(node->GrandParent());
-						else
-							_rotate_right(node->GrandParent());
-					}
-					if (node == _root)
-						break ;
-				}
-				_setColor(_root, RBT_BLACK);
-			}
-
-			/*
-			** first item is node that replaced the deleted child.
-			** second item is the color of the deleted child.
-			*/
-			void _redblack_insertionbalance2(node_pointer node)
-			{
-				node_pointer p;
-				node_pointer g;
-				node_pointer u;
-				
-				while (node != _root && node != (&(_header)) && _getColor(node->Parent()) == RBT_RED)
-				{
-					p = node->Parent();
-					g = node->GrandParent();
-					u = node->Uncle();
-					if (_getColor(p) == RBT_RED && u->_color == RBT_RED)
-					{
-						_setColor(u, RBT_BLACK);
-						_setColor(p, RBT_BLACK);
-						node = g;
-					}
-					else if (_getColor(p) == RBT_RED)
-					{
-							if (p == g->_left)
-						{
-							if (node == p->_right)
-								_rotate_left(p);
-							_rotate_right(g);
-							_swapColor(p, g);
-						}
-						else if (p == g->_right)
-						{
-							if (node == p->_left)
-								_rotate_right(p);
-							_rotate_left(g);
-							_swapColor(p, g);	
-						}
-						node = p;
-					}
-				}
-				if (node == _root)
-					_setColor(_root, RBT_BLACK);
-			}
-
 		public:
 
 			/*
 			** Iterators
 			*/
 
-			iterator begin()
-			{ 
-				if (!(this->_size))
-					return(end());
-				return(iterator(this->_header.minimum()));
-			}
+			iterator begin() {return (size() ? iterator(this->_header.minimum()) : end()); }
 			iterator end() { return(iterator(&(this->_header))); }
 			reverse_iterator rbegin() { return(reverse_iterator(this->end())); }
 			reverse_iterator rend() { return(reverse_iterator(this->begin())); }
-			const_iterator begin() const
-			{
-				if (!this->_size)
-					return(end());
-				return(const_iterator(this->_header.minimum()));
-			}
+			const_iterator begin() const {return (size() ? const_iterator(this->_header.minimum()) : end()); }
 			const_iterator end() const { return(const_iterator(&(this->_header))); }
 			const_reverse_iterator rbegin() const { return(const_reverse_iterator(this->end())); }
 			const_reverse_iterator rend() const { return(const_reverse_iterator(this->begin())); }
-
 
 			/*
 			** Capacity
@@ -909,6 +845,7 @@ namespace ft
 			/*
 			** element access
 			*/
+		
 			mapped_type &operator[](const key_type& k)
 			{
 				iterator i = lower_bound(k);
@@ -1048,7 +985,6 @@ namespace ft
 						return ite;
 				return end();
 			}
-
 	};
 }
 
