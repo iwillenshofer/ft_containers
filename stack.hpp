@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:06 by iwillens          #+#    #+#             */
-/*   Updated: 2021/08/22 16:41:25 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/15 20:36:31 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,12 @@
 
 namespace ft
 {
+  template <typename Key, typename T, typename Compare = ft::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
+	class map
+	{
 
+
+    }
 }
 
 #endif

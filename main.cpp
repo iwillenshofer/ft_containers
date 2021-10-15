@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 16:21:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/15 09:45:18 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/15 19:44:21 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,15 @@ void print_tree(ft::RedBlackTree<int, int>::node_pointer root)
 }
 
 
-
 int main(void)
+{
+	ft::map<int, int> v;
+	v.insert(ft::make_pair(11, 11));
+
+	return (0);
+}
+
+int main18(void)
 {
 	ft::map<int, int> v;
 
@@ -96,7 +103,7 @@ int main(void)
 	for (ft::map<int,int>::iterator it = v.begin(); it != v.end(); it++)
 		print_node(*(it.base()));
 
-
+		return (0);
 }
 /*
 int main(void)

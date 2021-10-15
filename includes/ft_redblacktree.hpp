@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redblacktree.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/15 17:21:35 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/15 20:17:04 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,14 @@ namespace ft
 			typedef const Node<K, T>				const_self;
 			typedef std::size_t						size_type;
 
-			Node(void) {}
 			value_type		_value;
 			node_pointer	_parent;
 			node_pointer	_left;
 			node_pointer	_right;
 			char			_color;
 
-		public:
-			Node(value_type const &val): _value(value_type(val)), _left(0x0), _right(0x0), _color(RBT_RED) {}
+			Node(void): _value(value_type()), _parent(0x0),  _left(0x0), _right(0x0), _color(RBT_RED) {}
+			Node(value_type const &val): _value(value_type(val)), _parent(0x0),  _left(0x0), _right(0x0), _color(RBT_RED) {}
 			Node(Node const &cp) { *this = cp; }
 			Node& operator=(const Node& cp)
 			{
@@ -199,6 +198,7 @@ namespace ft
 			node_pointer Parent(void) { return (this->_parent); }
 			node_pointer GrandParent(void) { return (this->_parent->_parent); }
 			node_pointer Uncle(void) { return (Parent()->Sibling()); }
+
 			node_pointer Sibling(void)
 			{
 				if (!(Parent()))
@@ -241,6 +241,7 @@ namespace ft
 			}
 	};
 
+
 	/*
 	** Iterator for BlackRedTree and Map.
 	*/
@@ -257,7 +258,7 @@ namespace ft
 			typedef typename T::reference					reference;
 		
 		private:
-			typedef typename ft::RedBlackTreeIterator<T>									_self;
+			typedef typename ft::RedBlackTreeIterator<T>								_self;
 			typedef typename ft::RedBlackTreeIterator<const T>							const_self;
 			typedef	T*																	node_pointer;
 		protected:
@@ -336,6 +337,7 @@ namespace ft
 	inline bool	operator!=(const RedBlackTreeIterator<Val>& x,	const RedBlackTreeIterator<Val>& y)
 	{ return x._p != y._p; }
 
+
 	/*
 	** Blackred tree structure for ft::map.
 	*/
@@ -366,9 +368,13 @@ namespace ft
 			*/
 
 			explicit RedBlackTree(const key_compare& comp = key_compare(), const allocator& alloc = allocator())
-			: _root(NULL), _allocator(alloc), _compare(comp), _size(0) { }
+			:  _header(), _root(NULL), _allocator(alloc), _compare(comp), _size(0) { _setRoot(NULL); }
 			
-			RedBlackTree(RedBlackTree const &cp): _root(NULL), _allocator(cp._allocator), _compare(cp._compare), _size(0) { *this = cp; }
+			RedBlackTree(RedBlackTree const &cp): _header(), _root(NULL), _allocator(cp._allocator), _compare(cp._compare), _size(0)
+			{ 
+				_setRoot(NULL);
+				*this = cp;
+			}
 
 			RedBlackTree &operator=(RedBlackTree const &cp)
 			{

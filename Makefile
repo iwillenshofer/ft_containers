@@ -6,7 +6,7 @@
 #    By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/10/03 17:42:42 by iwillens         ###   ########.fr        #
+#    Updated: 2021/10/15 18:36:54 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = ft_containers
 NAME_STD = std_containers
 
 CC = clang++
-CCFLAGS = -Wall -Werror -Wextra -g -fsanitize=address -std=c++98 -pedantic -ferror-limit=10000
+CCFLAGS = -Wall -Werror -Wextra -g -std=c++98 -pedantic -ferror-limit=10000 # -fsanitize=address
 
 SRC_DIR = ./tests
 OBJ_DIR = ./build
