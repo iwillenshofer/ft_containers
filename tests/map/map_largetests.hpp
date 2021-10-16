@@ -98,29 +98,6 @@ std::string map_large_find_seq1()
 	return (ft::Tester::Return(s));
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 template <typename T>
 std::string map_large_erase_rnd3()
 {

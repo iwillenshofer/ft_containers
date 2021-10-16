@@ -45,24 +45,20 @@ void display(ft::RedBlackTree<int, int>::node_pointer root)
 
 }
 
-
 void print_tree(ft::RedBlackTree<int, int>::node_pointer root)
 {
     if (!root )
    		return;
 	
-	std::cout << " < " <<root->Key() << " > " << std::endl;
+	std::cout << " < " << root->Key() << " > " << std::endl;
 	print_tree(root->_left);
 	print_tree(root->_right);
-
 }
-
 
 int main(void)
 {
-	ft::map<int, int> v;
-	v.insert(ft::make_pair(11, 11));
-
+	std::map<int, int> v;
+	std::cout << v.end()->first <<std::endl;
 	return (0);
 }
 

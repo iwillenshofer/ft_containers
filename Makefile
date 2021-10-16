@@ -14,7 +14,7 @@ NAME = ft_containers
 NAME_STD = std_containers
 
 CC = clang++
-CCFLAGS = -Wall -Werror -Wextra -g -std=c++98 -pedantic -ferror-limit=10000 # -fsanitize=address
+CCFLAGS = -Wall -Werror -Wextra -g -std=c++98 -pedantic -ferror-limit=10000 -fsanitize=address
 
 SRC_DIR = ./tests
 OBJ_DIR = ./build
@@ -45,11 +45,12 @@ SRCS = ${SRC_DIR}/main.cpp \
 			${SRC_DIR}/vector/vector_tests.cpp \
 			${SRC_DIR}/map/map_tests.cpp \
 			${SRC_DIR}/map/map_constructors.cpp \
+			${SRC_DIR}/map/map_iterators.cpp \
+			${SRC_DIR}/map/map_modifiers.cpp \
+			${SRC_DIR}/map/map_capacity.cpp \
+			${SRC_DIR}/map/map_overloads.cpp \
+			${SRC_DIR}/map/map_operations.cpp \
 			${SRC_DIR}/map/map_largetests.cpp
-
-	
-
-				
 
 FT_OBJS = $(patsubst ${SRC_DIR}/%.cpp, ${FT_OBJ_DIR}/%.o, ${SRCS})
 STD_OBJS = $(patsubst ${SRC_DIR}/%.cpp, ${STD_OBJ_DIR}/%.o, ${SRCS})

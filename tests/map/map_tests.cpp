@@ -40,11 +40,12 @@ void test_map(void)
 
 	tester.printTitle("Map");
 	test_map_constructors();
-//  test_map_capacity();
-//	test_map_iterators();
+	test_map_capacity();
+	test_map_iterators();
 //	test_map_elementaccess();
-//	test_map_modifiers();
-//	test_map_overloads();
- 	test_map_largetests();
+	test_map_modifiers();
+	test_map_operations();
+	test_map_overloads();
+ //	test_map_largetests();
 
 }

@@ -514,7 +514,6 @@ namespace ft
 			** RedBlack tree rotation mathods, used to help balancing
 			** the tree after insertion or deletion.
 			*/
-
 			void _rotate_left(node_pointer x)
 			{
 				node_pointer root = x->_parent;;
@@ -556,7 +555,6 @@ namespace ft
 				if (this->_root == x)
 					_setRoot(y);
 			}
-
 
 			/*
 			** Insert helper function.
@@ -639,7 +637,6 @@ namespace ft
 				}
 				_setColor(_root, RBT_BLACK);
 			}
-
 
 			/*
 			** A node to be erased can have two children, one child or be a leaf node.
@@ -991,6 +988,9 @@ namespace ft
 						return ite;
 				return end();
 			}
+		
+			allocator	get_allocator() const { return (allocator(this->_allocator)); };
+
 	};
 }
 

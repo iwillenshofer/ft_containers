@@ -50,12 +50,13 @@ std::string randomString(const int len);
 */
 void	test_map(void);
 void    test_map_constructors(void);
-//void 	test_map_capacity(void);
-//void	test_map_iterators(void);
+void 	test_map_capacity(void);
+void	test_map_iterators(void);
 //void	test_map_elementaccess(void);
-//void	test_map_modifiers(void);
-//void	test_map_overloads(void);
+void	test_map_modifiers(void);
+void	test_map_overloads(void);
 void 	test_map_largetests(void);
+void	test_map_operations(void);
 
 
 #endif

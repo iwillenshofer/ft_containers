@@ -61,8 +61,6 @@ void test_map_range_constructor(void)
 	tester.run();
 }
 
-
-
 void test_map_default_constructor(void)
 {
 	ft::Tester tester;

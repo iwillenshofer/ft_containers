@@ -154,7 +154,7 @@ namespace ft
 		/*
 		** allocator
 		*/
-		allocator_type getAllocator() const { return (allocator_type(this->_btree.getAllocator())); }
+		allocator_type get_allocator() const { return (allocator_type(this->_btree.get_allocator())); }
 
 	};
 

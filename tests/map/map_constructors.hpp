@@ -15,8 +15,6 @@
 
 # include "map_tests.hpp"
 
-
-
 template <typename T>
 std::string map_assignment_op()
 {
