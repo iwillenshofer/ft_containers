@@ -24,10 +24,8 @@ int main (int argc, char **argv)
 		ft::Tester::kind = KIND_COMPARE;
 	
 
-//	tester.printTitle("Iterators");
-//	test_reverseiterator();
-//	test_utilities();
-//	test_vector();
+	test_utilities();
+	test_vector();
 	test_map();
 
 	(void)argv;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+         #
+#    By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/10/15 18:36:54 by iwillens         ###   ########.fr        #
+#    Updated: 2021/10/16 17:10:26 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = ft_containers
 NAME_STD = std_containers
 
 CC = clang++
-CCFLAGS = -Wall -Werror -Wextra -g -std=c++98 -pedantic -ferror-limit=10000 -fsanitize=address
+CCFLAGS = -Wall -Werror -Wextra -g -std=c++98 -pedantic -fsanitize=address
 
 SRC_DIR = ./tests
 OBJ_DIR = ./build
@@ -50,10 +50,18 @@ SRCS = ${SRC_DIR}/main.cpp \
 			${SRC_DIR}/map/map_capacity.cpp \
 			${SRC_DIR}/map/map_overloads.cpp \
 			${SRC_DIR}/map/map_operations.cpp \
+			${SRC_DIR}/map/map_observers.cpp \
+			${SRC_DIR}/map/map_elementaccess.cpp \
 			${SRC_DIR}/map/map_largetests.cpp
 
+
+
 FT_OBJS = $(patsubst ${SRC_DIR}/%.cpp, ${FT_OBJ_DIR}/%.o, ${SRCS})
+FT_DEPENDS = $(patsubst %.o, %.d, ${FT_OBJS})
 STD_OBJS = $(patsubst ${SRC_DIR}/%.cpp, ${STD_OBJ_DIR}/%.o, ${SRCS})
+STD_DEPENDS = $(patsubst %.o, %.d, ${STD_OBJS})
+
+
 
 all: ${NAME} ${NAME_STD}
 
@@ -67,11 +75,11 @@ ${NAME_STD}: ${STD_OBJS} ${INCLUDES}
 
 ${FT_OBJ_DIR}/%.o: ${SRC_DIR}/%.cpp ${INC_DIR} ${INCLUDES}
 	@mkdir -p $(dir $@)
-	@${CC} -c ${CCFLAGS} $< -DORIGINAL_STD=0 -I. -I ${INC_DIR} -o $@
+	@${CC} ${CCFLAGS} -MMD -c  $< -DORIGINAL_STD=0 -I. -I ${INC_DIR} -o $@
 
 ${STD_OBJ_DIR}/%.o: ${SRC_DIR}/%.cpp ${INC_DIR} ${INCLUDES}
 	@mkdir -p $(dir $@)
-	@${CC} -c ${CCFLAGS} $< -DORIGINAL_STD=1 -I. -I ${INC_DIR} -o $@
+	@${CC}  ${CCFLAGS} -MMD -c $< -DORIGINAL_STD=1 -I. -I ${INC_DIR} -o $@
 
 clean:
 	@rm -rf ${OBJ_DIR}
@@ -85,6 +93,8 @@ re: fclean all
 test: re
 	./${NAME}
 
+compare: all
+	./ft_containers 1
 diff: all
 	@echo "\033[92mDifference between std:: and ft:: tests: \033[0m"
 	@/bin/bash -c "diff <(./ft_containers) <(./std_containers)" || true
@@ -104,3 +114,4 @@ time_mac: all
 	@echo "\033[93m./std_containers \033[0m"
 	@/bin/bash -c "time ./std_containers > /dev/null"
 	
+include $(STD_DEPENDS) $(FT_DEPENDS)

@@ -12,18 +12,6 @@
 
 #include "vector_elementaccess.hpp"
 
-void 	test_vector_at(void)
-{
-	ft::Tester tester;
-
-	tester.printName("at()");
-	tester.add(
-		vector_at< ft::vector<int> >,
-		vector_at< std::vector<int> >
-		);
-	tester.run();
-}
-
 void 	test_vector_front(void)
 {
 	ft::Tester tester;
@@ -66,7 +54,6 @@ void test_vector_elementaccess(void)
 
 	tester.printName("* ELEMENT ACCESS *", true);
 	test_vector_operator_brackets();
-	test_vector_at();
 	test_vector_front();
 	test_vector_back();
 

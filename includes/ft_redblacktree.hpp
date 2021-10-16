@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redblacktree.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/15 20:17:04 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 18:25:29 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,14 +355,13 @@ namespace ft
 			typedef node&															node_reference;
 			typedef const node*														const_node_pointer;
 			typedef const node&														const_node_reference;
-			typedef ft::pair<const Key, T>											value_type;
+			typedef typename Alloc::value_type										value_type;
 			typedef typename Alloc::template rebind<ft::Node<Key, T> >::other		allocator;
 			typedef Compare															key_compare;
 			typedef size_t															size_type;
 			typedef Key																key_type;
 			typedef T																mapped_type;
-
-
+			
 			/*
 			** Constructors, destructor and assignment operator.
 			*/

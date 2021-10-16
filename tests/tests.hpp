@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 19:43:31 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 22:29:36 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 17:26:18 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 ** tests
 */
 
+# include "./utilities/test_utilities.hpp"
 # include "./vector/vector_tests.hpp"
 # include "./map/map_tests.hpp"
 
@@ -49,17 +50,6 @@
 # endif
 
 
-/*
-** Utilities
-*/
 
-void test_utilities();
-
-
-/*
-** iterators
-*/
-
-void test_reverseiterator();
 
 #endif

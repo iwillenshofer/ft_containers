@@ -185,20 +185,6 @@ namespace ft
 		reference operator[] (size_type n) { return (this->_data[n]); };
 		const_reference operator[] (size_type n) const{ return (this->_data[n]); };
 	
-		reference at (size_type n)
-		{
-			if (n >= this->_size)
-				throw std::out_of_range("Element out of Range");
-			return (this->_data[n]);
-		};
-	
-		const_reference at (size_type n) const
-		{
-			if (n >= this->_size)
-				throw std::out_of_range("Element out of Range");
-			return (this->_data[n]);			
-		}
-	
 		reference front() { return (this->_data[0]); }
 		const_reference front() const { return (this->_data[0]); }
 		reference back() { return (this->_data[this->_size - 1]); }
