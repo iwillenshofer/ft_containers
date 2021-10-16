@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 20:44:04 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/15 11:10:32 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 14:41:25 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,12 @@ void	test_map(void);
 void    test_map_constructors(void);
 void 	test_map_capacity(void);
 void	test_map_iterators(void);
-//void	test_map_elementaccess(void);
+void	test_map_elementaccess(void);
 void	test_map_modifiers(void);
 void	test_map_overloads(void);
 void 	test_map_largetests(void);
 void	test_map_operations(void);
+void	test_map_observers(void);
 
 
 #endif

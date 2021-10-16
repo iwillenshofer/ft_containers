@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   test_utilities.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:54:35 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 13:54:45 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 17:25:12 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tests.hpp"
+#include "test_utilities.hpp"
 
 /*
 ** ft::lexicographical_compare
@@ -297,4 +297,6 @@ void test_utilities()
 	test_isintegral();
 	test_equal();
 	lexicographical_compare();
+	test_reverseiterator();
+
 }

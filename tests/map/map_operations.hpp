@@ -19,7 +19,7 @@ template <typename T>
 std::string map_upperbound4()
 {
 	T v;
-	std::string s("");
+	std::string s("teste");
 
 	for(int i = 3; i <= 10; i++)
 		v.insert(typename T::value_type(i, i));

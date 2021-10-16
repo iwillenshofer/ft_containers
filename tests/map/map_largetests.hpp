@@ -15,7 +15,7 @@
 
 # include "map_tests.hpp"
 # include <list>
-# define LARGE_NUMBER 10000
+# define LARGE_NUMBER 1000
 
 template <typename T>
 std::string map_large_find_rnd3()

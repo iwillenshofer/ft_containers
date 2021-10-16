@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   test_reverseiterator.hpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:56:14 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 13:57:29 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 17:27:20 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TEST_REVERSEITERATOR_HPP
 # define TEST_REVERSEITERATOR_HPP
 
-# include "../tests.hpp"
+# include "test_utilities.hpp"
 
 template<typename T, typename RevIt>
 std::string test4()
