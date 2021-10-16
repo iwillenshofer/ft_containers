@@ -19,7 +19,7 @@ template<typename T, typename RevIt>
 std::string test4()
 {
 	T v;
-	std::string s;
+	std::string s("");
 
 	v.insert(v.begin(), 15, 5);
 	RevIt it = v.rbegin();
@@ -42,7 +42,7 @@ std::string test4()
 template<typename T>
 std::string test3()
 {
-	std::string s;
+	std::string s("");
 	std::string txt(".gnirtS a gnitseT");
 	T v(txt.data(), txt.data() + txt.size());
 
@@ -60,7 +60,7 @@ std::string test3()
 template<typename T1, typename T2>
 std::string test2()
 {
-	std::string s;
+	std::string s("");
 	int array[5];
 	for (int i = 0; i < 5; i++)
 		array[i] = i;
@@ -87,7 +87,7 @@ template<typename T>
 std::string test1()
 {
 	T v;
-	std::string s;
+	std::string s("");
 
 	v.push_back(1);
 	v.push_back(2);

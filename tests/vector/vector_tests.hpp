@@ -18,7 +18,7 @@
 template <typename T>
 std::string vector_attributes(T &v)
 {
-	std::string s;
+	std::string s("");
 
 	s += "[Capacity: " + ft::to_string(v.capacity()) + "] ";
 	s += "[Size: " + ft::to_string(v.size()) + "] ";

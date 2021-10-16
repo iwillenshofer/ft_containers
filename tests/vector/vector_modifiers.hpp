@@ -21,7 +21,7 @@ std::string vector_pushback1()
 {
 	T rng;
 	T v;
-	std::string s;
+	std::string s("");
 	for (int i = 0; i < 10; i++)
 		rng.push_back(i);
 	s = vector_attributes<T>(v);
@@ -34,7 +34,7 @@ std::string vector_pushback2()
 {
 	T rng;
 	T v;
-	std::string s;
+	std::string s("");
 	for (int i = 0; i < 42; i++)
 		rng.push_back(i);
 	s = vector_attributes<T>(v);
@@ -46,7 +46,7 @@ template <typename T>
 std::string vector_popback1()
 {
 	T v;
-	std::string s;
+	std::string s("");
 	for (int i = 0; i < 10; i++)
 		v.push_back(i);
 	v.pop_back();
@@ -59,7 +59,7 @@ template <typename T>
 std::string vector_popback2()
 {
 	T v;
-	std::string s;
+	std::string s("");
 
 	v.push_back(1);
 	v.pop_back();
@@ -72,7 +72,7 @@ std::string vector_assign1()
 {
 	T rng;
 	T v;
-	std::string s;
+	std::string s("");
 	for (int i = 0; i < 10; i++)
 		rng.push_back(i);
 	v.assign(rng.begin() + 3, rng.end());
@@ -84,7 +84,7 @@ template <typename T>
 std::string vector_assign2()
 {
 	T v;
-	std::string s;
+	std::string s("");
 
 	v.assign(10, 42);
 	s = vector_attributes<T>(v);
@@ -96,7 +96,7 @@ std::string vector_insert1()
 {
 	T v(10, 42);
 	T tmp(15, 21);
-	std::string s;
+	std::string s("");
 
 	v.insert(v.begin() + 5, tmp.begin(), tmp.end());
 	s = vector_attributes<T>(v);
@@ -107,7 +107,7 @@ template <typename T>
 std::string vector_insert2()
 {
 	T v(10, 42);
-	std::string s;
+	std::string s("");
 
 	v.insert(v.begin() + 2, 15, 21);
 	s = vector_attributes<T>(v);
@@ -118,7 +118,7 @@ template <typename T>
 std::string vector_insert3()
 {
 	T v(10, 42);
-	std::string s;
+	std::string s("");
 
 	v.insert(v.begin() + 2, 15);
 	s = vector_attributes<T>(v);
@@ -130,7 +130,7 @@ std::string vector_insert4()
 {
 	T v(10, 42);
 	T tmp(15, 21);
-	std::string s;
+	std::string s("");
 
 	v.insert(v.end(), tmp.begin(), tmp.end());
 	s = vector_attributes<T>(v);
@@ -141,7 +141,7 @@ template <typename T>
 std::string vector_insert5()
 {
 	T v(10, 42);
-	std::string s;
+	std::string s("");
 
 	v.insert(v.end(), 15, 21);
 	s = vector_attributes<T>(v);
@@ -152,7 +152,7 @@ template <typename T>
 std::string vector_insert6()
 {
 	T v(10, 42);
-	std::string s;
+	std::string s("");
 
 	v.insert(v.end(), 15);
 	s = vector_attributes<T>(v);
@@ -163,7 +163,7 @@ template <typename T>
 std::string vector_erase1()
 {
 	T v;
-	std::string s;
+	std::string s("");
 
 	for(int i = 0; i <= 10; i++)
 		v.push_back(i);
@@ -176,7 +176,7 @@ template <typename T>
 std::string vector_erase2()
 {
 	T v;
-	std::string s;
+	std::string s("");
 
 	for(int i = 0; i <= 10; i++)
 		v.push_back(i);
@@ -189,7 +189,7 @@ template <typename T>
 std::string vector_erase3()
 {
 	T v;
-	std::string s;
+	std::string s("");
 
 	for(int i = 0; i <= 10; i++)
 		v.push_back(i);
@@ -202,7 +202,7 @@ template <typename T>
 std::string vector_erase4()
 {
 	T v;
-	std::string s;
+	std::string s("");
 
 	for(int i = 0; i <= 10; i++)
 		v.push_back(i);
@@ -215,7 +215,7 @@ template <typename T>
 std::string vector_erase5()
 {
 	T v;
-	std::string s;
+	std::string s("");
 
 	for(int i = 0; i <= 10; i++)
 		v.push_back(i);
@@ -229,7 +229,7 @@ std::string vector_swap()
 {
 	T v1;
 	T v2;
-	std::string s;
+	std::string s("");
 
 	for(int i = 0; i <= 10; i++)
 		v1.push_back(i);
@@ -246,7 +246,7 @@ std::string vector_clear()
 {
 	T v(10, 42);
 	T tmp(15, 21);
-	std::string s;
+	std::string s("");
 
 	v.insert(v.end(), tmp.begin(), tmp.end());
 	v.clear();

@@ -19,7 +19,7 @@ template <typename T>
 std::string vector_operator_brackets()
 {
 	T v;
-	std::string s;
+	std::string s("");
 	for (int i = 0; i < 10; i++)
 		v.push_back(i);
 	
@@ -35,7 +35,7 @@ template <typename T>
 std::string vector_at()
 {
 	T v;
-	std::string s;
+	std::string s("");
 	for (int i = 0; i < 10; i++)
 		v.push_back(i);
 	
@@ -51,7 +51,7 @@ template <typename T>
 std::string vector_front()
 {
 	T v;
-	std::string s;
+	std::string s("");
 	for (int i = 0; i < 10; i++)
 		v.push_back(i);
 	
@@ -66,7 +66,7 @@ template <typename T>
 std::string vector_back()
 {
 	T v;
-	std::string s;
+	std::string s("");
 	for (int i = 0; i < 10; i++)
 		v.push_back(i);
 	

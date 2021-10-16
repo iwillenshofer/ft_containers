@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_capacity.hpp                                :+:      :+:    :+:   */
+/*   map_capacity.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,105 +10,66 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_CAPACITY
-# define VECTOR_CAPACITY
+#ifndef MAP_CAPACITY
+# define MAP_CAPACITY
 
-# include "vector_tests.hpp"
+# include "map_tests.hpp"
 
-
-template <typename T>
-std::string resize1()
-{
-	T v(10, 42);
-	std::string s("");
-
-	v.resize(500);
-	s = vector_attributes<T>(v);
-	return (ft::Tester::Return(s));
-}
-
-template <typename T>
-std::string resize2()
-{
-	T v(10, 42);
-	std::string s("");
-
-	v.resize(3);
-	s = vector_attributes<T>(v);
-	return (ft::Tester::Return(s));
-}
-
+/*
+** As max_size depends on the structure of the Node,
+** std:: and ft:: results won't match exactly.
+*/
 template <typename T>
 std::string max_size()
 {
 	T v;
-	std::string s = vector_attributes<T>(v);
+	std::string s = map_attributes<T>(v);
+	s += "MaxSize: " + ft::to_string(v.max_size() > v.size());
 	return (ft::Tester::Return(s));
 }
 
 template <typename T>
-std::string size1()
+std::string map_size2()
 {
-	T v(10, 999);
-	std::string s = vector_attributes<T>(v);
+	T v;
+	std::string s = map_attributes<T>(v);
+	s += "Size: " + ft::to_string(v.size());
 	return (ft::Tester::Return(s));
 }
 
-
 template <typename T>
-std::string size2()
+std::string map_size1()
 {
-	T v(0, 0);
-	std::string s = vector_attributes<T>(v);
-
+	T v;
+	
+	for (int i = 0; i < 10; i++)
+		v.insert(typename T::value_type(i, i));
+	std::string s = map_attributes<T>(v);
+	s += "Size: " + ft::to_string(v.size());
 	return (ft::Tester::Return(s));
 }
 
+
 template <typename T>
-std::string capacity1()
+std::string map_empty2()
 {
 	T v;
 	std::string s("");
 
-	v.reserve(1000);
-	s = vector_attributes<T>(v);
-
+	v.insert(typename T::value_type());
+	s = map_attributes<T>(v);
+	s += "Empty: " + ft::to_string(v.empty());
 	return (ft::Tester::Return(s));
 }
 
 template <typename T>
-std::string capacity2()
+std::string map_empty1()
 {
-	T v(100, 42);
+	T v;
 	std::string s("");
 
-	v.reserve(110);
-	s = vector_attributes<T>(v);
-
-	return (ft::Tester::Return(s));
-}
-
-template <typename T>
-std::string vector_empty()
-{
-	T v(100, 42);
-	std::string s("");
-
-	v.empty();
-	s = vector_attributes<T>(v);
-
-	return (ft::Tester::Return(s));
-}
-
-template <typename T>
-std::string vector_reserve()
-{
-	T v(100, 42);
-	std::string s("");
-
-	v.reserve(200);
-	s = vector_attributes<T>(v);
-
+	s = map_attributes<T>(v);
+	s += "Empty: " + ft::to_string(v.empty());
 	return (ft::Tester::Return(s));
 }
 

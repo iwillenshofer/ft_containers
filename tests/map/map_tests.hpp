@@ -18,7 +18,7 @@
 template <typename T>
 std::string map_attributes(T &v)
 {
-	std::string s;
+	std::string s("");
 
 	s += "[Size: " + ft::to_string(v.size()) + "] ";
 	//s += "[Max Size: " + ft::to_string(v.max_size()) + "] ";

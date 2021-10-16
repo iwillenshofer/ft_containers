@@ -119,7 +119,7 @@ std::string vector_swap(void (*swap)(T&, T&))
 {
 	T v1;
 	T v2;
-	std::string s;
+	std::string s("");
 
 	for(int i = 0; i <= 10; i++)
 		v1.push_back(i);
