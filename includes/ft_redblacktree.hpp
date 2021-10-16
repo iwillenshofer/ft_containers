@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 18:25:29 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 19:53:13 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,25 @@ namespace ft
 	** Node for Red Black Tree.
 	*/
 
-	template <typename K, typename T>
+	template <typename K, typename T, typename ValueType = ft::pair<const K, T>, typename KeyOfValue = ft::Select1st<ValueType> >
 	class Node
 	{
 		public:
-			typedef ft::pair<K, T>					value_type;
-			typedef value_type&						reference;
-			typedef value_type*						pointer;
-			typedef ptrdiff_t						difference_type;
-			typedef const ft::pair<K, T>			const_value_type;
-			typedef Node<K, T>*						node_pointer;
-			typedef Node<K, T>&						node_reference;
-			typedef const Node<K, T>*				const_node_pointer;
-			typedef const K&						key_reference;
-			typedef T&								value_reference;
-			typedef const T&						const_value_reference;
-			typedef Node<K, T>						_Self;
-			typedef const Node<K, T>				const_self;
-			typedef std::size_t						size_type;
+			typedef Node<K, T, ValueType, KeyOfValue>						_Self;
+			typedef ValueType												value_type;
+			typedef value_type&												reference;
+			typedef value_type*												pointer;
+			typedef ptrdiff_t												difference_type;
+			typedef const value_type										const_value_type;
+			typedef _Self*													node_pointer;
+			typedef _Self&													node_reference;
+			typedef const _Self*											const_node_pointer;
+			typedef const _Self*&											const_node_reference;
+			typedef const K&												key_reference;
+			typedef T&														value_reference;
+			typedef const T&												const_value_reference;
+			typedef const _Self												const_self;
+			typedef std::size_t												size_type;
 
 			value_type		_value;
 			node_pointer	_parent;
@@ -59,13 +60,12 @@ namespace ft
 
 			Node(void): _value(value_type()), _parent(0x0),  _left(0x0), _right(0x0), _color(RBT_RED) {}
 			Node(value_type const &val): _value(value_type(val)), _parent(0x0),  _left(0x0), _right(0x0), _color(RBT_RED) {}
-			Node(Node const &cp) { *this = cp; }
+			Node(Node const &cp): _value(cp._value) { *this = cp; }
 			Node& operator=(const Node& cp)
 			{
 				this->_left = cp._left;
 				this->_right = cp._right;
 				this->_parent = cp._parent;
-				this->_value = cp._value;
 				this->_color = cp._color;
 				return (*this);
 			}
@@ -74,7 +74,7 @@ namespace ft
 			value_type &Pair(void) { return (this->_value); }
 			const_value_type &Pair(void) const { return (this->_value); }
 
-			key_reference Key(void) const { return (this->_value.first); }
+			key_reference Key(void) const { return (KeyOfValue()(this->_value)); }
 
 			value_reference Value(void) { return (this->_value.second); }
 			const_value_reference Value(void) const { return (this->_value.second); }
@@ -848,13 +848,13 @@ namespace ft
 			** element access
 			*/
 		
-			mapped_type &operator[](const key_type& k)
+			value_type &operator[](const key_type& k)
 			{
 				iterator i = lower_bound(k);
 
 				if (i == end() || _compare(k, (*i).first))
 					i = insert(i, value_type(k, mapped_type()));
-				return ((*i).second);
+				return (*i);
 			}
 
 			/*

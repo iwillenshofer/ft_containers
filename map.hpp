@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 15:10:19 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 19:41:26 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ namespace ft
 		*/
 		mapped_type &operator[](const key_type& k)
 		{
-			return (this->_btree[k]);
+			return ((this->_btree[k])).second;
 		}
 	
 		/*
