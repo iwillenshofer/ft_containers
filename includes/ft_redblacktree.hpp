@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 19:53:13 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 21:09:26 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ namespace ft
 	** Node for Red Black Tree.
 	*/
 
-	template <typename K, typename T, typename ValueType = ft::pair<const K, T>, typename KeyOfValue = ft::Select1st<ValueType> >
+	template <typename K, typename T, typename ValueType, typename KeyOfValue>
 	class Node
 	{
 		public:
@@ -47,8 +47,6 @@ namespace ft
 			typedef const _Self*											const_node_pointer;
 			typedef const _Self*&											const_node_reference;
 			typedef const K&												key_reference;
-			typedef T&														value_reference;
-			typedef const T&												const_value_reference;
 			typedef const _Self												const_self;
 			typedef std::size_t												size_type;
 
@@ -71,14 +69,10 @@ namespace ft
 			}
 			virtual ~Node() {}
 
-			value_type &Pair(void) { return (this->_value); }
-			const_value_type &Pair(void) const { return (this->_value); }
-
+			value_type &Value(void) { return (this->_value); }
+			const_value_type &Value(void) const { return (this->_value); }
 			key_reference Key(void) const { return (KeyOfValue()(this->_value)); }
-
-			value_reference Value(void) { return (this->_value.second); }
-			const_value_reference Value(void) const { return (this->_value.second); }
-
+			
 			char &Color(void) { return (this->_color); }
 			const char &Color(void) const { return (this->_color); }
 
@@ -89,14 +83,6 @@ namespace ft
 				tmp = *node;
 				*node = *this;
 				*this = tmp;
-			}
-
-			void swapValue(node_pointer node)
-			{
-				value_type tmp = node->_value;
-
-				node->_value = this->_value;
-				this->_value = tmp;
 			}
 
 			void swapColor(node_pointer node)
@@ -278,8 +264,8 @@ namespace ft
 				return (*this);
 			}
 
-			typename T::value_type &operator*() { return (const_cast<typename T::value_type&>(this->_p->Pair())); }
-			typename T::value_type *operator->() { return (const_cast<typename T::value_type*>(&(this->_p->Pair()))); }
+			typename T::value_type &operator*() { return (const_cast<typename T::value_type&>(this->_p->Value())); }
+			typename T::value_type *operator->() { return (const_cast<typename T::value_type*>(&(this->_p->Value()))); }
 
 			RedBlackTreeIterator	operator+(difference_type const &n) const { return (_self(this->_p + n)); }
 			RedBlackTreeIterator	operator-(difference_type const &n) const
@@ -339,14 +325,20 @@ namespace ft
 
 
 	/*
-	** Blackred tree structure for ft::map.
+	** BlackRed tree structure for ft::map.
+	** Key and T are self explanatory.
+	** Key Of Value is a unary function object to get the result out of the value type.
+	** If it is a pair, ft::Select1st must be used. For basic structures, ft:Identity can be used
+	**  as it returns the same value that went in. For other structures, a new function to get
+	**  its result must be created.
 	*/
 
-	template <typename Key, typename T, typename Compare = ft::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
+	template <typename Key, typename T, typename KeyOfValue, typename Compare, typename Alloc >
 	class RedBlackTree
 	{
 		public:
-			typedef ft::Node<Key, T>												node;
+			typedef typename Alloc::value_type										value_type;
+			typedef ft::Node<Key, T, value_type, KeyOfValue>						node;
 			typedef ft::RedBlackTreeIterator<node>									iterator;
 			typedef ft::RedBlackTreeIterator<const node>							const_iterator;
 			typedef ft::reverse_iterator<iterator>									reverse_iterator;
@@ -355,8 +347,8 @@ namespace ft
 			typedef node&															node_reference;
 			typedef const node*														const_node_pointer;
 			typedef const node&														const_node_reference;
-			typedef typename Alloc::value_type										value_type;
-			typedef typename Alloc::template rebind<ft::Node<Key, T> >::other		allocator;
+			typedef typename Alloc::template
+				rebind<ft::Node<Key, T, value_type, KeyOfValue> >::other					allocator;
 			typedef Compare															key_compare;
 			typedef size_t															size_type;
 			typedef Key																key_type;
@@ -451,6 +443,8 @@ namespace ft
 				_setColor(node2, tmp);
 			}
 	
+			key_type _getKey(value_type const &k) const { return (KeyOfValue()(k)); }
+
 			/*
 			** node helpers. Creates and deletes nodes.
 			*/
@@ -498,8 +492,8 @@ namespace ft
 
 				while (node)
 				{
-					compare = _compare(k, node->_value.first);
-					if (compare == _compare(node->_value.first, k))
+					compare = _compare(k, node->Key());
+					if (compare == _compare(node->Key(), k))
 						return (node);
 					if (compare)
 						node = node->_left;
@@ -568,8 +562,8 @@ namespace ft
 				while (node && node != &(this->_header))
 				{
 					parent = node;
-					compare = _compare(val.first, node->_value.first);
-					if (compare == _compare(node->_value.first, val.first))
+					compare = _compare(_getKey(val), node->Key());
+					if (compare == _compare(node->Key(), _getKey(val)))
 						return(ft::make_pair(node, false));
 					if (compare)
 					{
@@ -852,7 +846,7 @@ namespace ft
 			{
 				iterator i = lower_bound(k);
 
-				if (i == end() || _compare(k, (*i).first))
+				if (i == end() || _compare(k, _getKey(*i)))
 					i = insert(i, value_type(k, mapped_type()));
 				return (*i);
 			}
@@ -959,7 +953,7 @@ namespace ft
 			const_iterator lower_bound(const key_type& k) const
 			{ 
 				for (const_iterator ite = begin(); ite != end(); ++ite)
-					if (_compare(ite->first, k) == false)
+					if (_compare(_getKey(*ite), k) == false)
 						return ite;
 				return end();
 			} 
@@ -967,7 +961,7 @@ namespace ft
 			iterator lower_bound(const key_type& k)
 			{ 
 				for (iterator ite = begin(); ite != end(); ++ite)
-					if (_compare(ite->first, k) == false)
+					if (_compare(_getKey(*ite), k) == false)
 						return ite;
 				return end();
 			}
@@ -975,7 +969,7 @@ namespace ft
 			const_iterator upper_bound(const key_type& k) const
 			{ 
 				for (const_iterator ite = begin(); ite != end(); ++ite)
-					if (_compare(k, ite->first))
+					if (_compare(k, _getKey(*ite)))
 						return ite;
 				return end();
 			}
@@ -983,7 +977,7 @@ namespace ft
 			iterator upper_bound(const key_type& k)
 			{ 
 				for (iterator ite = begin(); ite != end(); ++ite)
-					if (_compare(k, ite->first))
+					if (_compare(k, _getKey(*ite)))
 						return ite;
 				return end();
 			}

@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 19:41:26 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 21:02:38 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ namespace ft
 		typedef typename allocator_type::const_pointer					const_pointer;
 
 	private:
-		typedef typename ft::RedBlackTree<Key, T, key_compare, allocator_type> binary_tree;
+		typedef typename ft::RedBlackTree<Key, T,
+			ft::Select1st<value_type>, Compare, Alloc>		binary_tree;
 
 	public:
 		typedef typename binary_tree::iterator							iterator;
@@ -108,7 +109,7 @@ namespace ft
 		*/
 		mapped_type &operator[](const key_type& k)
 		{
-			return ((this->_btree[k])).second;
+			return ((this->_btree[k]).second);
 		}
 	
 		/*

@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:42:01 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 19:17:50 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 20:42:05 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ namespace ft
 	template <class Arg, class Result>
 	struct unary_function
 	{
-		typedef Arg argument_type;
-		typedef Result result_type;
+		typedef Arg		argument_type;
+		typedef Result	result_type;
 	};
 	template <class Pair>
 	struct Select1st : public unary_function<Pair, typename Pair::first_type>
@@ -85,6 +85,13 @@ namespace ft
 	{
 		typename Pair::second_type &operator()(Pair& x) const { return x.second; }
 		const typename Pair::second_type &operator()(const Pair& x) const { return x.second; }
+	};
+
+	template <class T>
+	struct Identity : public unary_function<T,	T>
+	{
+		T &operator()(T& t) const { return t; }
+		const T &operator()(const T& t) const { return t; }
 	};
 
 	template< class T >
