@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:08 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 21:02:38 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 22:07:07 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@
 
 namespace ft
 {
-  template <typename Key, typename T, typename Compare = ft::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
+	/*
+	** Reference for the Map container:
+	** https://cplusplus.com/reference/map/map/
+	*/
+	template <typename Key, typename T, typename Compare = ft::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
 	class map
 	{
 	public:
