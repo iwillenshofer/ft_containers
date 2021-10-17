@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_tests.cpp                                      :+:      :+:    :+:   */
+/*   set_tests.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 19:47:16 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 23:01:01 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 23:00:29 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map_tests.hpp"
+#include "set_tests.hpp"
 
 template<>
-std::string map_presets<std::string>(int i)
+std::string set_presets<std::string>(int i)
 {
 	std::string s[3];
 
@@ -23,19 +23,18 @@ std::string map_presets<std::string>(int i)
 	return(s[i]);
 }
 
-void test_map(void)
+void test_set(void)
 {
 	ft::Tester tester;
 
-	tester.printTitle("Map");
-	test_map_constructors();
-	test_map_capacity();
-	test_map_iterators();
-	test_map_elementaccess();
-	test_map_modifiers();
-	test_map_operations();
-	test_map_overloads();
-	test_map_observers();
- 	test_map_largetests();
+	tester.printTitle("Set");
+	test_set_constructors();
+	test_set_capacity();
+	test_set_iterators();
+	test_set_modifiers();
+	test_set_operations();
+	test_set_overloads();
+	test_set_observers();
+ 	test_set_largetests();
 
 }

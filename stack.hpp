@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:06 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/15 21:19:28 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 22:07:36 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 
 namespace ft
 {
+	/*
+	** Reference for the Stack container:
+	** https://cplusplus.com/reference/stack/stack/
+	*/
     template <class T, class Container = ft::vector<T> >
     class stack
 	{
