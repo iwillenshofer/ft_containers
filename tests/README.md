@@ -15,12 +15,16 @@ Some tester class functions will behave differently according to this kind:
 
 `tester.run()` will run the appropriate functions, depending wether `kind == KIND_COMPARE | KIND_FT | KIND_STD`.
 
+## Running this test.
+> Run `make`
+
+> 
 
 ## Creating a Test.
 
 ### Regular Test
 > A test consists of two functions: a caller function and one function for each individual test.
-> As each individual tests are usually a templated function, they should be implemented in the header file.
+> As each individual test are usually a templated function, they should be implemented in the header file.
 > In order to use this general test format, the individual test function must be of the following format:
 `std::string function_name(void)`
 

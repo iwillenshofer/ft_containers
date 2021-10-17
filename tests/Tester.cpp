@@ -80,6 +80,35 @@ void ft::Tester::bgWhite() { this->_background = CLR_WHITE; }
 
 void ft::Tester::setText(std::string s) { this->_text = s; }
 
+/*
+** prints color regardless of kind.
+*/
+void ft::Tester::printColor()
+{
+    std::string str("\033[");
+    int attributes = 0;
+    int color = this->_color;
+	int background = this->_background;
+
+	if (color && this->_lightforeground)
+		color += 60;
+	if (background)
+		background += 10;
+	if (background && this->_lightbackground)
+		background += 60;
+	if (this->_bold)
+		attributes = CLR_BOLD;
+	str += ft::to_string(attributes);
+	str +=  ";" + ft::to_string(color);
+	if (background)
+		str += ";" + ft::to_string(background);
+	str += "m";
+	str += this->_text;
+	str += "\033[0m";
+	std::cout << str;
+}
+
+
 void ft::Tester::print()
 {
     std::string str("\033[");

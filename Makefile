@@ -6,7 +6,7 @@
 #    By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/10/17 11:11:19 by iwillens         ###   ########.fr        #
+#    Updated: 2021/10/17 17:45:39 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,15 +120,15 @@ FORMAT = "%e elapsed. %U user. %S system. %P CPU."
 time: all
 	@echo "\033[92mTime difference between std:: and ft:: tests: \033[0m"
 	@echo "\033[93m./ft_containers \033[0m"
-	@time -f ${FORMAT} ./ft_containers > /dev/null
+	@time -f ${FORMAT} ./ft_containers all 10000 > /dev/null
 	@echo "\033[93m./std_containers \033[0m"
-	@time -f ${FORMAT} ./std_containers > /dev/null
+	@time -f ${FORMAT} ./std_containers all 10000 > /dev/null
 
 time_mac: all
 	@echo "\033[92mTime difference between std:: and ft:: tests: \033[0m"
 	@echo "\033[93m./ft_containers \033[0m"
-	@/bin/bash -c "time ./ft_containers > /dev/null"
+	@/bin/bash -c "time ./ft_containers all 10000 > /dev/null"
 	@echo "\033[93m./std_containers \033[0m"
-	@/bin/bash -c "time ./std_containers > /dev/null"
+	@/bin/bash -c "time ./std_containers all 10000 > /dev/null"
 	
 -include $(STD_DEPENDS) $(FT_DEPENDS)

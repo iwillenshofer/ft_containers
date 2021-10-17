@@ -113,6 +113,7 @@ namespace ft
 			*/
 			std::string &line_fill(std::string &s, int align);
 			void print();
+			void printColor();
 			void printTitle();
 			void printTitle(std::string s);
 			void printName();
