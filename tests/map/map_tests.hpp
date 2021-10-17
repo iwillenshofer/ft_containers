@@ -6,12 +6,12 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 20:44:04 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 14:41:25 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 23:59:04 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_TESTS
-# define MAP_TESTS
+#ifndef MAP_TESTS_HPP
+# define MAP_TESTS_HPP
 
 # include "../tests.hpp"
 

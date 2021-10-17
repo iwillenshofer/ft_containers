@@ -6,12 +6,12 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 20:44:04 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 22:29:30 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 23:57:42 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SET_TESTS
-# define SET_TESTS
+#ifndef SET_TESTS_HPP
+# define SET_TESTS_HPP
 
 # include "../tests.hpp"
 

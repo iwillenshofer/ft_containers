@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SET_MODIFIERS
-# define SET_MODIFIERS
+#ifndef SET_MODIFIERS_HPP
+# define SET_MODIFIERS_HPP
 
 # include "set_tests.hpp"
 

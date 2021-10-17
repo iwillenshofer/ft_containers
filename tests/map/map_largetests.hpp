@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_LARGETESTS
-# define MAP_LARGETESTS
+#ifndef MAP_LARGETESTS_HPP
+# define MAP_LARGETESTS_HPP
 
 # include "map_tests.hpp"
 # include <list>

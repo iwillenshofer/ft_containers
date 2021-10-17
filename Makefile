@@ -6,7 +6,7 @@
 #    By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/10/16 17:10:26 by iwillens         ###   ########.fr        #
+#    Updated: 2021/10/16 22:26:18 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,16 @@ SRCS = ${SRC_DIR}/main.cpp \
 			${SRC_DIR}/map/map_operations.cpp \
 			${SRC_DIR}/map/map_observers.cpp \
 			${SRC_DIR}/map/map_elementaccess.cpp \
-			${SRC_DIR}/map/map_largetests.cpp
+			${SRC_DIR}/map/map_largetests.cpp \
+			${SRC_DIR}/set/set_tests.cpp \
+			${SRC_DIR}/set/set_constructors.cpp \
+			${SRC_DIR}/set/set_iterators.cpp \
+			${SRC_DIR}/set/set_modifiers.cpp \
+			${SRC_DIR}/set/set_capacity.cpp \
+			${SRC_DIR}/set/set_overloads.cpp \
+			${SRC_DIR}/set/set_operations.cpp \
+			${SRC_DIR}/set/set_observers.cpp \
+			${SRC_DIR}/set/set_largetests.cpp
 
 
 
@@ -114,4 +123,4 @@ time_mac: all
 	@echo "\033[93m./std_containers \033[0m"
 	@/bin/bash -c "time ./std_containers > /dev/null"
 	
-include $(STD_DEPENDS) $(FT_DEPENDS)
+-include $(STD_DEPENDS) $(FT_DEPENDS)

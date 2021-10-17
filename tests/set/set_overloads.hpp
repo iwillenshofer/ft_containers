@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_OVERLOADS
-# define VECTOR_OVERLOADS
+#ifndef SET_OVERLOADS_HPP
+# define SET_OVERLOADS_HPP
 
 # include "set_tests.hpp"
 

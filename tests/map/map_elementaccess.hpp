@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_ELEMENTACCESS
-# define MAP_ELEMENTACCESS
+#ifndef MAP_ELEMENTACCESS_HPP
+# define MAP_ELEMENTACCESS_HPP
 
 # include "map_tests.hpp"
 template <typename T>

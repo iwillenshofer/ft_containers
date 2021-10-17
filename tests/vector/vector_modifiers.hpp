@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   vector_modifiers.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:24:37 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 13:53:05 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 23:59:33 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_MODIFIERS
-# define VECTOR_MODIFIERS
+#ifndef VECTOR_MODIFIERS_HPP
+# define VECTOR_MODIFIERS_HPP
 
 # include "vector_tests.hpp"
 

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   vector_tests.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 20:44:04 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 13:52:37 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 23:59:40 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_TESTS
-# define VECTOR_TESTS
+#ifndef VECTOR_TESTS_HPP
+# define VECTOR_TESTS_HPP
 
 #include "../tests.hpp"
 

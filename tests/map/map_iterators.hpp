@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_ITERATORS
-# define MAP_ITERATORS
+#ifndef MAP_ITERATORS_HPP
+# define MAP_ITERATORS_HPP
 
 # include "map_tests.hpp"
 

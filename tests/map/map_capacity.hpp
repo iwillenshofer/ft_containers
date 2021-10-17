@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_CAPACITY
-# define MAP_CAPACITY
+#ifndef MAP_CAPACITY_HPP
+# define MAP_CAPACITY_HPP
 
 # include "map_tests.hpp"
 

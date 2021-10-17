@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   vector_overloads.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:24:37 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 13:53:08 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 23:59:37 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_OVERLOADS
-# define VECTOR_OVERLOADS
+#ifndef VECTOR_OVERLOADS_HPP
+# define VECTOR_OVERLOADS_HPP
 
 # include "vector_tests.hpp"
 

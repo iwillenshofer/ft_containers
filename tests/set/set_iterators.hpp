@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SET_ITERATORS
-# define SET_ITERATORS
+#ifndef SET_ITERATORS_HPP
+# define SET_ITERATORS_HPP
 
 # include "set_tests.hpp"
 

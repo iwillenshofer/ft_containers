@@ -6,12 +6,12 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:34:56 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 15:32:32 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 23:58:54 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_OBSERVERS
-# define MAP_OBSERVERS
+#ifndef MAP_OBSERVERS_HPP
+# define MAP_OBSERVERS_HPP
 
 # include "map_tests.hpp"
 

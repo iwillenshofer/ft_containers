@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   vector_iterators.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:24:37 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 13:52:42 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 23:59:29 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_ITERATORS
-# define VECTOR_ITERATORS
+#ifndef VECTOR_ITERATORS_HPP
+# define VECTOR_ITERATORS_HPP
 
 # include "vector_tests.hpp"
 

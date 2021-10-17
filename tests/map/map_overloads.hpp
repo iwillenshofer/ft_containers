@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_OVERLOADS
-# define VECTOR_OVERLOADS
+#ifndef VECTOR_OVERLOADS_HPP
+# define VECTOR_OVERLOADS_HPP
 
 # include "map_tests.hpp"
 

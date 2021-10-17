@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_OPERATIONS
-# define MAP_OPERATIONS
+#ifndef MAP_OPERATIONS_HPP
+# define MAP_OPERATIONS_HPP
 
 # include "map_tests.hpp"
 

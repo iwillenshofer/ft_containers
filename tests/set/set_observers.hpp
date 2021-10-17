@@ -6,12 +6,12 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:34:56 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 22:49:08 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 23:57:32 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SET_OBSERVERS
-# define SET_OBSERVERS
+#ifndef SET_OBSERVERS_HPP
+# define SET_OBSERVERS_HPP
 
 # include "set_tests.hpp"
 

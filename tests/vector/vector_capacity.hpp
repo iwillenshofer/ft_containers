@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   vector_capacity.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:24:37 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 13:52:46 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 23:59:18 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_CAPACITY
-# define VECTOR_CAPACITY
+#ifndef VECTOR_CAPACITY_HPP
+# define VECTOR_CAPACITY_HPP
 
 # include "vector_tests.hpp"
 

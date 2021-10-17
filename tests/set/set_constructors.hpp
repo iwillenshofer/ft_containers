@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SET_CONSTRUCTORS
-# define SET_CONSTRUCTORS
+#ifndef SET_CONSTRUCTORS_HPP
+# define SET_CONSTRUCTORS_HPP
 
 # include "set_tests.hpp"
 

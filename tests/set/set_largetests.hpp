@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SET_LARGETESTS
-# define SET_LARGETESTS
+#ifndef SET_LARGETESTS_HPP
+# define SET_LARGETESTS_HPP
 
 # include "set_tests.hpp"
 # include <list>

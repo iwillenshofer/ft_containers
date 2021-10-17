@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_CONSTRUCTORS
-# define MAP_CONSTRUCTORS
+#ifndef MAP_CONSTRUCTORS_HPP
+# define MAP_CONSTRUCTORS_HPP
 
 # include "map_tests.hpp"
 

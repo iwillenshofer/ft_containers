@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SET_OPERATIONS
-# define SET_OPERATIONS
+#ifndef SET_OPERATIONS_HPP
+# define SET_OPERATIONS_HPP
 
 # include "set_tests.hpp"
 

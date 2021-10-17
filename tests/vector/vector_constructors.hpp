@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   vector_constructors.hpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:24:37 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 13:52:49 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 23:59:22 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_CONSTRUCTORS
-# define VECTOR_CONSTRUCTORS
+#ifndef VECTOR_CONSTRUCTORS_HPP
+# define VECTOR_CONSTRUCTORS_HPP
 
 # include "vector_tests.hpp"
 

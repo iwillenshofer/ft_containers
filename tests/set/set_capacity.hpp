@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SET_CAPACITY
-# define SET_CAPACITY
+#ifndef SET_CAPACITY_HPP
+# define SET_CAPACITY_HPP
 
 # include "set_tests.hpp"
 
