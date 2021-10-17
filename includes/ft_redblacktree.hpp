@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 21:09:26 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/16 22:55:55 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,7 +348,7 @@ namespace ft
 			typedef const node*														const_node_pointer;
 			typedef const node&														const_node_reference;
 			typedef typename Alloc::template
-				rebind<ft::Node<Key, T, value_type, KeyOfValue> >::other					allocator;
+				rebind<ft::Node<Key, T, value_type, KeyOfValue> >::other			allocator;
 			typedef Compare															key_compare;
 			typedef size_t															size_type;
 			typedef Key																key_type;
@@ -370,7 +370,6 @@ namespace ft
 			RedBlackTree &operator=(RedBlackTree const &cp)
 			{
 				this->clear();
-				this->_allocator = cp._allocator;
 				this->_compare = cp._compare;
 				this->insert(cp.begin(), cp.end());
 				return (*this);
@@ -871,8 +870,8 @@ namespace ft
 				node_pointer node = position.base();
 				ft::pair<iterator, bool> ret;
 
-				if (!(this->_root) || position == end() || !(_compare(node->minimum()->Key(), val.first))
-					|| !(_compare(val.first, node->maximum()->Key())))
+				if (!(this->_root) || position == end() || !(_compare(node->minimum()->Key(), _getKey(val)))
+					|| !(_compare(_getKey(val), node->maximum()->Key())))
 					node = this->_root;
 				ret = _insert(node, val);
 				return(ret.first);
