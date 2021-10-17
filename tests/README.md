@@ -7,7 +7,7 @@ This variable is set by a MACRO defined on compile or according to the number of
 
 ./ft_containers is compiled with `ft::Tester::kind = KIND_FT`
 ./std_containers is compiled with `ft::Tester::kind = KIND_STD`
-Both binaries have `ft::Tester::kind` overriden to `KIND_COMPARE` if any argument is passed. ie: `./ft_containers 1`.
+Both binaries have `ft::Tester::kind` overriden to `KIND_COMPARE` if first argument is "compare": `./ft_containers compare`.
 
 Some tester class functions will behave differently according to this kind:
 `tester.printClock()` will do nothing unless `kind == KIND_COMPARE`.

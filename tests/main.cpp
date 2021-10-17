@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 23:04:20 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/17 12:24:36 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/17 15:26:12 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void set_largenumber(int argc, char **argv, int cmd_pos)
 		return;
 	std::istringstream ss(argv[cmd_pos]);
 	int number;
-	if (!(ss >> number) || number < 0 || number > 100000)
+	if (!(ss >> number) || number < 0 || number > 1000000)
 		return;
 	ft::Tester::large_number = number;
 }
@@ -58,6 +58,8 @@ void run_tests (int argc, char **argv, int cmd_pos)
 		test_stack();
 	else if (std::string(argv[cmd_pos]) == std::string("set"))
 		test_set();
+	else
+		std::cout << "Command not found" << std::endl;
 }
 
 

@@ -167,7 +167,6 @@ namespace ft
 				this->_size++;
 				this->_data = new_data;
 			}
-
 };
 	
 	template<typename T>
