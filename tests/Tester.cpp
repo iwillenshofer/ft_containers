@@ -13,6 +13,8 @@
 #include "Tester.hpp"
 
 int ft::Tester::kind = KIND_COMPARE;
+int ft::Tester::large_number = 1000;
+
 
 ft::Tester::Tester(void)
 : _text(""), _color(CLR_DEFAULT), _background(CLR_DEFAULT), _lightforeground(false), _lightbackground(false), _bold(false), _allocator(std::allocator<t_function>()), _size(0)

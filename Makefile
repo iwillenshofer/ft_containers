@@ -6,7 +6,7 @@
 #    By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/10/16 22:26:18 by iwillens         ###   ########.fr        #
+#    Updated: 2021/10/17 11:11:19 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ INCLUDES = ${INC_DIR}/ft_algorithm.hpp \
 			${INC_DIR}/ft_type_traits.hpp \
 			map.hpp \
 			stack.hpp \
-			vector.hpp
+			vector.hpp \
+			set.hpp
 
 SRCS = ${SRC_DIR}/main.cpp \
 			${SRC_DIR}/Tester.cpp \
@@ -61,7 +62,14 @@ SRCS = ${SRC_DIR}/main.cpp \
 			${SRC_DIR}/set/set_overloads.cpp \
 			${SRC_DIR}/set/set_operations.cpp \
 			${SRC_DIR}/set/set_observers.cpp \
-			${SRC_DIR}/set/set_largetests.cpp
+			${SRC_DIR}/set/set_largetests.cpp \
+			${SRC_DIR}/stack/stack_tests.cpp \
+			${SRC_DIR}/stack/stack_functions.cpp \
+			${SRC_DIR}/stack/stack_modifiers.cpp \
+			${SRC_DIR}/stack/stack_overloads.cpp
+
+
+
 
 
 

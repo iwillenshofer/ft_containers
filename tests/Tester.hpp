@@ -60,7 +60,8 @@ namespace ft
 	class Tester
 	{	
 		public:
-			static int		kind;
+			static int								kind;
+			static int						large_number;
 			typedef std::allocator<t_function>		allocator_type;
 			typedef allocator_type::reference		reference;
 			typedef allocator_type::pointer			pointer;

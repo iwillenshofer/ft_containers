@@ -127,7 +127,7 @@ void test_map_largetests(void)
 {
 	ft::Tester tester;
 
-	tester.printName("* LARGE TESTS *", true);
+	tester.printName("* LARGE TESTS: [" + ft::to_string(ft::Tester::large_number) + "] *", true);
 	test_map_largeinsert_sequential();
 	test_map_largeinsert_random();
 	test_map_largeerase_sequential();

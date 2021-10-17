@@ -23,13 +23,13 @@ std::string map_large_find_rnd3()
 	std::vector<std::string> lst;
 
 	srand (20);
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 	{
 		std::string rnd = randomString(10);
 		lst.push_back(rnd);
 		v.insert(typename T::value_type(rnd, i));
 	}
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 		v.find(lst[rand() % lst.size()]);
 	std::string s = map_attributes<T>(v);
 	return (ft::Tester::Return(s));
@@ -42,13 +42,13 @@ std::string map_large_find_rnd2()
 	std::vector<float> lst;
 
 	srand (15);
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 	{
-		float rnd = rand() % LARGE_NUMBER + 1;
+		float rnd = rand() % ft::Tester::large_number + 1;
 		lst.push_back(rnd);
 		v.insert(typename T::value_type(rnd, i));
 	}
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 		v.find(lst[rand() % lst.size()]);
 	std::string s = map_attributes<T>(v);
 	return (ft::Tester::Return(s));
@@ -61,13 +61,13 @@ std::string map_large_find_rnd1()
 	std::vector<int> lst;
 
 	srand (1);
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 	{
-		int rnd = rand() % LARGE_NUMBER + 1;
+		int rnd = rand() % ft::Tester::large_number + 1;
 		lst.push_back(rnd);
 		v.insert(typename T::value_type(rnd, i));
 	}
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 		v.find(lst[rand() % lst.size()]);
 	std::string s = map_attributes<T>(v);
 	return (ft::Tester::Return(s));
@@ -77,9 +77,9 @@ template <typename T>
 std::string map_large_find_seq2()
 {
 	T v;
-	for (int i = LARGE_NUMBER; i > 0; i--)
+	for (int i = ft::Tester::large_number; i > 0; i--)
 		v.insert(typename T::value_type(i, i));
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 		v.find(i + 1);
 	std::string s = map_attributes<T>(v);
 	return (ft::Tester::Return(s));
@@ -89,9 +89,9 @@ template <typename T>
 std::string map_large_find_seq1()
 {
 	T v;
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 		v.insert(typename T::value_type(i, i));
-	for (int i = LARGE_NUMBER; i > 0; i--)
+	for (int i = ft::Tester::large_number; i > 0; i--)
 		v.find(i - 1);
 	std::string s = map_attributes<T>(v);
 	return (ft::Tester::Return(s));
@@ -104,7 +104,7 @@ std::string map_large_erase_rnd3()
 	std::list<std::string> lst;
 
 	srand (20);
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 	{
 		std::string rnd = randomString(10);
 		lst.push_back(rnd);
@@ -123,9 +123,9 @@ std::string map_large_erase_rnd2()
 	std::list<float> lst;
 
 	srand (15);
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 	{
-		float rnd = rand() % LARGE_NUMBER + 1;
+		float rnd = rand() % ft::Tester::large_number + 1;
 		lst.push_back(rnd);
 		v.insert(typename T::value_type(rnd, i));
 	}
@@ -142,9 +142,9 @@ std::string map_large_erase_rnd1()
 	std::list<int> lst;
 
 	srand (1);
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 	{
-		int rnd = rand() % LARGE_NUMBER + 1;
+		int rnd = rand() % ft::Tester::large_number + 1;
 		lst.push_back(rnd);
 		v.insert(typename T::value_type(rnd, i));
 	}
@@ -160,9 +160,9 @@ template <typename T>
 std::string map_large_erase_seq2()
 {
 	T v;
-	for (int i = LARGE_NUMBER; i > 0; i--)
+	for (int i = ft::Tester::large_number; i > 0; i--)
 		v.insert(typename T::value_type(i, i));
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 		v.erase(i + 1);
 	std::string s = map_attributes<T>(v);
 	return (ft::Tester::Return(s));
@@ -172,9 +172,9 @@ template <typename T>
 std::string map_large_erase_seq1()
 {
 	T v;
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 		v.insert(typename T::value_type(i, i));
-	for (int i = LARGE_NUMBER; i > 0; i--)
+	for (int i = ft::Tester::large_number; i > 0; i--)
 		v.erase(i - 1);
 	std::string s = map_attributes<T>(v);
 	return (ft::Tester::Return(s));
@@ -187,7 +187,7 @@ std::string map_large_insert_rnd3()
 	T v;
 
 	srand (20);
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 	{
 		std::string rnd = randomString(10);
 		v.insert(typename T::value_type(rnd, i));
@@ -202,9 +202,9 @@ std::string map_large_insert_rnd2()
 	T v;
 
 	srand (15);
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 	{
-		float rnd = rand() % LARGE_NUMBER + 1;
+		float rnd = rand() % ft::Tester::large_number + 1;
 		v.insert(typename T::value_type(rnd, i));
 	}
 	std::string s = map_attributes<T>(v);
@@ -217,9 +217,9 @@ std::string map_large_insert_rnd1()
 	T v;
 
 	srand (1);
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 	{
-		int rnd = rand() % LARGE_NUMBER + 1;
+		int rnd = rand() % ft::Tester::large_number + 1;
 		v.insert(typename T::value_type(rnd, i));
 	}
 	std::string s = map_attributes<T>(v);
@@ -230,7 +230,7 @@ template <typename T>
 std::string map_large_insert_seq2()
 {
 	T v;
-	for (int i = LARGE_NUMBER; i > 0; i--)
+	for (int i = ft::Tester::large_number; i > 0; i--)
 		v.insert(typename T::value_type(i, i));
 	std::string s = map_attributes<T>(v);
 	return (ft::Tester::Return(s));
@@ -240,7 +240,7 @@ template <typename T>
 std::string map_large_insert_seq1()
 {
 	T v;
-	for (int i = 0; i < LARGE_NUMBER; i++)
+	for (int i = 0; i < ft::Tester::large_number; i++)
 		v.insert(typename T::value_type(i, i));
 	std::string s = map_attributes<T>(v);
 	return (ft::Tester::Return(s));

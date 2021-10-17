@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 16:21:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/15 19:44:21 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/17 11:25:15 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ void print_node(ft::Node<int, int>& n)
 	std::cout << ". Right: " << (n._right ? n._right->Key() : 0);
 	std::cout << ". Parent: " << (n._parent ? n._parent->Key() : 0);
 	std::cout << ". Color: " << (n._color == 1 ? "RED" : "BLACK");
-
-//	std::cout << ". Height: " << n.height();
-//	std::cout << ". Balanced: " << n.balanced() << std::endl;
-std::cout << std::endl;
+	std::cout << std::endl;
 }
 
 void display(ft::RedBlackTree<int, int>::node_pointer root)
