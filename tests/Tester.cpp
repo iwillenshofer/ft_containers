@@ -15,7 +15,6 @@
 int ft::Tester::kind = KIND_COMPARE;
 int ft::Tester::large_number = 1000;
 
-
 ft::Tester::Tester(void)
 : _text(""), _color(CLR_DEFAULT), _background(CLR_DEFAULT), _lightforeground(false), _lightbackground(false), _bold(false), _allocator(std::allocator<t_function>()), _size(0)
 {
@@ -107,7 +106,6 @@ void ft::Tester::printColor()
 	str += "\033[0m";
 	std::cout << str;
 }
-
 
 void ft::Tester::print()
 {
@@ -259,4 +257,20 @@ void ft::Tester::run(void)
 			this->_data[i].std();
 		this->printClock("[std]");
 	}
+}
+
+void ft::Tester::add(std::string (*ft)(), std::string (*std)())
+{
+	pointer new_data = this->_allocator.allocate(this->_size + 1);
+	for (size_t i = 0; i < this->_size; i++)
+	{
+		this->_allocator.construct(&new_data[i], this->_data[i]);
+		this->_allocator.destroy(&(this->_data[i]));
+	}
+	this->_allocator.construct(&new_data[this->_size], t_function());
+	new_data[this->_size].ft = ft;
+	new_data[this->_size].std = std;
+	this->_allocator.deallocate(this->_data, this->_size);
+	this->_size++;
+	this->_data = new_data;
 }

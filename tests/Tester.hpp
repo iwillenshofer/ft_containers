@@ -150,24 +150,7 @@ namespace ft
 			void printClock(std::string lib = "[ft ]");
 			static std::string &Return(std::string &s);
 			void run();
-			//void add(std::string (*ft)(void), std::string (*std)(void));
-
-
-			void add(std::string (*ft)(), std::string (*std)())
-			{
-				pointer new_data = this->_allocator.allocate(this->_size + 1);
-				for (size_t i = 0; i < this->_size; i++)
-				{
-					this->_allocator.construct(&new_data[i], this->_data[i]);
-					this->_allocator.destroy(&(this->_data[i]));
-				}
-				this->_allocator.construct(&new_data[this->_size], t_function());
-				new_data[this->_size].ft = ft;
-				new_data[this->_size].std = std;
-				this->_allocator.deallocate(this->_data, this->_size);
-				this->_size++;
-				this->_data = new_data;
-			}
+			void add(std::string (*ft)(), std::string (*std)());
 };
 	
 	template<typename T>
