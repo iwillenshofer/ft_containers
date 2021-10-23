@@ -153,6 +153,13 @@ namespace ft
 			void add(std::string (*ft)(), std::string (*std)());
 };
 	
+	struct s_buffer
+	{
+		int idx;
+		char buff[4096];
+	};
+
+
 	template<typename T>
 	std::string to_string(const T& value)
 	{
@@ -160,6 +167,10 @@ namespace ft
 		oss << value;
 		return (oss.str());
 	}
+
+	template<>
+	inline std::string to_string(const s_buffer& value) { return (ft::to_string(value.idx)); }
+
 }
 
 #endif

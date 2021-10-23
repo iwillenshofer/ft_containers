@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_tests.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 20:44:04 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 23:59:40 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/23 15:24:26 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	test_vector_iterators(void);
 void	test_vector_elementaccess(void);
 void	test_vector_modifiers(void);
 void	test_vector_overloads(void);
+void	test_vector_largetests(void);
 
 
 #endif

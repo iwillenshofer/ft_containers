@@ -6,7 +6,7 @@
 #    By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/10/23 14:56:50 by iwillens         ###   ########.fr        #
+#    Updated: 2021/10/23 15:22:41 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS = ${SRC_DIR}/main.cpp \
 			${SRC_DIR}/vector/vector_modifiers.cpp \
 			${SRC_DIR}/vector/vector_overloads.cpp \
 			${SRC_DIR}/vector/vector_tests.cpp \
+			${SRC_DIR}/vector/vector_largetests.cpp \
 			${SRC_DIR}/map/map_tests.cpp \
 			${SRC_DIR}/map/map_constructors.cpp \
 			${SRC_DIR}/map/map_iterators.cpp \
