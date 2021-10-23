@@ -6,7 +6,7 @@
 #    By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/10/23 15:22:41 by iwillens         ###   ########.fr        #
+#    Updated: 2021/10/23 16:52:36 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,11 +103,13 @@ fclean: clean
 
 re: fclean all
 
-test: re
-	./${NAME}
+test: compare diff time
+
+LARGE_TESTS = 1000000
 
 compare: all
-	./ft_containers 1
+	./ft_containers compare all ${LARGE_TESTS}
+
 diff: all
 	@echo "\033[92mDifference between std:: and ft:: tests: \033[0m"
 	@/bin/bash -c "diff <(./ft_containers) <(./std_containers)" || true
@@ -116,15 +118,15 @@ FORMAT = "%e elapsed. %U user. %S system. %P CPU."
 time: all
 	@echo "\033[92mTime difference between std:: and ft:: tests: \033[0m"
 	@echo "\033[93m./ft_containers \033[0m"
-	@time -f ${FORMAT} ./ft_containers all 10000 > /dev/null
+	@time -f ${FORMAT} ./ft_containers all ${LARGE_TESTS} > /dev/null
 	@echo "\033[93m./std_containers \033[0m"
-	@time -f ${FORMAT} ./std_containers all 10000 > /dev/null
+	@time -f ${FORMAT} ./std_containers all ${LARGE_TESTS} > /dev/null
 
 time_mac: all
 	@echo "\033[92mTime difference between std:: and ft:: tests: \033[0m"
 	@echo "\033[93m./ft_containers \033[0m"
-	@/bin/bash -c "time ./ft_containers all 10000 > /dev/null"
+	@/bin/bash -c "time ./ft_containers all ${LARGE_TESTS} > /dev/null"
 	@echo "\033[93m./std_containers \033[0m"
-	@/bin/bash -c "time ./std_containers all 10000 > /dev/null"
+	@/bin/bash -c "time ./std_containers all ${LARGE_TESTS} > /dev/null"
 	
 -include $(STD_DEPENDS) $(FT_DEPENDS)
