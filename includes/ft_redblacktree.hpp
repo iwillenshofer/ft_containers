@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redblacktree.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:56:10 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 22:55:55 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/23 16:37:09 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -840,13 +840,13 @@ namespace ft
 			/*
 			** element access
 			*/
-		
+
 			value_type &operator[](const key_type& k)
 			{
-				iterator i = lower_bound(k);
+				iterator i = find(k);
 
-				if (i == end() || _compare(k, _getKey(*i)))
-					i = insert(i, value_type(k, mapped_type()));
+				if (i == end())
+					i = insert(iterator(_root), value_type(k, mapped_type()));
 				return (*i);
 			}
 

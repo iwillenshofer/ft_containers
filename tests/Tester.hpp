@@ -19,7 +19,7 @@
 # include <sstream>
 # include "vector.hpp"
 
-# define LINE_LEN		120
+# define LINE_LEN		80
 
 # define CLR_BLACK		30
 # define CLR_RED		31

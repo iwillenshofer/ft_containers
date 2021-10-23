@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/10/17 17:45:39 by iwillens         ###   ########.fr        #
+#    Updated: 2021/10/23 14:56:50 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,15 +69,10 @@ SRCS = ${SRC_DIR}/main.cpp \
 			${SRC_DIR}/stack/stack_overloads.cpp
 
 
-
-
-
-
 FT_OBJS = $(patsubst ${SRC_DIR}/%.cpp, ${FT_OBJ_DIR}/%.o, ${SRCS})
 FT_DEPENDS = $(patsubst %.o, %.d, ${FT_OBJS})
 STD_OBJS = $(patsubst ${SRC_DIR}/%.cpp, ${STD_OBJ_DIR}/%.o, ${SRCS})
 STD_DEPENDS = $(patsubst %.o, %.d, ${STD_OBJS})
-
 
 
 all: ${NAME} ${NAME_STD}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:06 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 22:07:36 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/23 14:48:21 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,19 @@ namespace ft
 			typedef Container   container_type;
 			typedef size_t      size_type;
 
-		private:
-			container_type _container;
+		protected:
+			container_type c;
 
 		public:
 			explicit stack (const container_type& ctnr = container_type())
-			: _container(ctnr) { };
+			: c(ctnr) { };
 
-			bool empty() const { return (_container.empty()); }
-			size_type size() const { return (_container.size()); }
-			value_type& top() { return (_container.back()); }
-			const value_type& top() const { return (_container.back()); }
-			void push (const value_type& val) { return (_container.push_back(val)); }
-			void pop() { return (_container.pop_back()); }
+			bool empty() const { return (c.empty()); }
+			size_type size() const { return (c.size()); }
+			value_type& top() { return (c.back()); }
+			const value_type& top() const { return (c.back()); }
+			void push (const value_type& val) { return (c.push_back(val)); }
+			void pop() { return (c.pop_back()); }
 
 			template <class _T, class _Container>
 			friend bool operator== (const stack<_T, _Container>&, const stack<_T, _Container>&);
@@ -53,7 +53,7 @@ namespace ft
 
 	template <class T, class Container>
 	bool operator== (const stack<T, Container>& lhs, const stack<T, Container>& rhs)
-	{ return (lhs._container == rhs._container); }
+	{ return (lhs.c == rhs.c); }
 
 	template <class T, class Container>
 	bool operator!= (const stack<T, Container>& lhs, const stack<T, Container>& rhs)
@@ -61,7 +61,7 @@ namespace ft
 
 	template <class T, class Container>
 	bool operator<  (const stack<T, Container>& lhs, const stack<T, Container>& rhs)
-	{ return (lhs._container < rhs._container); }
+	{ return (lhs.c < rhs.c); }
 
 	template <class T, class Container>
 	bool operator<= (const stack<T, Container>& lhs, const stack<T, Container>& rhs)
