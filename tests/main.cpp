@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 23:04:20 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/17 17:43:14 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/24 08:23:41 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void set_largenumber(int argc, char **argv, int cmd_pos)
 		return;
 	std::istringstream ss(argv[cmd_pos]);
 	int number;
-	if (!(ss >> number) || number < 0 || number > 1000000)
+	if (!(ss >> number) || number < 0 || number > 100000)
 		return;
 	ft::Tester::large_number = number;
 }
@@ -143,6 +143,14 @@ int main (int argc, char **argv)
 		ft::Tester::kind = KIND_COMPARE;
 		cmd_pos++;
 	}
-	run_tests(argc, argv, cmd_pos);
+	try
+	{
+		run_tests(argc, argv, cmd_pos);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+		exit(1);
+	}
 	return (0);
 }
