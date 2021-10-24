@@ -6,7 +6,7 @@
 #    By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/10/24 08:24:34 by iwillens         ###   ########.fr        #
+#    Updated: 2021/10/24 10:49:04 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = ft_containers
 NAME_STD = std_containers
 
 CC = clang++
-CCFLAGS = -Wall -Werror -Wextra -std=c++98 -pedantic
+CCFLAGS = -Wall -Werror -Wextra -g -std=c++98 -pedantic
 
 SRC_DIR = ./tests
 OBJ_DIR = ./build
@@ -76,22 +76,24 @@ STD_OBJS = $(patsubst ${SRC_DIR}/%.cpp, ${STD_OBJ_DIR}/%.o, ${SRCS})
 STD_DEPENDS = $(patsubst %.o, %.d, ${STD_OBJS})
 
 
-all: ${NAME} ${NAME_STD}
+all: title ${NAME} ${NAME_STD}
 
 ${NAME}: ${FT_OBJS} ${INCLUDES}
-	@echo "\033[92mBuilding ./ft_containers. \033[0m"
 	@${CC} ${CCFLAGS} ${FT_OBJS} -DORIGINAL_STD=0 -I. -I ${INC_DIR} -o ${NAME}
+	@echo "\033[92m./ft_containers is built. \033[0m"
 
 ${NAME_STD}: ${STD_OBJS} ${INCLUDES}
-	@echo "\033[92mBuilding ./std_containers. \033[0m"
 	@${CC} ${CCFLAGS} ${STD_OBJS} -DORIGINAL_STD=1 -I. -I ${INC_DIR} -o ${NAME_STD}
+	@echo "\033[92m./std_containers is built. \033[0m"
 
 ${FT_OBJ_DIR}/%.o: ${SRC_DIR}/%.cpp ${INC_DIR} ${INCLUDES}
 	@mkdir -p $(dir $@)
+	@echo -n "."
 	@${CC} ${CCFLAGS} -MMD -c  $< -DORIGINAL_STD=0 -I. -I ${INC_DIR} -o $@
 
 ${STD_OBJ_DIR}/%.o: ${SRC_DIR}/%.cpp ${INC_DIR} ${INCLUDES}
 	@mkdir -p $(dir $@)
+	@echo -n "."
 	@${CC}  ${CCFLAGS} -MMD -c $< -DORIGINAL_STD=1 -I. -I ${INC_DIR} -o $@
 
 clean:
@@ -129,4 +131,11 @@ time_mac: all
 	@echo "\033[93m./std_containers \033[0m"
 	@/bin/bash -c "time ./std_containers all ${LARGE_TESTS} > /dev/null"
 	
+title:
+	@echo "\033[0m\033[38;2;123;145;255m _         _  _  _"
+	@echo "\033[38;2;87;115;255m<_> _ _ _ <_>| || | ___ ._ _  ___"
+	@echo "\033[38;2;207;59;255m| || | | || || || |/ ._>| ' |<_-<"
+	@echo "\033[38;2;255;135;255m|_||__/_/ |_||_||_|\___.|_|_|/__/\033[0m\n"
+	@echo "\033[37;1m    * * * ft_containers * * *\033[0m\n"
+
 -include $(STD_DEPENDS) $(FT_DEPENDS)
