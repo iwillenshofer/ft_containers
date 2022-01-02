@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_iterator_traits.hpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:11 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 11:30:32 by iwillens         ###   ########.fr       */
+/*   Updated: 2022/01/02 12:43:23 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ITERATORS_HPP
-# define FT_ITERATORS_HPP
+#ifndef FT_ITERATOR_TRAITS_HPP
+# define FT_ITERATOR_TRAITS_HPP
 
 # include <cstddef>
 

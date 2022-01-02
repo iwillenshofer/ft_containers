@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_reverse_iterator.hpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 13:34:42 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 11:30:22 by iwillens         ###   ########.fr       */
+/*   Updated: 2022/01/02 12:45:01 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_REVERSE_ITERATOR
-# define FT_REVERSE_ITERATOR
+#ifndef FT_REVERSE_ITERATOR_HPP
+# define FT_REVERSE_ITERATOR_HPP
 
 # include "ft_iterators.hpp"
 # include "ft_type_traits.hpp"

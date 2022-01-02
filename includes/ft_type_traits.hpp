@@ -6,12 +6,12 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:14:55 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/20 19:57:46 by iwillens         ###   ########.fr       */
+/*   Updated: 2022/01/02 12:45:23 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_UTILS_HPP
-# define FT_UTILS_HPP
+#ifndef FT_TYPE_TRAITS_HPP
+# define FT_TYPE_TRAITS_HPP
 
 #include "ft_iterator_traits.hpp"
 
