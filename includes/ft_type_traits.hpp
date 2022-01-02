@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:14:55 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/13 15:47:10 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/20 19:57:46 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 #include "ft_iterator_traits.hpp"
 
+
 namespace ft
 {
+	
 	/*
 	** Enable if implementation.
 	** if the boolean variable is true, enable_if has a member typedef 'type'.

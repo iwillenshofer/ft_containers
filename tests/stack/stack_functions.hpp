@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_modifiers.hpp                               :+:      :+:    :+:   */
+/*   stack_functions.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/02 13:24:37 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 13:53:05 by iwillens         ###   ########.fr       */
+/*   Created: 2022/01/02 12:37:27 by iwillens          #+#    #+#             */
+/*   Updated: 2022/01/02 12:37:30 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STACK_MODIFIERS_HPP
-# define STACK_MODIFIERS_HPP
+#ifndef STACK_FUNCTIONS_HPP
+# define STACK_FUNCTIONS_HPP
 
 # include "stack_tests.hpp"
 
