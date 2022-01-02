@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 23:04:20 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/24 08:23:41 by iwillens         ###   ########.fr       */
+/*   Updated: 2022/01/02 19:33:06 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,38 @@ std::string randomString(const int len)
 	return s;   
 }
 
-void set_largenumber(int argc, char **argv, int cmd_pos)
+bool is_number(const std::string &s)
+{
+    std::string::const_iterator it = s.begin();
+    while (it != s.end() && std::isdigit(*it))
+		it++;
+    return ((!s.empty()) && (it == s.end()));
+}
+
+/*
+** returns true if theres no large_number or if large_number is valid.
+** returns false if large_number is invalid.
+*/
+
+bool set_largenumber(int argc, char **argv, int cmd_pos)
 {
 	if (argc <= cmd_pos)
-		return;
+		return true;
+
 	std::istringstream ss(argv[cmd_pos]);
 	int number;
-	if (!(ss >> number) || number < 0 || number > 100000)
-		return;
+	if (!(ss >> number) || !(is_number(std::string(argv[cmd_pos])))
+			|| number < 0 || number > 100000 || argc > cmd_pos + 1)
+		return false;
 	ft::Tester::large_number = number;
+	return true;
 }
 
 void run_tests (int argc, char **argv, int cmd_pos)
 {
-	set_largenumber(argc, argv, cmd_pos + 1);
-	if (argc <= cmd_pos ||  std::string(argv[cmd_pos]) == std::string("all"))
+	if (!(set_largenumber(argc, argv, cmd_pos + 1)))
+		std::cout << "Invalid command. Try " << std::string(argv[0]) << " --help" << std::endl;
+	else if (argc <= cmd_pos ||  std::string(argv[cmd_pos]) == std::string("all"))
 	{
 		test_utilities();
 		test_vector();

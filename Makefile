@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+         #
+#    By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2021/10/24 10:49:04 by iwillens         ###   ########.fr        #
+#    Updated: 2022/01/02 19:52:28 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = ft_containers
 NAME_STD = std_containers
 
 CC = clang++
-CCFLAGS = -Wall -Werror -Wextra -g -std=c++98 -pedantic
+CCFLAGS = -Wall -Werror -Wextra -std=c++98
 
 SRC_DIR = ./tests
 OBJ_DIR = ./build

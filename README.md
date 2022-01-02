@@ -36,7 +36,7 @@ Commands:
                 set     (bonus)
                 all     will output all of the above. Same as if left blank.
 
-        large_number     the number of tests to be done for map and set. Defaults to 1.000, limit is 1.000.000.
+        large_number     the number of tests to be done for map and set. Defaults to 1000, limit is 100000.
 
 
 Examples:
