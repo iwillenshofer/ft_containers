@@ -1,6 +1,6 @@
 <p align="center">
-	<img width="130px;" src="https://game.42sp.org.br/static/assets/images/42_logo_black.svg" align="center" alt="42" />&nbsp;&nbsp;&nbsp;
-	<img width="130px" src="https://game.42sp.org.br/static/assets/achievements/ft_containersm.png" align="center" alt="ft_containers" />
+	<img width="130px;" src="https://raw.githubusercontent.com/iwillenshofer/resources/main/images/42_logo_black.svg" align="center" alt="42" />&nbsp;&nbsp;&nbsp;
+	<img width="130px" src="https://raw.githubusercontent.com/iwillenshofer/resources/main/achievements/ft_containers.png" align="center" alt="ft_containers" />
 	<h1 align="center">ft_containers</h1>
 </p>
 <p align="center">
@@ -23,7 +23,7 @@
 
 > _The multiple available containers in C++ all have a very different usage. To make sure you understand them all, let's re-implement them!_
 
-[Download the Subject ⤓](en.subject.pdf)
+
 
 <br>
 
