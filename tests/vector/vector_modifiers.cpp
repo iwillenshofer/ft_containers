@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 19:34:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 13:39:53 by iwillens         ###   ########.fr       */
+/*   Updated: 2022/01/08 09:14:41 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,18 @@ void 	test_vector_swap()
 	tester.add(
 		vector_swap< ft::vector<int> >,
 		vector_swap< std::vector<int> >
+		);
+	tester.add(
+		vector_swap_ref< ft::vector<int> >,
+		vector_swap_ref< std::vector<int> >
+		);
+	tester.add(
+		vector_swap_pointer< ft::vector<int> >,
+		vector_swap_pointer< std::vector<int> >
+		);
+	tester.add(
+		vector_swap_iterator< ft::vector<int> >,
+		vector_swap_iterator< std::vector<int> >
 		);
 	tester.run();
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 17:38:02 by iwillens          #+#    #+#              #
-#    Updated: 2022/01/02 19:52:28 by iwillens         ###   ########.fr        #
+#    Updated: 2022/01/08 10:10:50 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = ft_containers
 NAME_STD = std_containers
 
 CC = clang++
-CCFLAGS = -Wall -Werror -Wextra -std=c++98
+CCFLAGS = -Wall -Werror -Wextra -std=c++98 
 
 SRC_DIR = ./tests
 OBJ_DIR = ./build
@@ -107,7 +107,7 @@ re: fclean all
 
 test: compare diff time
 
-LARGE_TESTS = 1000000
+LARGE_TESTS = 100000
 
 compare: all
 	./ft_containers compare all ${LARGE_TESTS}

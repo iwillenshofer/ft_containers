@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:15:02 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 13:17:33 by iwillens         ###   ########.fr       */
+/*   Updated: 2022/01/08 09:48:48 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ namespace ft
 				return (*this);
 			}
 
-			virtual ~vector()
+			~vector()
 			{
 				this->clear();
 				this->_allocator.deallocate(this->_data, this->_capacity);

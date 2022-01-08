@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_iterators.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:24:37 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/16 23:59:29 by iwillens         ###   ########.fr       */
+/*   Updated: 2022/01/08 08:49:04 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,20 @@ std::string iterator_begin1()
 	s += "Begin: " + ft::to_string(*(v.begin())) + "\n";
 	s += "Begin + 3: " + ft::to_string(*(v.begin() + 3)) + "\n";
 	s += "Begin + 9: " + ft::to_string(*(v.begin() + 9)) + "\n";
+	return (ft::Tester::Return(s));
+}
+
+template <typename T>
+std::string iterator_comparison()
+{
+	T rng;
+	for (int i = 0; i < 10; i++)
+		rng.push_back(i);
+	std::string s = vector_attributes<T>(rng);
+	typename T::iterator it = rng.begin();
+	typename T::const_iterator cit = rng.begin();
+	s += "\n";
+	s += "Compare: " + ft::to_string((it == cit)) + "\n";
 	return (ft::Tester::Return(s));
 }
 

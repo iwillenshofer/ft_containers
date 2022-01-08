@@ -6,7 +6,7 @@
 /*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 19:34:46 by iwillens          #+#    #+#             */
-/*   Updated: 2021/10/02 13:39:31 by iwillens         ###   ########.fr       */
+/*   Updated: 2022/01/08 08:48:40 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,18 @@ void test_vector_iterator_rbegin(void)
 	tester.run();
 }
 
+void test_vector_iterator_comparison(void)
+{
+	ft:: Tester tester;
+
+	tester.printName("comparison");
+	tester.add(
+		iterator_comparison< ft::vector<int> >,
+		iterator_comparison< std::vector<int> >
+	);
+	tester.run();
+}
+
 void test_vector_iterators(void)
 {
 	ft:: Tester tester;
@@ -68,4 +80,5 @@ void test_vector_iterators(void)
 	test_vector_iterator_end();
 	test_vector_iterator_rbegin();
 	test_vector_iterator_rend();
+	test_vector_iterator_comparison();
 }

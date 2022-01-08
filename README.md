@@ -1,15 +1,82 @@
-# ft_containers
+<p align="center">
+	<img width="130px;" src="https://game.42sp.org.br/static/assets/images/42_logo_black.svg" align="center" alt="42" />&nbsp;&nbsp;&nbsp;
+	<img width="130px" src="https://game.42sp.org.br/static/assets/achievements/ft_containersm.png" align="center" alt="ft_containers" />
+	<h1 align="center">ft_containers</h1>
+</p>
+<p align="center">
+	<img src="https://img.shields.io/badge/Success-125/100_✓-gray.svg?colorA=61c265&colorB=4CAF50&style=for-the-badge">
+	<img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black">
+	<img src="https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white">
+</p>
 
-A 42 network project.
+<p align="center">
+	<b><i>Development repository for the 42cursus ft_containers project @ 42 São Paulo</i></b><br>
+</p>
 
+<p align="center">
+	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/iwillenshofer/ft_containers?color=blueviolet" />
+	<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/iwillenshofer/ft_containers?color=blue" />
+	<img alt="GitHub top language" src="https://img.shields.io/github/commit-activity/t/iwillenshofer/ft_containers?color=brightgreen" />
+	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/iwillenshofer/ft_containers?color=brightgreen" />
+</p>
+<br>
 
-### How to run:
+> _The multiple available containers in C++ all have a very different usage. To make sure you understand them all, let's re-implement them!_
 
-> make
+[Download the Subject ⤓](en.subject.pdf)
 
-> ./ft_containers --help
+<br>
+
+<p align="center">
+	<table>
+		<tr>
+			<td><b>Est. Time</b></td>
+			<td><b>Skills</b></td>
+			<td><b>Difficulty</b></td>
+		</tr>
+		<tr>
+			<td valign="top">140 hours</td>
+			<td valign="top">
+<img src="https://img.shields.io/badge/Object-oriented programming-555">
+<img src="https://img.shields.io/badge/Rigor-555">
+			</td>
+			<td valign="top"> 10042 XP</td>
+		</tr>
+	</table>
+</p>
+
+<br>
+
+### Usage
+```bash
+# create a main file with your favorite container. Example below:
+$ clang++ main.cpp
+$ ./a.out
+```
+
+### main.cpp example
+```cpp
+#include <iostream>
+#include "vector.hpp"
+
+int main(void)
+{
+	ft::vector<int> v;
+
+	v.push_back(1);
+	v.push_back(2);
+	v.push_back(3);
+	for (ft::vector<int>::iterator it = v.begin(); it != v.end(); it++)
+		std::cout << "Number: " << *it << std::endl;
+	v.clear();
+	return (0);
+}
 
 ```
+### Tests
+```bash
+$ ./ft_containers --help
+
 ./ft_containers && ./std_containers --help
 
  _         _  _  _

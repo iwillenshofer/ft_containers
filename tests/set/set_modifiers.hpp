@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_modifiers.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 12:40:19 by iwillens          #+#    #+#             */
-/*   Updated: 2022/01/02 12:40:20 by iwillens         ###   ########.fr       */
+/*   Updated: 2022/01/08 10:10:12 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ std::string set_swap()
 		v2.insert(typename T::value_type(i));
 	v1.swap(v2);
 	s = "v1: " + set_attributes<T>(v1) + "\n";
-	s = "v2: " + set_attributes<T>(v2);
+	s += "v2: " + set_attributes<T>(v2);
 	return (ft::Tester::Return(s));
 }
 
